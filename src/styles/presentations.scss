@@ -1,0 +1,90 @@
+
+.pres-layout {
+    padding-left:7vw;
+    padding-right:7vw;
+    display: flex;
+   
+    img{
+      max-height: 80vh;
+      max-width: 90vw;
+    }
+    a {
+      font-size: inherit;
+    }
+     
+    h1, h2, h3, h4, h5, p {
+      font-family: Fira Code;
+      font-weight: bold;
+      margin-top: 0.37em;
+      margin-bottom: 0.37em;
+    }
+    p {
+      font-family: Lato;
+      font-weight: normal;
+      font-size: 1em;
+      // margin-right: auto;
+    }
+    .legal {
+     
+        font-family: Lato;
+        font-weight: normal;
+        font-size: 0.4em;
+        
+        // margin-right: auto;
+      
+    }
+
+  pre code {
+    @extend .is-black;
+    background: none;
+    display: block;
+    line-height: 1.42;
+    width: auto;
+  }
+
+  pre {
+    @extend .is-dark-pink-bg;
+    border-radius: 3px;
+    font-size: 0.4em;
+    overflow-x: auto;
+    padding: 1.45rem;
+    word-wrap: break-word;
+
+  }
+
+  }
+  
+  .info-tooltip{
+    
+    font-family: Lato;
+  }
+  .pres-image{
+    border-top-right-radius: 15;
+    border-top-left-radius: 15;
+  }
+
+  .btn-sm {
+    margin: 10px;
+    color: white;
+    max-width: 250px;
+    padding:5px;
+    text-align: center;
+    font-family: Lato;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+  }
+  .btn-sm:hover {
+    color:  #fff;
+    background-color: #614fd0;
+    cursor: pointer;
+  }
+  
+
+  .react-joyride__tooltip {
+    font-family: Lato;
+  }
+
+  .react-joyride__overlay{
+    cursor: auto !important;
+  }

@@ -1,0 +1,155 @@
+.btn {
+  @extend .is-dark-blue-bg;
+  @extend .is-white;
+  font-family: Lato;
+
+}
+
+.btn:hover {
+  @extend .is-dark-blue;
+  @extend .is-white-bg;
+  outline-style: solid;
+  outline-width: 3px;
+  cursor: pointer;
+
+}
+
+.btn-variant {
+  @extend .is-pink-bg;
+  @extend .is-white;
+  font-family: Lato;
+  max-width: 250px;
+  padding: 15px;
+  text-align: center;
+    
+}
+
+.btn-variant:hover {
+  @extend .is-white;
+  @extend .is-dark-blue-bg-always;
+  border-style: solid;
+  border-width: 3px;
+  cursor: pointer;
+  margin: -3px;
+}
+
+.link {
+  @extend .is-black;
+  
+  font-weight: 100;
+  text-decoration: none;
+}
+
+.link:hover {
+  @extend .is-special-blue;
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+}
+
+button,
+input[type='submit'],
+input[type='reset'] {
+  @extend .is-pink;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  outline: inherit;
+  padding: 0;
+}
+
+.bubble-button {
+  @extend .is-dark-blue-bg;
+  @extend .is-white;
+  font-family: Lato;
+  z-index: 1;
+  position: relative;
+  // max-width: 250px;
+  padding: 15px;
+  text-align: center;
+  outline: none;
+  border: none;
+  overflow: hidden;
+  transition: color 0.4s ease-in-out;
+}
+
+.bubble-button::before {
+  content: '';
+  z-index: -1;
+  position: absolute;
+  bottom: 100%;
+  right: 100%;
+  width: 5em;
+  height: 1em;
+  border-radius: 50%;
+  @extend .is-dark-blue;
+  @extend .is-special-blue-bg;
+  transform-origin: center;
+  transform: translate3d(50%, 50%, 0) scale3d(0, 0, 0);
+  transition: transform 0.45s ease-in-out;
+}
+
+.bubble-button:hover {
+  cursor: pointer;
+  @extend .is-white-always;
+
+}
+
+.bubble-button:hover::before {
+  transform: translate3d(50%, 50%, 0) scale3d(15, 15, 15);
+}
+
+.link-bar {
+  position: relative;
+  text-decoration: none;
+  display: inline-block;
+  @extend .is-dark-blue;
+}
+
+.link-bar::before, .link-bar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: #fc2f70;
+  transform: scaleX(0);
+  transition: transform 0.5s ease;
+
+}
+
+.link-bar::before {
+  top: 0;
+  transform-origin: center right;
+}
+
+
+.link-bar::after {
+  bottom: 0;
+  transform-origin: center left;
+}
+
+.link-bar:hover::after {
+  transform-origin: center right;
+  transform: scaleX(1);
+}
+
+
+
+.btn-sm {
+  margin: 10px;
+  color: white;
+  max-width: 250px;
+  padding:5px;
+  text-align: center;
+  font-family: Lato;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+}
+.btn-sm:hover {
+  color:  #fff;
+  background-color: #614fd0;
+  cursor: pointer;
+}

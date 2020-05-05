@@ -1,0 +1,93 @@
+
+.flex {
+  display: flex;
+}
+
+.align-horizontal {
+  align-items: center;
+}
+
+.align-vertical {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.lato {
+  font-family: Lato;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.line {
+  border-bottom: 4px solid;
+
+}
+
+.line-sm {
+  border-bottom: 3px solid;
+  max-width: 100%;
+  opacity: 0.5;
+}
+
+
+.grow {
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+
+.shadow {
+  -webkit-box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.03);
+  -moz-box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.03);
+}
+
+.hover:hover {
+  color: #ef6461;
+  cursor: pointer;
+}
+
+.border-radius {
+  border-radius: 8px;
+}
+
+.border-radius-sm {
+  border-radius: 3px;
+}
+
+.reading-progress-bar {
+  position: fixed;
+  height: 5px;
+  @extend .is-pink-bg-always
+}
+
+
+
+.rotate-icon {
+  -webkit-transition: -webkit-transform .8s ease-in-out;
+          transition: transform .8s ease-in-out;
+}
+
+.rotate-light:hover {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+
+.rotate-dark:hover {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}

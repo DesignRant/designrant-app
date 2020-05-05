@@ -1,0 +1,150 @@
+//fonts
+@import url(https://fonts.googleapis.com/css?family=Lato);
+@import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@3/distr/fira_code.css);
+
+//files;
+@import './layout';
+@import './colors';
+@import './paper';
+@import './inputs';
+@import './opacity';
+@import './margin_padding';
+@import './article';
+@import './buttons';
+@import './hero';
+@import './timeline';
+@import './utilities';
+@import './presentations';
+
+@for $i from 1 through 6 {
+  h#{7 - $i} {
+    font-size: $i * 1.4em;
+  }
+}
+
+html {
+  max-width: 100vw;
+  overflow-x: hidden;
+  
+}
+
+body {
+  margin:0px;
+  transition: background-color 0.8s ease;
+}
+
+a {
+  @extend .is-special-blue;
+}
+
+body.light-mode {
+  background-color: #f9f9f9;
+  transition: background-color 0.4s ease;
+}
+body.dark-mode {
+  background-color: #121212;
+}
+
+main {
+  min-height: calc(100vh - 300px);
+}
+
+
+
+p {
+  font-family: Lato;
+  font-weight: lighter;
+}
+
+
+h1 {
+  display: block;
+  font-family: Lato;
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 0.67em;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0.67em;
+}
+
+h2 {
+  display: block;
+  font-family: Lato;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 0.83em;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0.83em;
+}
+
+h3 {
+  display: block;
+  font-family: Lato;
+  font-size: 1.17em;
+  font-weight: bold;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 1em;
+}
+
+h4 {
+  display: block;
+  font-family: Lato;
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 1.33em;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 1.33em;
+}
+
+h5 {
+  display: block;
+  font-family: Lato;
+  font-size: 0.83em;
+  font-weight: bold;
+  margin-bottom: 1.67em;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 1.67em;
+}
+
+h6 {
+  display: block;
+  font-family: Lato;
+  font-size: 0.67em;
+  font-weight: bold;
+  margin-bottom: 2.33em;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 2.33em;
+}
+
+hr {
+  margin-bottom: 1vw;
+  margin-top: 2vw;
+}
+
+div {
+  display: block;
+}
+
+footer {
+  font-family: Lato;
+  text-align: center;
+}
+
+.legal {
+  font-size: 10px;
+}
+
+a{
+  text-decoration: none;
+}
+
+live-editor {
+  font-size: 30px !important;
+}
