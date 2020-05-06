@@ -16,13 +16,13 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
       />
-      <div className="is-white-bg pad-3">
-        <header>
-          <Img
-            fluid={post.frontmatter.hero.childImageSharp.fluid}
-            className="shadow"
-            style={{ width: "100%", maxHeight: 300, objectFit: "cover" }}
-          />
+      <div className="is-white-bg">
+        <Img
+          fluid={post.frontmatter.hero.childImageSharp.fluid}
+          className="shadow"
+          style={{ width: "100%", maxHeight: 300, objectFit: "cover" }}
+        />
+        <div className=" pad-3">
           <h1
             style={{
               marginBottom: 0,
@@ -37,12 +37,13 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           >
             {post.frontmatter.date}
           </p>
-        </header>
-        <section dangerouslySetInnerHTML={{ __html: post.html }} />
-        <hr />
-        <footer>
-          <Bio />
-        </footer>
+
+          <section dangerouslySetInnerHTML={{ __html: post.html }} />
+          <hr />
+          <footer>
+            <Bio />
+          </footer>
+        </div>
       </div>
 
       <nav>
@@ -58,14 +59,14 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           <li>
             {previous && (
               <Link to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
+                <p>← {previous.frontmatter.title}</p>
               </Link>
             )}
           </li>
           <li>
             {next && (
               <Link to={next.fields.slug} rel="next">
-                {next.frontmatter.title} →
+                <p>{next.frontmatter.title} →</p>
               </Link>
             )}
           </li>

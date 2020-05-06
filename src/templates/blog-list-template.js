@@ -12,7 +12,6 @@ export default ({ data }) => {
       <SEO title={`Page ${currentPage}`} />
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.fields.slug
-        console.log(node)
         return (
           <Link
             style={{ boxShadow: `none`, textDecoration: "none" }}
@@ -20,7 +19,19 @@ export default ({ data }) => {
             className=""
           >
             <div className="row is-white-bg  margin-3-b grow link">
-              <div className="col-xs-8 ">
+              <div className="col-xs-12 pad-0 hide-on-big">
+                <Img
+                  fluid={node.frontmatter.hero.childImageSharp.fluid}
+                  className="shadow"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    maxHeight: 200,
+                    objectFit: "cover",
+                  }}
+                />
+              </div>
+              <div className=" col-xs-12  col-md-8 ">
                 <div key={node.fields.slug} className=" pad-3-lr pad-2-tb  ">
                   <div>
                     <h2 className="margin-1-b">{title}</h2>
@@ -50,11 +61,16 @@ export default ({ data }) => {
                   <section className="flex"></section>
                 </div>
               </div>
-              <div className="col-xs-4 pad-0 is-pink-bg-always">
+              <div className="col-xs-12 col-md-4 pad-0 hide-on-small">
                 <Img
                   fluid={node.frontmatter.hero.childImageSharp.fluid}
                   className="shadow"
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+
+                    objectFit: "cover",
+                  }}
                 />
               </div>
             </div>

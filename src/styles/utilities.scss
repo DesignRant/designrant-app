@@ -91,3 +91,14 @@
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
 }
+@media only screen and (max-width: 990px) {
+.hide-on-small {
+  display: none;
+  }
+}
+
+@media only screen and (min-width: 991px) {
+  .hide-on-big {
+    display: none;
+  }
+  }

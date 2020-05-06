@@ -41,7 +41,8 @@ const Bio = () => {
       }}
     >
       <p>
-        Written by <strong>{author.name}</strong> {author.summary}
+        Written by <strong>{author.name}.</strong> {` `}
+        {author.summary}
         {` `}
         <a className="is-special-blue" href={`https://sld.codes`}>
           You should check out his website.

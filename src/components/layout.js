@@ -31,12 +31,16 @@ const Layout = ({ title, children }) => {
           avoid ending up on a site like this one.
         </h4>
       </CookieConsent>
-      <div className="container margin-10-tb pad-3-lr">
+      <div className="container margin-10-tb ">
         <div className="row">
-          <header className=" col-xs-12 col-md-3 flex pad-4-r">
-            <Header />
-          </header>
-          <main className="col-xs-12 col-md-9">{children}</main>
+          <div className=" col-xs-12 col-md-2 margin-3-b ">
+            <div className="margin-1-lr">
+              <Header />
+            </div>
+          </div>
+          <main className="col-xs-12 col-md-10 ">
+            <div className="margin-3-lr">{children}</div>
+          </main>
         </div>
       </div>
     </div>
