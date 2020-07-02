@@ -28,16 +28,19 @@ const ComingSoon = () => {
         <h1 className="">You're keen.</h1>
         <div className="line opacity-5" style={{ width: "30%" }} />
         <p>
-          DesignRant is still under development and will be launching super
-          soon. You seem keen though, so if you want to get notified when we're
-          live you can sign up with your email below.
+          DesignRant is still under active development but will be launching
+          super soon. You seem keen though, so if you want to get notified when
+          we're live you can sign up with your email below.
         </p>
         {submitted ? (
-          <div className="row ">
+          <div className="row pad-4-tb pad-4-lr border-radius is-white-bg">
             <div className="col-xs-12 flex align-vertical is-black pad-0">
-              <h2 className="margin-1-b">✅ Awesome, you're all signed up! </h2>
-              <p className="margin-0">
-                Thanks for showing interest in DesignRant.
+              <h3 className="margin-1-tb">
+                ✅ Awesome, you're all signed up!{" "}
+              </h3>
+              <p className="margin-0 margin-1-b">
+                Thanks for showing interest in DesignRant. We will be in touch
+                soon.
               </p>
             </div>
           </div>
