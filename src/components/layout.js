@@ -39,7 +39,7 @@ const Layout = ({ title, children }) => {
             </div>
           </div>
           <main className="col-xs-12 col-md-10 ">
-            <div className="margin-3-lr">{children}</div>
+            <div className="margin-1-lr">{children}</div>
           </main>
         </div>
       </div>

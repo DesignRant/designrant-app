@@ -1,7 +1,7 @@
 ---
 title: Search for streaming services done right.
-date: "2020-05-04T22:40:32.169Z"
-description: You'd think that a company late to the party would have worked out the importance of the biggest button on our keyboard.
+date: "2020-04-04T22:40:32.169Z"
+description: I'm 25 and struggling to search on Netflix on my TV. Lets talk about how to design on-screen keyboards.
 hero: "./hero.png"
 tags: 
   - Streaming
@@ -9,10 +9,11 @@ tags:
   - UX
 ---
 
-Far far away, behind the word mountains, far from the countries Vokalia and
-Consonantia, there live the blind texts. Separated they live in Bookmarksgrove
-right at the coast of the Semantics, a large language ocean. A small river named
-Duden flows by their place and supplies it with the necessary regelialia.
+If you're anything like me, you've spent the last couple of months indoors due to a global pandemic. I've had plenty of time to binge-watch all those shows I never got around too. I'm not the only one with netflix boasting [16 million new sign-ups thanks to lockdown](https://www.bbc.co.uk/news/business-52376022) in April. But have any of these people tried to search for a movie via their TV? The experience is less than ideal.
+
+
+
+
 
 ## On deer horse aboard tritely yikes and much
 

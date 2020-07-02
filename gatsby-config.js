@@ -13,6 +13,13 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: "gatsby-plugin-mailchimp",
+      options: {
+        endpoint:
+          "https://codes.us4.list-manage.com/subscribe/post?u=0cf960d42e04bd50f7c21d709&amp;id=b09e53f081",
+      },
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/content/blog`,
@@ -77,6 +84,21 @@ module.exports = {
         classNameLight: "light-mode",
         storageKey: "darkMode",
         minify: true,
+      },
+    },
+    {
+      resolve: `@gatsby-contrib/gatsby-plugin-elasticlunr-search`,
+      options: {
+        fields: [`title`, `description`, `tags`],
+        resolvers: {
+          MarkdownRemark: {
+            title: node => node.frontmatter.title,
+            tags: node => node.frontmatter.tags.join(" "),
+            description: node => node.frontmatter.description,
+            slug: node => node.fields.slug,
+            date: node => node.frontmatter.date,
+          },
+        },
       },
     },
   ],

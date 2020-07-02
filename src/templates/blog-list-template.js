@@ -9,7 +9,7 @@ export default ({ data }) => {
   const posts = data.allMarkdownRemark.edges
   return (
     <Layout>
-      <SEO title={`Page ${currentPage}`} />
+      <SEO title={`${currentPage}`} />
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.fields.slug
         return (
@@ -18,7 +18,7 @@ export default ({ data }) => {
             to={node.fields.slug}
             className=""
           >
-            <div className="row is-white-bg  margin-3-b grow link">
+            <div className="row is-white-bg  margin-3-b grow is-black">
               <div className="col-xs-12 pad-0 hide-on-big">
                 <Img
                   fluid={node.frontmatter.hero.childImageSharp.fluid}
@@ -52,7 +52,7 @@ export default ({ data }) => {
                   </div>
                   <section>
                     <p
-                      className="is-black"
+                      className="is-black margin-0 margin-1-t"
                       dangerouslySetInnerHTML={{
                         __html: node.frontmatter.description || node.excerpt,
                       }}
@@ -68,7 +68,6 @@ export default ({ data }) => {
                   style={{
                     width: "100%",
                     height: "100%",
-
                     objectFit: "cover",
                   }}
                 />
@@ -96,9 +95,8 @@ export default ({ data }) => {
         )}
       </div>
       <footer className="is-black text-align-center">
-        I'm not usually this negative. To see something more positive, visit{" "}
-        {""}
-        <a href="https://sld.codes/">sld.codes</a>.
+        We're not usually this negative. Why not{" "}
+        <Link to="/about">meet the team</Link>?
       </footer>
     </Layout>
   )

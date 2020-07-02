@@ -1,12 +1,12 @@
 .btn {
-  @extend .is-dark-blue-bg;
+  @extend .is-black-bg;
   @extend .is-white;
   font-family: Lato;
 
 }
 
 .btn:hover {
-  @extend .is-dark-blue;
+  @extend .is-black;
   @extend .is-white-bg;
   outline-style: solid;
   outline-width: 3px;
@@ -60,7 +60,7 @@ input[type='reset'] {
 }
 
 .bubble-button {
-  @extend .is-dark-blue-bg;
+  @extend .is-black-bg;
   @extend .is-white;
   font-family: Lato;
   z-index: 1;
@@ -68,6 +68,7 @@ input[type='reset'] {
   // max-width: 250px;
   padding: 15px;
   text-align: center;
+  font-weight: bold;
   outline: none;
   border: none;
   overflow: hidden;
@@ -83,8 +84,8 @@ input[type='reset'] {
   width: 5em;
   height: 1em;
   border-radius: 50%;
-  @extend .is-dark-blue;
-  @extend .is-special-blue-bg;
+  @extend .is-black;
+  @extend .is-white-bg;
   transform-origin: center;
   transform: translate3d(50%, 50%, 0) scale3d(0, 0, 0);
   transition: transform 0.45s ease-in-out;
@@ -92,7 +93,7 @@ input[type='reset'] {
 
 .bubble-button:hover {
   cursor: pointer;
-  @extend .is-white-always;
+  @extend .is-black;
 
 }
 

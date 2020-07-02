@@ -30,13 +30,20 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           >
             {post.frontmatter.title}
           </h1>
-          <p
-            style={{
-              display: `block`,
-            }}
-          >
-            {post.frontmatter.date}
-          </p>
+          <div className="flex align-horizontal margin-2-t">
+            <p className="is-black margin-0 margin-1-r">
+              {post.frontmatter.date}
+            </p>
+            {post.frontmatter.tags.map((item, index) => (
+              <p
+                className={`margin-0 pad-1-tb pad-2-lr is-light-grey-bg border-radius-sm is-black ${
+                  index !== 0 ? "margin-1-l" : ""
+                }`}
+              >
+                {item}
+              </p>
+            ))}
+          </div>
 
           <section dangerouslySetInnerHTML={{ __html: post.html }} />
           <hr />

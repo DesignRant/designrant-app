@@ -87,3 +87,4 @@ If you have questions about implementation, please refer to the [Gatsby docs](ht
 | Yellow        | ![#f9b806](https://via.placeholder.com/10/f9b806?text=+) `#f9b806` | ![#f9b806](https://via.placeholder.com/10/f9b806?text=+) `#f9b806` |
 | Green         | ![#4cbb55](https://via.placeholder.com/10/4cbb55?text=+) `#4cbb55` | ![#4cbb55](https://via.placeholder.com/10/4cbb55?text=+) `#4cbb55` |
 
+
