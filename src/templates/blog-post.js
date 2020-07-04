@@ -5,7 +5,7 @@ import _ from "lodash"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import ArticleShareOptions from "../components/Article/ArticleShareOptions"
-import ArticleReactions from "../components/Article/ArticleReactions"
+import RantWorthy from "../components/Article/RantWorthy"
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.markdownRemark
@@ -18,7 +18,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
       />
-      <ArticleReactions inline={false} />
+
       <div className="is-white-bg">
         <Img
           fluid={post.frontmatter.hero.childImageSharp.fluid}
@@ -54,11 +54,12 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           <div className="margin-5-b lato">
             <section dangerouslySetInnerHTML={{ __html: post.html }} />
           </div>
+          <RantWorthy location={location} />
           <ArticleShareOptions
             location={location}
             twitter={post.frontmatter.author.twitter}
           />
-          <hr />
+          <div className="line opacity-5 margin-5-t" />
           <footer>
             <Link to={`/author/${_.kebabCase(post.frontmatter.author.id)}`}>
               <div
