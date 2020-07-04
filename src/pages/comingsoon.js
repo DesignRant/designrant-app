@@ -5,7 +5,7 @@ import SEO from "../components/seo"
 import Logo from "../../content/assets/icon.svg"
 import LogoDark from "../../content/assets/icon-dark.svg"
 
-const ComingSoon = () => {
+const ComingSoon = ({ data }) => {
   const darkMode = useDarkMode(true)
   const [email, setEmail] = useState("")
   const [submitted, setSubmitted] = useState(false)
@@ -14,6 +14,7 @@ const ComingSoon = () => {
       setSubmitted(true)
     })
   }
+  const siteIntro = data.markdownRemark.html
 
   return (
     <div className="is-black">
@@ -26,14 +27,8 @@ const ComingSoon = () => {
           src={darkMode.value ? LogoDark : Logo}
           className="logo-small margin-2-b"
         />
+        <div dangerouslySetInnerHTML={{ __html: siteIntro }}></div>
 
-        <h1 className="">You're keen.</h1>
-        <div className="line opacity-5" style={{ width: "30%" }} />
-        <p>
-          DesignRant is still under active development but will be launching
-          super soon. You seem keen though, so if you want to get notified when
-          we're live you can sign up with your email below.
-        </p>
         {submitted ? (
           <div className="row pad-4-tb pad-4-lr border-radius is-white-bg">
             <div className="col-xs-12 flex align-vertical is-black pad-0">
@@ -48,7 +43,7 @@ const ComingSoon = () => {
           </div>
         ) : (
           <div className="row margin-0-lr">
-            <div className="col-xs-12 col-sm-6 col-md-8 flex align-vertical pad-0">
+            <div className="col-xs-12 col-sm-6 col-md-8 flex align-vertical  margin1-lr">
               <input
                 type="text"
                 name="email"
@@ -58,7 +53,7 @@ const ComingSoon = () => {
                 onChange={e => setEmail(e.target.value)}
               />
             </div>
-            <div className="col-xs-12 col-sm-6 col-md-4   flex align-vertical">
+            <div className="col-xs-12 col-sm-6 col-md-4  margin1-lr">
               <button
                 className="bubble-button pad-3 margin-3-tb "
                 type="button"
@@ -71,9 +66,31 @@ const ComingSoon = () => {
             </div>
           </div>
         )}
+        <h3> Want to write for us?</h3>
+        <p>
+          DesignRant puts the Authors first. DesignRant has no ads or sponsors
+          so we cannot pay you for your content, but we can help you get
+          exposure. We actively encourage cross posting as we understand your
+          reach is important.
+        </p>
+        <p>
+          To find out more about the benefits, and start contributing,{" "}
+          <a href="https://github.com/slarsendisney/designrant.app">
+            check out our github
+          </a>
+          .
+        </p>
       </div>
     </div>
   )
 }
 
 export default ComingSoon
+
+export const pageQuery = graphql`
+  query {
+    markdownRemark(frontmatter: { type: { eq: "ComingSoon" } }) {
+      html
+    }
+  }
+`

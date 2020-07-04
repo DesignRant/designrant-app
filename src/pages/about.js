@@ -12,13 +12,20 @@ const About = ({ data, location }) => {
       <SEO title="About" />
       <div className="is-black is-white-bg pad-3 pad-10-b ">
         <div dangerouslySetInnerHTML={{ __html: siteIntro }}></div>
-        <div className="row ">
-          <div className="pad-0 col-xs-12 col-md-4">
+        <div className="row">
+          <div className="pad-0 col-xs-12 col-md-4 margin-2-t margin-1-lr">
             <Link to="/">
               <button className="bubble-button border-radius fill-width">
                 Start Reading
               </button>
             </Link>
+          </div>
+          <div className="pad-0 col-xs-12 col-md-4 margin-2-t margin-1-lr">
+            <a href="https://github.com/slarsendisney/designrant.app">
+              <button className="bubble-button border-radius fill-width">
+                Contribute
+              </button>
+            </a>
           </div>
         </div>
       </div>
