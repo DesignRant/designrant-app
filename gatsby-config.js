@@ -11,6 +11,9 @@ module.exports = {
       twitter: `slarsendisney`,
     },
   },
+  mapping: {
+    "MarkdownRemark.frontmatter.author": `AuthorYaml`,
+  },
   plugins: [
     {
       resolve: "gatsby-plugin-mailchimp",
@@ -22,17 +25,12 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/content/blog`,
-        name: `blog`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/assets`,
+        path: `${__dirname}/content`,
         name: `assets`,
       },
     },
+    `gatsby-transformer-yaml`,
+
     {
       resolve: `gatsby-transformer-remark`,
       options: {
@@ -58,12 +56,12 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-sass`,
-    // {
-    //   resolve: `gatsby-plugin-google-analytics`,
-    //   options: {
-    //     //trackingId: `ADD YOUR TRACKING ID HERE`,
-    //   },
-    // },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: `UA-26978781-7`,
+      },
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -79,12 +77,6 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     {
       resolve: "gatsby-plugin-use-dark-mode",
-      options: {
-        classNameDark: "dark-mode",
-        classNameLight: "light-mode",
-        storageKey: "darkMode",
-        minify: true,
-      },
     },
     {
       resolve: `@gatsby-contrib/gatsby-plugin-elasticlunr-search`,
@@ -99,6 +91,7 @@ module.exports = {
             date: node => node.frontmatter.date,
           },
         },
+        filter: (node, getNode) => node.frontmatter.type === "Post",
       },
     },
   ],

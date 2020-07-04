@@ -1,21 +1,24 @@
 const path = require(`path`)
+const _ = require("lodash")
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
-
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
+  const authorPage = path.resolve(`./src/templates/author.js`)
   const result = await graphql(
     `
       {
         allMarkdownRemark(
           sort: { fields: [frontmatter___date], order: DESC }
           limit: 1000
+          filter: { frontmatter: { type: { eq: "Post" } } }
         ) {
           edges {
             node {
               fields {
                 slug
+                authorId
               }
               frontmatter {
                 title
@@ -62,17 +65,44 @@ exports.createPages = async ({ graphql, actions }) => {
       },
     })
   })
+
+  const authorSet = new Set()
+  result.data.allMarkdownRemark.edges.forEach(edge => {
+    if (edge.node.fields.authorId) {
+      authorSet.add(edge.node.fields.authorId)
+    }
+  })
+
+  // create author's pages inside export.createPages:
+  const authorList = Array.from(authorSet)
+  authorList.forEach(author => {
+    createPage({
+      path: `/author/${_.kebabCase(author)}/`,
+      component: authorPage,
+      context: {
+        authorId: author,
+      },
+    })
+  })
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
 
-  if (node.internal.type === `MarkdownRemark`) {
+  if (
+    node.internal.type === `MarkdownRemark` &&
+    node.frontmatter.type === "Post"
+  ) {
     const value = createFilePath({ node, getNode })
     createNodeField({
       name: `slug`,
       node,
       value,
+    })
+    createNodeField({
+      node,
+      name: "authorId",
+      value: node.frontmatter.author,
     })
   }
 }

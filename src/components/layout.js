@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet"
 import CookieConsent from "react-cookie-consent"
 import Header from "./Header"
 
-const Layout = ({ title, children }) => {
+const Layout = ({ children }) => {
   return (
     <div className="is-grey">
       <Helmet>
@@ -18,16 +18,16 @@ const Layout = ({ title, children }) => {
         cookieName="DesignRantConsentCookie"
         style={{ background: "#000" }}
         buttonStyle={{
-          color: "#fff",
+          color: "black",
           fontSize: "13px",
-          background: "#4cbb90",
+          background: "#ffffff",
           fontFamily: "lato",
           borderRadius: 3,
           padding: 10,
         }}
       >
         <h4 className="margin-0">
-          This website uses cookies so I can enhance the user experience and
+          This website uses cookies so we can enhance the user experience and
           avoid ending up on a site like this one.
         </h4>
       </CookieConsent>

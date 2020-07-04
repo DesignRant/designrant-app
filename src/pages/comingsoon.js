@@ -6,7 +6,7 @@ import Logo from "../../content/assets/icon.svg"
 import LogoDark from "../../content/assets/icon-dark.svg"
 
 const ComingSoon = () => {
-  const darkMode = useDarkMode(false)
+  const darkMode = useDarkMode(true)
   const [email, setEmail] = useState("")
   const [submitted, setSubmitted] = useState(false)
   const handleSubmit = () => {
@@ -14,8 +14,9 @@ const ComingSoon = () => {
       setSubmitted(true)
     })
   }
+
   return (
-    <div>
+    <div className="is-black">
       <SEO title="Coming Soon" />
       <div
         className="margin-10-tb pad-3-lr"
@@ -25,6 +26,7 @@ const ComingSoon = () => {
           src={darkMode.value ? LogoDark : Logo}
           className="logo-small margin-2-b"
         />
+
         <h1 className="">You're keen.</h1>
         <div className="line opacity-5" style={{ width: "30%" }} />
         <p>
@@ -58,7 +60,7 @@ const ComingSoon = () => {
             </div>
             <div className="col-xs-12 col-sm-6 col-md-4   flex align-vertical">
               <button
-                className="bubble-button pad-3 margin-3-tb border-radius"
+                className="bubble-button pad-3 margin-3-tb "
                 type="button"
                 aria-label="Subscribe"
                 onClick={() => handleSubmit()}

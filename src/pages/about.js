@@ -1,32 +1,26 @@
 import React from "react"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const About = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
-
+  const siteIntro = data.markdownRemark.html
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="About" />
-      <div className="is-black">
-        <h1 className="margin-0">Hi I'm Sam.</h1>
-        <h3>
-          I try to remain a positive person but being English, I occassionally
-          need to complain. This site is a place for me to vent about some of
-          the user interfaces and experiences that drive me insane.
-        </h3>
-        <h3>
-          I 'd like to point out that while I can be quite negative here, I also
-          think that there are plenty of examples out there where people have
-          built awesome, friendly and beautiful user interfaces. Perhaps in the
-          future I will build a site dedicated to these too.
-        </h3>
-        <h3>
-          When I'm not complaining, which I assure you is most of the time, you
-          can find me <a href="https://sld.codes">here</a>.
-        </h3>
+      <div className="is-black is-white-bg pad-3 pad-10-b ">
+        <div dangerouslySetInnerHTML={{ __html: siteIntro }}></div>
+        <div className="row ">
+          <div className="pad-0 col-xs-12 col-md-4">
+            <Link to="/">
+              <button className="bubble-button border-radius fill-width">
+                Start Reading
+              </button>
+            </Link>
+          </div>
+        </div>
       </div>
     </Layout>
   )
@@ -36,6 +30,9 @@ export default About
 
 export const pageQuery = graphql`
   query {
+    markdownRemark(frontmatter: { type: { eq: "About" } }) {
+      html
+    }
     site {
       siteMetadata {
         title

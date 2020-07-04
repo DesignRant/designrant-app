@@ -1,6 +1,7 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
 import Img from "gatsby-image"
+import _ from "lodash"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
@@ -18,7 +19,7 @@ export default ({ data }) => {
             to={node.fields.slug}
             className=""
           >
-            <div className="row is-white-bg  margin-3-b grow is-black">
+            <div className="row is-white-bg  margin-3-b shadow-drop-2-center is-black">
               <div className="col-xs-12 pad-0 hide-on-big">
                 <Img
                   fluid={node.frontmatter.hero.childImageSharp.fluid}
@@ -36,29 +37,38 @@ export default ({ data }) => {
                   <div>
                     <h2 className="margin-1-b">{title}</h2>
                   </div>
-                  <div className="flex align-horizontal">
-                    <p className="is-black margin-0 margin-1-r">
-                      {node.frontmatter.date}
-                    </p>
-                    {node.frontmatter.tags.map((item, index) => (
-                      <p
-                        className={`margin-0 pad-1-tb pad-2-lr is-light-grey-bg border-radius-sm is-black ${
-                          index !== 0 ? "margin-1-l" : ""
-                        }`}
-                      >
-                        {item}
-                      </p>
-                    ))}
-                  </div>
                   <section>
                     <p
-                      className="is-black margin-0 margin-1-t"
+                      className="is-black margin-0 margin-2-t"
                       dangerouslySetInnerHTML={{
                         __html: node.frontmatter.description || node.excerpt,
                       }}
                     />
                   </section>
-                  <section className="flex"></section>
+
+                  <div className="flex align-horizontal margin-3-t">
+                    <Link
+                      to={`/author/${_.kebabCase(node.frontmatter.author.id)}`}
+                    >
+                      <Img
+                        fluid={
+                          node.frontmatter.author.avatar.childImageSharp.fluid
+                        }
+                        className="avatar-sm"
+                      />
+                    </Link>
+                    <p className="is-black margin-3-t margin-1-l block">
+                      <Link
+                        to={`/author/${_.kebabCase(
+                          node.frontmatter.author.id
+                        )}`}
+                        className="is-black"
+                      >
+                        {node.frontmatter.author.id}
+                      </Link>{" "}
+                      on {node.frontmatter.date}
+                    </p>
+                  </div>
                 </div>
               </div>
               <div className="col-xs-12 col-md-4 pad-0 hide-on-small">
@@ -86,7 +96,7 @@ export default ({ data }) => {
                     item === currentPage
                       ? "is-black-border is-white-bg is-black  "
                       : "is-black-border is-black-bg is-white "
-                  } pad-2-lr pad-1-tb margin-1  grow `}
+                  } pad-2-lr pad-1-tb margin-1 `}
                 >
                   <p className="margin-0">{item}</p>
                 </div>
@@ -96,7 +106,7 @@ export default ({ data }) => {
       </div>
       <footer className="is-black text-align-center">
         We're not usually this negative. Why not{" "}
-        <Link to="/about">meet the team</Link>?
+        <Link to="/authors">meet the authors</Link>?
       </footer>
     </Layout>
   )
@@ -116,6 +126,7 @@ export const blogListQuery = graphql`
       sort: { fields: [frontmatter___date], order: DESC }
       limit: $limit
       skip: $skip
+      filter: { frontmatter: { type: { eq: "Post" } } }
     ) {
       edges {
         node {
@@ -123,11 +134,23 @@ export const blogListQuery = graphql`
             slug
           }
           frontmatter {
-            tags
+            author {
+              id
+              from
+              twitter
+              website
+              bio
+              avatar {
+                childImageSharp {
+                  fluid(maxWidth: 40) {
+                    ...GatsbyImageSharpFluid_noBase64
+                  }
+                }
+              }
+            }
             hero {
               childImageSharp {
                 fluid(maxWidth: 1000) {
-                  # Choose either the fragment including a small base64ed image, a traced placeholder SVG, or one without.
                   ...GatsbyImageSharpFluid_noBase64
                 }
               }

@@ -13,13 +13,10 @@ export default () => {
           <img src={darkMode.value ? LogoDark : Logo} className="grow logo" />
         </Link>
       </div>
-      <div
-        className="col-xs-8 col-sm-10 col-md-12 "
-        style={{ justifyContent: "flex-end" }}
-      >
+      <div className="col-xs-8 col-sm-10 col-md-12 nav-buttons">
         <div>
           <div
-            className="is-black flex margin-1-t"
+            className="is-black flex margin-1-t "
             style={{ justifyContent: "flex-end" }}
           >
             <button type="button" className="grow">
@@ -43,7 +40,7 @@ export default () => {
             </button>
           </div>
           <div
-            className="is-black flex margin-1-t"
+            className="is-black flex margin-1-t "
             style={{ justifyContent: "flex-end" }}
           >
             <button type="button">

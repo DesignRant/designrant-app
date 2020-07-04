@@ -1,7 +1,7 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
 import Img from "gatsby-image"
-import Bio from "../components/bio"
+import _ from "lodash"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
@@ -48,7 +48,28 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           <section dangerouslySetInnerHTML={{ __html: post.html }} />
           <hr />
           <footer>
-            <Bio />
+            <Link to={`/author/${_.kebabCase(post.frontmatter.author.id)}`}>
+              <div
+                className="flex align-horizontal is-black"
+                style={{ justifyContent: "center" }}
+              >
+                <Img
+                  fluid={post.frontmatter.author.avatar.childImageSharp.fluid}
+                  style={{
+                    borderRadius: "50%",
+                    width: 40,
+                    height: 40,
+                  }}
+                  className="margin-1-r"
+                />
+                <div>
+                  <p className="margin-0">
+                    Written by <strong>{post.frontmatter.author.id}.</strong>
+                  </p>
+                  <p className="margin-0">{post.frontmatter.author.shortBio}</p>
+                </div>
+              </div>
+            </Link>
           </footer>
         </div>
       </div>
@@ -97,6 +118,20 @@ export const pageQuery = graphql`
       excerpt(pruneLength: 160)
       html
       frontmatter {
+        author {
+          id
+          from
+          twitter
+          website
+          shortBio
+          avatar {
+            childImageSharp {
+              fluid(maxWidth: 100) {
+                ...GatsbyImageSharpFluid_noBase64
+              }
+            }
+          }
+        }
         title
         tags
         hero {

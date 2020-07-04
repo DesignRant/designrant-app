@@ -10,16 +10,15 @@
 //files;
 @import './layout';
 @import './colors';
-@import './paper';
 @import './inputs';
 @import './opacity';
 @import './margin_padding';
-@import './article';
 @import './buttons';
 @import './hero';
-@import './timeline';
 @import './utilities';
-@import './presentations';
+@import './avatar';
+@import './animista.scss';
+@import './social.scss';
 
 @for $i from 1 through 6 {
   h#{7 - $i} {
@@ -30,7 +29,7 @@
 html {
   max-width: 100vw;
   overflow-x: hidden;
-  
+  @extend .is-black;
 }
 
 body {
@@ -38,6 +37,7 @@ body {
   transition: background-color 0.8s ease;
   @extend .is-white-bg;
   @extend .is-black;
+  
 }
 
 a {

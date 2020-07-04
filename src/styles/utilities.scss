@@ -3,6 +3,13 @@
   display: flex;
 }
 
+.fill-width{
+  width: 100%;
+}
+
+.block{
+  display: block;
+}
 .align-horizontal {
   align-items: center;
 }
@@ -66,12 +73,6 @@
 
 .border-radius-sm {
   border-radius: 3px;
-}
-
-.reading-progress-bar {
-  position: fixed;
-  height: 5px;
-  @extend .is-pink-bg-always
 }
 
 
