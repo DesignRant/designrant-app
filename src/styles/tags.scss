@@ -18,12 +18,21 @@
     @extend .is-black ;
 }
 
-.tag-link:hover{
-    background: darken($color: #FCB233, $amount: 10%)
-}
-
 .tag-link-secondary {
+    &:hover{
+        @extend .is-white-highlight-bg ;
+    }
     @extend .tag ;
     @extend .is-white-bg ;
+    @extend .is-black ;   
+}
+
+.tag-primary {
+    @extend .tag;
+    @extend .is-light-grey-bg ;
     @extend .is-black ;
+
+    &:hover{
+        @extend .is-light-grey-highlight-bg ;
+    }    
 }

@@ -4,6 +4,7 @@ import { format } from "date-fns"
 import { Index } from "elasticlunr"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import _ from "lodash"
 
 export class Search extends Component {
   constructor(props) {
@@ -44,14 +45,18 @@ export class Search extends Component {
                         <p className="is-black margin-0 margin-1-r">
                           {format(new Date(page.date), "EEE', 'dd LLL yyyy")}
                         </p>
+                      </div>
+                      <div className="flex align-horizontal">
                         {page.tags.split(" ").map((item, index) => (
-                          <p
-                            className={`margin-0 pad-1-tb pad-2-lr is-light-grey-bg border-radius-sm is-black ${
-                              index !== 0 ? "margin-1-l" : ""
-                            }`}
-                          >
-                            {item}
-                          </p>
+                          <Link to={`/tags/${_.kebabCase(item)}`}>
+                            <p
+                              className={`tag-primary ${
+                                index !== 0 ? "margin-1-l" : ""
+                              }`}
+                            >
+                              {item}
+                            </p>
+                          </Link>
                         ))}
                       </div>
                       <section>

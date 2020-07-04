@@ -2,7 +2,7 @@
 title: Search for streaming services done right.
 author: Sam Larsen-Disney
 type: Post
-date: "2020-04-04T22:40:32.169Z"
+date: "2020-04-04"
 description: I'm 25 and struggling to search on Netflix on my TV. Lets talk about how to design on-screen keyboards.
 hero: "./hero.png"
 tags: ["Streaming", "Media", "UX"]

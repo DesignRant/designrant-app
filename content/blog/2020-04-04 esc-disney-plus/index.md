@@ -1,8 +1,8 @@
 ---
 title: Does Disney+ need space(bar)?
-author: Sam Larsen-Disney
+author: Yannis Panagis
 type: Post
-date: "2020-05-04T22:40:32.169Z"
+date: "2020-05-04"
 description: You'd think that a company late to the party would have worked out the importance of the biggest button on our keyboard.
 hero: "./hero.png"
 tags: ['Streaming', 'Media', 'UX']

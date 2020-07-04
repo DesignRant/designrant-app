@@ -40,7 +40,7 @@ body {
 
 body.light-mode {
   background-color: #f9f9f9;
-  transition: background-color 0.4s ease;
+
 }
 body.dark-mode {
   background-color: #121212;
@@ -154,6 +154,6 @@ a:hover {
 .smut {
   font-family: Scunthorpe;
   text-rendering: optimizeLegibility;
--webkit-font-variant-ligatures: discretionary-ligatures;
-font-variant-ligatures: discretionary-ligatures;
+  -webkit-font-variant-ligatures: discretionary-ligatures;
+  font-variant-ligatures: discretionary-ligatures;
 }

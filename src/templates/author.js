@@ -9,7 +9,7 @@ import SEO from "../components/seo"
 
 export default ({
   data: {
-    authorYaml: { id, bio, twitter, kofi, avatar, from, website },
+    authorYaml: { id, bio, twitter, kofi, buymeacoffee, avatar, from, website },
     allMarkdownRemark: { edges: postNodes },
   },
 }) => (
@@ -25,7 +25,11 @@ export default ({
       style={{ maxWidth: 700 }}
     >
       <div className="col-xs-12 col-md-2">
-        <Img fluid={avatar.childImageSharp.fluid} className="avatar-lg" />
+        <Img
+          fluid={avatar.childImageSharp.fluid}
+          className="avatar-lg"
+          alt="avatar"
+        />
       </div>
       <div className="col-xs-12 col-md-9">
         <div className="flex ">
@@ -38,9 +42,9 @@ export default ({
             <a
               href={`https://twitter.com/${twitter}/`}
               target="_blank"
-              className=""
+              rel="noreferrer"
             >
-              <img src={Twitter} className="twitter grow-lg" />
+              <img src={Twitter} className="twitter grow-lg" alt="twitter" />
             </a>
           </div>
         )}
@@ -53,6 +57,7 @@ export default ({
         <a
           href={website}
           target="_blank"
+          rel="noreferrer"
           className="col-xs-12 col-md-6 margin-3-b"
         >
           <button className="bubble-button border-radius fill-width">
@@ -60,10 +65,15 @@ export default ({
           </button>
         </a>
       )}
-      {kofi && (
+      {(kofi || buymeacoffee) && (
         <a
-          href={`https://ko-fi.com/${kofi}/`}
+          href={
+            kofi
+              ? `https://ko-fi.com/${kofi}/`
+              : `https://www.buymeacoffee.com/${buymeacoffee}`
+          }
           target="_blank"
+          rel="noreferrer"
           className="col-xs-12 col-md-6 margin-3-b"
         >
           <button className="bubble-button border-radius fill-width">
@@ -75,7 +85,8 @@ export default ({
       <div className="col-xs-12">
         <div className="line is-black opacity-5 margin-3-t" />
         <h4>
-          {postNodes.length} posts by <strong>{id}</strong>
+          {postNodes.length} post{postNodes.length > 1 ? "s" : ""} by{" "}
+          <strong>{id}</strong>
         </h4>
         {postNodes.map(({ node: post }, idx) => (
           <div key={post.id}>
@@ -113,6 +124,7 @@ export const pageQuery = graphql`
       bio
       twitter
       kofi
+      buymeacoffee
       from
       website
       avatar {

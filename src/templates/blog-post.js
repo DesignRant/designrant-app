@@ -4,6 +4,8 @@ import Img from "gatsby-image"
 import _ from "lodash"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import ArticleShareOptions from "../components/Article/ArticleShareOptions"
+import ArticleReactions from "../components/Article/ArticleReactions"
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.markdownRemark
@@ -16,6 +18,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
       />
+      <ArticleReactions inline={false} />
       <div className="is-white-bg">
         <Img
           fluid={post.frontmatter.hero.childImageSharp.fluid}
@@ -34,34 +37,37 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             <p className="is-black margin-0 margin-1-r">
               {post.frontmatter.date}
             </p>
+          </div>
+          <div className="flex align-horizontal margin-2-t">
             {post.frontmatter.tags.map((item, index) => (
-              <p
-                className={`margin-0 pad-1-tb pad-2-lr is-light-grey-bg border-radius-sm is-black ${
-                  index !== 0 ? "margin-1-l" : ""
-                }`}
-              >
-                {item}
-              </p>
+              <Link to={`/tags/${_.kebabCase(item)}`}>
+                <p
+                  className={`margin-0 pad-1-tb pad-2-lr is-light-grey-bg border-radius-sm is-black ${
+                    index !== 0 ? "margin-1-l" : ""
+                  }`}
+                >
+                  {item}
+                </p>
+              </Link>
             ))}
           </div>
-          <div className="smut">
+          <div className="margin-5-b lato">
             <section dangerouslySetInnerHTML={{ __html: post.html }} />
           </div>
+          <ArticleShareOptions
+            location={location}
+            twitter={post.frontmatter.author.twitter}
+          />
           <hr />
           <footer>
             <Link to={`/author/${_.kebabCase(post.frontmatter.author.id)}`}>
               <div
-                className="flex align-horizontal is-black pad-5"
+                className="flex align-vertical align-horizontal is-black pad-5"
                 style={{ justifyContent: "center" }}
               >
                 <Img
                   fluid={post.frontmatter.author.avatar.childImageSharp.fluid}
-                  style={{
-                    borderRadius: "50%",
-                    width: 40,
-                    height: 40,
-                  }}
-                  className="margin-1-r"
+                  className="margin-2-b avatar-md"
                 />
                 <div>
                   <p className="margin-0">

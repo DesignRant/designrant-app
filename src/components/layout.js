@@ -4,7 +4,7 @@ import { Link } from "gatsby"
 import CookieConsent from "react-cookie-consent"
 import Header from "./Header"
 
-const Layout = ({ children }) => {
+const Layout = ({ children, showAuthors }) => {
   return (
     <div className="is-grey">
       <Helmet>
@@ -42,10 +42,12 @@ const Layout = ({ children }) => {
             </div>
             <main className="col-xs-12 col-md-10 ">
               <div className="margin-1-lr">{children}</div>
-              <footer className="is-black text-align-center margin-5-t">
-                We're not usually this negative. Why not{" "}
-                <Link to="/authors">meet the authors</Link>?
-              </footer>
+              {showAuthors && (
+                <footer className="is-black text-align-center margin-5-t">
+                  We're not usually this negative. Why not{" "}
+                  <Link to="/authors">meet the authors</Link>?
+                </footer>
+              )}
             </main>
           </div>
         </div>

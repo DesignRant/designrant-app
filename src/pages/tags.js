@@ -15,10 +15,10 @@ const TagsPage = ({ data }) => {
         title="Tags"
         keywords={[`Design Rant`, `design`, `rant`, `blog`, `tags`]}
       />
-      <div className=" row ">
+      <div className="row pad-0-t">
         <div className="col-xs-12">
           <h1 className="margin-0 margin-3-b">Tags</h1>
-          <p className="margin-0">
+          <p className="margin-0 margin-3-b">
             The following is a list of all the tags on this site.
           </p>
         </div>

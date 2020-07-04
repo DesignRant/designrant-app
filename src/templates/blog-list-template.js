@@ -4,12 +4,13 @@ import Img from "gatsby-image"
 import _ from "lodash"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import SubscribeForm from "../components/Newsletter/Subscribe"
 
 export default ({ data }) => {
   const { currentPage, numPages } = data.sitePage.context
   const posts = data.allMarkdownRemark.edges
   return (
-    <Layout>
+    <Layout showAuthors>
       <SEO title={`${currentPage}`} />
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.fields.slug
@@ -102,6 +103,10 @@ export default ({ data }) => {
               </Link>
             )
         )}
+      </div>
+      <div>
+        <p>Get the weekely DesignRant newsletter straight to your inbox.</p>
+        <SubscribeForm />
       </div>
     </Layout>
   )

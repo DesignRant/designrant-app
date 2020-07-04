@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 
 const ArticlePreview = ({ title, date, tags, slug, description, excerpt }) => {
   return (
-    <Link to={`/${slug}`} className="margin-0 padding-0">
+    <Link to={slug} className="margin-0 padding-0">
       <div className="row is-white-bg  margin-3-b grow link">
         <div className=" col-xs-12">
           <div key={slug} className=" pad-3-lr pad-2-tb">

@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { graphql } from "gatsby"
+import { Emojione } from "react-emoji-render"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -15,7 +16,8 @@ const Suggest = ({ data, location }) => {
         <div className="is-black">
           <h1 className="margin-0">Got something rant-worthy?</h1>
           <p className="margin-1-tb">
-            Let me know in the box below and I'll check it out.
+            Let me know in the box below and amember of out team will check it
+            out.
           </p>
           <textarea
             className="input"
@@ -29,13 +31,15 @@ const Suggest = ({ data, location }) => {
       ) : (
         <div className="is-black">
           <div className="flex align-horizontal">
-            <h2
-              className={`las la-check-circle link margin-0`}
-              style={{ fontSize: 60 }}
-            />
-            <h1 className="margin-0">All sorted.</h1>
+            <h1 className="margin-0">
+              <Emojione text="✅" />
+              All sorted.
+            </h1>
           </div>
-          <p className="margin-1-tb">I'll check it out. Expect a rant soon.</p>
+          <p className="margin-1-tb">
+            A member of out team will check it out. Expect a rant soon.
+          </p>
+          <button className="bubble-button margin-3-t">Home</button>
         </div>
       )}
     </Layout>

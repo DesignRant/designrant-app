@@ -16,7 +16,7 @@ export default ({
   <Layout>
     <SEO title="Authors" />
     <div className="is-black">
-      <div className="is-white-bg pad-3 border-radius margin-3-b margin-1-lr">
+      <div className="margin-3-b margin-1-lr">
         <h1 className="margin-0 margin-2-b">Authors</h1>
         <p className="margin-4-b margin-0-t">
           We're super lucky to have some great authors that have helped make
