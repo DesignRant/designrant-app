@@ -1,8 +1,8 @@
 <div align="center">
-  <img alt="Logo" src="https://ik.imagekit.io/sld/cover_odI2P6tOsR.png" width="500"/>
+  <img alt="Logo" src="https://ik.imagekit.io/sld/cover_odI2P6tOsR.png" width="1000"/>
 </div>
 
-# 👋 Welcome to DesignRant's repo.
+# 👋 Welcome to DesignRant's Repository
 
 #### [You can see it live @ DesignRant.app ](https://designrant.app/)
 
