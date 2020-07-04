@@ -1,6 +1,6 @@
 // templates/Author/index.jsx
 import React from "react"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import Img from "gatsby-image"
 
 import Twitter from "../../content/assets/twitter.svg"
@@ -15,6 +15,11 @@ export default ({
 }) => (
   <Layout>
     <SEO title={id} />
+    <Link to="/authors">
+      <h4 className="margin-0 margin-2-b">
+        <i class="las la-arrow-left"></i> All Authors
+      </h4>
+    </Link>
     <div
       className="row is-white-bg pad-3 border-radius"
       style={{ maxWidth: 700 }}
@@ -33,9 +38,9 @@ export default ({
             <a
               href={`https://twitter.com/${twitter}/`}
               target="_blank"
-              className=" grow"
+              className=""
             >
-              <img src={Twitter} className="twitter " />
+              <img src={Twitter} className="twitter grow-lg" />
             </a>
           </div>
         )}

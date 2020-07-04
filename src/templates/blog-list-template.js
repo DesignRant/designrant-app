@@ -17,7 +17,6 @@ export default ({ data }) => {
           <Link
             style={{ boxShadow: `none`, textDecoration: "none" }}
             to={node.fields.slug}
-            className=""
           >
             <div className="row is-white-bg  margin-3-b shadow-drop-2-center is-black">
               <div className="col-xs-12 pad-0 hide-on-big">
@@ -32,8 +31,8 @@ export default ({ data }) => {
                   }}
                 />
               </div>
-              <div className=" col-xs-12  col-md-8 ">
-                <div key={node.fields.slug} className=" pad-3-lr pad-2-tb  ">
+              <div className=" col-xs-12  col-md-8">
+                <div key={node.fields.slug} className=" pad-3-lr pad-2-tb">
                   <div>
                     <h2 className="margin-1-b">{title}</h2>
                   </div>
@@ -104,10 +103,6 @@ export default ({ data }) => {
             )
         )}
       </div>
-      <footer className="is-black text-align-center">
-        We're not usually this negative. Why not{" "}
-        <Link to="/authors">meet the authors</Link>?
-      </footer>
     </Layout>
   )
 }

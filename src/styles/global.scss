@@ -3,7 +3,7 @@
 @import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@3/distr/fira_code.css);
 
 @font-face {
-  font-family: 'scunthorpe';
+  font-family: 'Scunthorpe';
   src: url('../../public/scunthorpe-sans.woff') format('woff'), /* Pretty Modern Browsers */
 }
 
@@ -19,6 +19,7 @@
 @import './avatar';
 @import './animista.scss';
 @import './social.scss';
+@import './tags.scss';
 
 @for $i from 1 through 6 {
   h#{7 - $i} {
@@ -33,16 +34,9 @@ html {
 }
 
 body {
-  margin:0px;
-  transition: background-color 0.8s ease;
-  @extend .is-white-bg;
-  @extend .is-black;
-  
+  min-height: calc(100vh-38px);  
 }
 
-a {
-  @extend .is-special-blue;
-}
 
 body.light-mode {
   background-color: #f9f9f9;
@@ -150,10 +144,11 @@ footer {
 a{
   text-decoration: none;
   font-weight: bold;
+  color: inherit;
 }
 
-live-editor {
-  font-size: 30px !important;
+a:hover {
+  @extend .is-special-blue;
 }
 
 .smut {

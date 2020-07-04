@@ -1,5 +1,6 @@
 import React from "react"
 import { Helmet } from "react-helmet"
+import { Link } from "gatsby"
 import CookieConsent from "react-cookie-consent"
 import Header from "./Header"
 
@@ -31,18 +32,24 @@ const Layout = ({ children }) => {
           avoid ending up on a site like this one.
         </h4>
       </CookieConsent>
-      <div className="container margin-10-tb ">
-        <div className="row">
-          <div className=" col-xs-12 col-md-2 margin-3-b ">
-            <div className="margin-1-lr">
-              <Header />
+      <body>
+        <div className="container margin-10-tb ">
+          <div className="row">
+            <div className=" col-xs-12 col-md-2 margin-3-b ">
+              <div className="margin-1-lr">
+                <Header />
+              </div>
             </div>
+            <main className="col-xs-12 col-md-10 ">
+              <div className="margin-1-lr">{children}</div>
+              <footer className="is-black text-align-center margin-5-t">
+                We're not usually this negative. Why not{" "}
+                <Link to="/authors">meet the authors</Link>?
+              </footer>
+            </main>
           </div>
-          <main className="col-xs-12 col-md-10 ">
-            <div className="margin-1-lr">{children}</div>
-          </main>
         </div>
-      </div>
+      </body>
     </div>
   )
 }

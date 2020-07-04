@@ -6,6 +6,9 @@
 .fill-width{
   width: 100%;
 }
+.fill-height{
+  height: 100%;
+}
 
 .block{
   display: block;
@@ -54,6 +57,15 @@
     transform: scale(1.02);
   }
 }
+
+.grow-lg {
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
 
 
 .shadow {

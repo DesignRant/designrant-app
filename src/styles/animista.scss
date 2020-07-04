@@ -26,8 +26,12 @@
     100% {
       -webkit-transform: translateZ(50px);
               transform: translateZ(50px);
-      -webkit-box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
+              -webkit-box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
               box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
+              body.dark-mode {
+      -webkit-box-shadow: 0 0 20px 0px rgba(0, 0, 0, 1);
+              box-shadow: 0 0 20px 0px rgba(0, 0, 0, 1);
+              }
     }
   }
   @keyframes shadow-drop-2-center {
@@ -42,6 +46,10 @@
               transform: translateZ(50px);
       -webkit-box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
               box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
+              body.dark-mode {
+                -webkit-box-shadow: 0 0 20px 0px rgba(0, 0, 0, 1);
+                        box-shadow: 0 0 20px 0px rgba(0, 0, 0, 1);
+                        }
     }
   }
   

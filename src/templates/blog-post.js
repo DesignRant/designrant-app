@@ -44,13 +44,14 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
               </p>
             ))}
           </div>
-
-          <section dangerouslySetInnerHTML={{ __html: post.html }} />
+          <div className="smut">
+            <section dangerouslySetInnerHTML={{ __html: post.html }} />
+          </div>
           <hr />
           <footer>
             <Link to={`/author/${_.kebabCase(post.frontmatter.author.id)}`}>
               <div
-                className="flex align-horizontal is-black"
+                className="flex align-horizontal is-black pad-5"
                 style={{ justifyContent: "center" }}
               >
                 <Img

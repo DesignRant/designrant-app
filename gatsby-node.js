@@ -6,6 +6,8 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
   const authorPage = path.resolve(`./src/templates/author.js`)
+  const tagPage = path.resolve(`./src/templates/tagTemplate.js`)
+
   const result = await graphql(
     `
       {
@@ -22,6 +24,7 @@ exports.createPages = async ({ graphql, actions }) => {
               }
               frontmatter {
                 title
+                tags
               }
             }
           }
@@ -62,6 +65,30 @@ exports.createPages = async ({ graphql, actions }) => {
         slug: post.node.fields.slug,
         previous,
         next,
+      },
+    })
+  })
+
+  // Create Tags pages
+  // pulled directly from https://www.gatsbyjs.org/docs/adding-tags-and-categories-to-blog-posts/#add-tags-to-your-markdown-files
+  let tags = []
+  // Iterate through each post, putting all found tags into `tags`
+  _.each(posts, edge => {
+    if (_.get(edge, "node.frontmatter.tags")) {
+      tags = tags.concat(edge.node.frontmatter.tags)
+    }
+  })
+
+  // Eliminate duplicate tags
+  tags = _.uniq(tags)
+
+  // Make tag pages
+  tags.forEach(tag => {
+    createPage({
+      path: `/tags/${_.kebabCase(tag)}/`,
+      component: tagPage,
+      context: {
+        tag,
       },
     })
   })

@@ -1,0 +1,29 @@
+.tag-row {
+    @extend  .flex;
+    flex-wrap: wrap;
+}
+
+.tag {
+    @extend .pad-1-tb;
+    @extend .pad-2-lr; 
+    @extend .margin-0;
+    @extend .margin-1-r;
+    @extend .margin-1-t;
+    @extend .border-radius-sm ;
+}
+
+.tag-link {
+    @extend .tag ;
+    @extend .is-light-grey-bg ;
+    @extend .is-black ;
+}
+
+.tag-link:hover{
+    background: darken($color: #FCB233, $amount: 10%)
+}
+
+.tag-link-secondary {
+    @extend .tag ;
+    @extend .is-white-bg ;
+    @extend .is-black ;
+}
