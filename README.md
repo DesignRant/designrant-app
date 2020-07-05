@@ -30,7 +30,7 @@ We encourage contributions from any individual, whether your'e a student, workin
 
 ### Setup
 
-1. Ensure you have Git on your local machine where you will be developing. Download it here if you don't: [`Get Git`](https://git-scm.com/downloads)
+1. Ensure you have Git on your local machine where you will be writing. Download it here if you don't: [`Get Git`](https://git-scm.com/downloads)
 2. Fork this repository into your own Github account. This creates a copy of the repository in your account. You can fork by clicking the Fork button at the top of the repository.
 3. Go to the forked repository that is now in your account and clone it. Get the clone URL by clicking on the green Code button and copy the URL to your clipboard (Will look something like https://github.com/Clariity/designrant-app.git). Then on the command line do: `git clone https://github.com/YourUsername/designrant-app.git`
 4. Once the clone has completed, on the command line enter the following to change to the Design Rant directory: `cd designrant-app`
@@ -76,7 +76,7 @@ Once you have added yourself as an author, you do not need to do it again for su
 
 ### Add your post
 
-Create a folder in `/content/blog` for your post. The folder should be named with the following format `YYYY-MM-DD post-title` where the date is the date you are submitting the post. The Markdown file (renamed to `index.md`) and any images linked to in the markdown should be placed in this folder. You should also add a hero image to this folder that will be used as the article preview.
+Create a folder in `/content/blog` for your post. The folder should be named with the following format `YYYY-MM-DD post-title` where the date is the date you are submitting the post. The Markdown file (you should name it `index.md`) and any images linked to in the markdown should be placed in this folder. You should also add a hero image to this folder that will be used as the article preview.
 
 Add front-matter to the top of the markdown post in this format:
 
@@ -92,7 +92,7 @@ tags: ["Streaming", "Media", "UX"]
 ---
 ```
 
-All fields are required. Please ensure that the author name matches the author id in `author.yaml`. Your post may contain a maximum of 3 tags.
+All lines must be filled in and not left empty. Please ensure that the author name matches the author id in `author.yaml`. Your post may contain a maximum of 3 tags.
 
 #### Ready to raise the PR?
 
@@ -129,7 +129,9 @@ Yes, you can fork this repo. Please give us proper credit by linking back to [de
 
 If you have questions about implementation, please refer to the [Gatsby docs](https://www.gatsbyjs.org/docs/).
 
-## 🛠 Installation & Set Up
+## Running the server on your local machine
+
+### 🛠 Installation & Set Up
 
 1. Install the Gatsby CLI
 
