@@ -1,16 +1,15 @@
-
 .flex {
   display: flex;
 }
 
-.fill-width{
+.fill-width {
   width: 100%;
 }
-.fill-height{
+.fill-height {
   height: 100%;
 }
 
-.block{
+.block {
   display: block;
 }
 .align-horizontal {
@@ -40,7 +39,6 @@
 
 .line {
   border-bottom: 4px solid;
-
 }
 
 .line-sm {
@@ -48,7 +46,6 @@
   max-width: 100%;
   opacity: 0.5;
 }
-
 
 .grow {
   transition: all 0.2s ease-in-out;
@@ -65,8 +62,6 @@
     transform: scale(1.1);
   }
 }
-
-
 
 .shadow {
   -webkit-box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.03);
@@ -87,31 +82,28 @@
   border-radius: 3px;
 }
 
-
-
 .rotate-icon {
-  -webkit-transition: -webkit-transform .8s ease-in-out;
-          transition: transform .8s ease-in-out;
+  -webkit-transition: -webkit-transform 0.8s ease-in-out;
+  transition: transform 0.8s ease-in-out;
 }
 
 .rotate-light:hover {
   -webkit-transform: rotate(180deg);
-          transform: rotate(180deg);
+  transform: rotate(180deg);
 }
-
 
 .rotate-dark:hover {
   -webkit-transform: rotate(180deg);
-          transform: rotate(180deg);
+  transform: rotate(180deg);
 }
-@media only screen and (max-width: 990px) {
-.hide-on-small {
-  display: none;
+@media only screen and (max-width: 991px) {
+  .hide-on-small {
+    display: none;
   }
 }
 
-@media only screen and (min-width: 990px) {
+@media only screen and (min-width: 992px) {
   .hide-on-big {
     display: none;
   }
-  }
+}
