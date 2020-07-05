@@ -16,7 +16,7 @@ const Suggest = ({ data, location }) => {
         <div className="is-black">
           <h1 className="margin-0">Got something rant-worthy?</h1>
           <p className="margin-1-tb">
-            Let me know in the box below and amember of out team will check it
+            Let us know in the box below and a member of our team will check it
             out.
           </p>
           <textarea
@@ -37,7 +37,7 @@ const Suggest = ({ data, location }) => {
             </h1>
           </div>
           <p className="margin-1-tb">
-            A member of out team will check it out. Expect a rant soon.
+            A member of our team will check it out. Expect a rant soon.
           </p>
           <button className="bubble-button margin-3-t">Home</button>
         </div>
