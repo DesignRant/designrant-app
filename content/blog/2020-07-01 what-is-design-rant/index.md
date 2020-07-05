@@ -36,4 +36,3 @@ While we as authors might be quite negative here, I also think that there are pl
 I encourage everyone to contribute. Whether you're a student, UX developer, designer, engineer or just interested in the subject. Together let's improve the UX around us. 
 
 [Come write "short & sharp" UX complaints or help code our site that puts authors first.](https://github.com/slarsendisney/designrant-app)
-
