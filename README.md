@@ -34,7 +34,8 @@ We encourage contributions from any individual, whether your'e a student, workin
 2. Fork this repository into your own Github account. This creates a copy of the repository in your account. You can fork by clicking the Fork button at the top of the repository.
 3. Go to the forked repository that is now in your account and clone it. Get the clone URL by clicking on the green Code button and copy the URL to your clipboard (Will look something like https://github.com/Clariity/designrant-app.git). Then on the command line do: `git clone https://github.com/YourUsername/designrant-app.git`
 4. Once the clone has completed, on the command line enter the following to change to the Design Rant directory: `cd designrant-app`
-5. Use the command line to create a new branch for the post you wish to write, for example: `git checkout -b sld-disney-post`
+5. Use the command line to create a new branch for the post you wish to write, for example: `git checkout -b your-branch-name`
+6. Set a remote called "upstream" that references the the main Design Rant repo (will be needed for later): `git remote add upstream https://github.com/slarsendisney/designrant-app.git`
 
 ### Adding content
 
@@ -65,7 +66,7 @@ Please note that `id`, `from`,`shortBio`, `bio` and `avatar` are required. All o
 - `avatar`- the file name should match the file you have added to /avatar
 - `twitter` - your twitter handle without the "@"
 - `ko-fi` - the path to your ko-fi page _e.g. if your page is at https://ko-fi.com/sldcodes then you would enter `sld.codes`_
-- `buymeacoffee` - the path to your buymeacoffee page _e.g. if your page is at https://www.buymeacoffee.com/lLj8yvRAk then you would enter `/lLj8yvRAk`_
+- `buymeacoffee` - the path to your buymeacoffee page _e.g. if your page is at https://www.buymeacoffee.com/lLj8yvRAk then you would enter `lLj8yvRAk`_
 
 If you provide both a `ko-fi` link and a `buymeacofee` link then only the `ko-fi` link will be used.
 
@@ -108,7 +109,21 @@ Checklist for submission:
 
 Looks like you're good to go 🎉
 
-## 🚨 Forking This Repo
+### Publishing your content
+
+1. Stage your local changes by executing `git add .` in the command line
+2. Commit your changes by executing `git commit -m "Added a new awesome rant on Disney+"`
+3. Push your changes to your forked repository using the command `git push --set-upstream origin your-branch-name`
+4. You will see the new commit on GitHub. Click the "Compare & pull request" button and then "Create pull request". This will request to merge into the master branch of slarsdisney/designrant-app
+5. If all done correctly, your pull request will be approved and your post will be live
+6. As you're now hooked on ranting about poor designs, when you want to contribute again in the future you will need to sync the updated master branch with your fork. To do this, enter the following commands on the command line:
+   ```
+   git checkout master
+   git pull upstream master
+   ```
+   Do this before you want to add another post and then just repeat the steps from the point of [`Add your post`](#add-your-post)
+
+## 🚨 Forking this repo for use on another project
 
 Yes, you can fork this repo. Please give us proper credit by linking back to [designrant.app](https://designrant.app). Thanks!
 
