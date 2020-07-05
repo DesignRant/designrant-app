@@ -11,10 +11,10 @@ const ArticlePreview = ({ title, date, tags, slug, description, excerpt }) => {
               <h2 className="margin-1-b">{title}</h2>
             </div>
             <div className="flex align-horizontal">
-              <p className="is-black margin-0 margin-1-r">{date}</p>
+              <p className="is-black margin-0 margin-1-r margin-1-t">{date}</p>
               {tags.map((item, index) => (
                 <p
-                  className={`margin-0 pad-1-tb pad-2-lr is-light-grey-bg border-radius-sm is-black ${
+                  className={`tag-primary ${
                     index !== 0 ? "margin-1-l" : ""
                   }`}
                 >
