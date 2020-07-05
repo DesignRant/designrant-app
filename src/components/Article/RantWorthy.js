@@ -85,7 +85,7 @@ export default () => {
       <div className={`col-xs-12 margin-2-b text-align-center`}>
         <h4>
           {!loading && !error
-            ? `Considered ${audience}% worthy by Readers`
+            ? `Considered worthy by ${audience}% of Readers`
             : "Loading Results..."}
         </h4>
       </div>
@@ -97,6 +97,9 @@ export default () => {
         <Results />
       ) : (
         <>
+          <div className="col-xs-12 text-align-center bold">
+            <h3>Is it rant-worthy?</h3>
+          </div>
           <ReactButton label="👍 Worthy" onClick={() => judge("worthy")} />
           <ReactButton label="👎 Unworthy" onClick={() => judge("unworthy")} />
         </>
