@@ -42,7 +42,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             {post.frontmatter.tags.map((item, index) => (
               <Link to={`/tags/${_.kebabCase(item)}`}>
                 <p
-                  className={`margin-0 pad-1-tb pad-2-lr is-light-grey-bg border-radius-sm is-black ${
+                  className={`tag-primary ${
                     index !== 0 ? "margin-1-l" : ""
                   }`}
                 >

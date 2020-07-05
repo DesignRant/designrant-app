@@ -59,7 +59,6 @@ input[type='reset'] {
 .bubble-button:hover {
   cursor: pointer;
   @extend .is-white-always;
-
 }
 
 .bubble-button:hover::before {
@@ -70,7 +69,6 @@ input[type='reset'] {
   position: relative;
   text-decoration: none;
   display: inline-block;
-
 }
 
 .link-bar::before, .link-bar::after {
@@ -82,7 +80,6 @@ input[type='reset'] {
   background-color: #fc2f70;
   transform: scaleX(0);
   transition: transform 0.5s ease;
-
 }
 
 .link-bar::before {
@@ -100,8 +97,6 @@ input[type='reset'] {
   transform-origin: center right;
   transform: scaleX(1);
 }
-
-
 
 .btn-sm {
   margin: 10px;
