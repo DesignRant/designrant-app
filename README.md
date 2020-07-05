@@ -113,15 +113,15 @@ Looks like you're good to go 🎉
 
 1. Stage your local changes by executing `git add .` in the command line
 2. Commit your changes by executing `git commit -m "Added a new awesome rant on Disney+"`
-3. Push your changes to your forked repository using the command `git push --set-upstream origin your-branch-name`
-4. You will see the new commit on GitHub. Click the "Compare & pull request" button and then "Create pull request". This will request to merge into the master branch of slarsdisney/designrant-app
+3. Push your changes to your forked repository using the command `git push --set-upstream origin your-branch-name` or if this isn't your first time then use `git push origin your-branch-name`
+4. You will see the new commit on GitHub. Click the "Compare & pull request" button and then "Create pull request". This will request to merge into the master branch of `slarsdisney/designrant-app`
 5. If all done correctly, your pull request will be approved and your post will be live
 6. As you're now hooked on ranting about poor designs, when you want to contribute again in the future you will need to sync the updated master branch with your fork. To do this, enter the following commands on the command line:
    ```
    git checkout master
    git pull upstream master
    ```
-   Do this before you want to add another post and then just repeat the steps from the point of [`Add your post`](#add-your-post)
+   Do this before you want to add another post and then just checkout to a new branch using `git checkout -b your-new-branch-name` and repeat the steps from the point of [`Add your post`](#add-your-post)
 
 ## 🚨 Forking this repo for use on another project
 
