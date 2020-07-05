@@ -21,7 +21,7 @@ const About = ({ data, location }) => {
             </Link>
           </div>
           <div className="pad-0 col-xs-12 col-md-4 margin-2-t margin-1-lr">
-            <a href="https://github.com/slarsendisney/designrant.app">
+            <a href="https://github.com/slarsendisney/designrant-app">
               <button className="bubble-button border-radius fill-width">
                 Contribute
               </button>

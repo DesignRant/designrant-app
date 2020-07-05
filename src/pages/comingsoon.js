@@ -6,7 +6,7 @@ import Logo from "../../content/assets/icon.svg"
 import LogoDark from "../../content/assets/icon-dark.svg"
 
 const ComingSoon = ({ data }) => {
-  const darkMode = useDarkMode(true)
+  const darkMode = useDarkMode(false)
   const [email, setEmail] = useState("")
   const [submitted, setSubmitted] = useState(false)
   const handleSubmit = () => {
@@ -75,7 +75,7 @@ const ComingSoon = ({ data }) => {
         </p>
         <p>
           To find out more about the benefits, and start contributing,{" "}
-          <a href="https://github.com/slarsendisney/designrant.app">
+          <a href="https://github.com/slarsendisney/designrant-app">
             check out our github
           </a>
           .

@@ -3,7 +3,7 @@ export default () => {
     `                                                                                                                                                   
           --------------------------------------------------
                   👋 Why not help code DesignRant? 
-            https://github.com/slarsendisney/designrant.app
+            https://github.com/slarsendisney/designrant-app
           --------------------------------------------------
   `
   )

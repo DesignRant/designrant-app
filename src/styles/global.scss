@@ -39,11 +39,13 @@ body {
 
 
 body.light-mode {
-  background-color: #f9f9f9;
-
+  background-color: #fff;
+  color: #333;
+  transition: background-color 0.3s ease;
 }
 body.dark-mode {
-  background-color: #121212;
+  background-color: #1a1919;
+  color: #999;
 }
 
 main {

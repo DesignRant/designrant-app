@@ -55,7 +55,7 @@
   "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/slarsendisney/designrant.app.git"
+    "url": "git+https://github.com/slarsendisney/designrant-app.git"
   },
   "scripts": {
     "build": "gatsby build",

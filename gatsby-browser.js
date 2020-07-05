@@ -1,11 +1,14 @@
 import "./src/styles/global.scss"
 import WorkWithUs from "./scripts/work_with_us"
 
-if (typeof window !== undefined) {
-  if (window.location.pathname !== "/comingsoon") {
-    window.location.replace("/comingsoon")
-  }
-}
+// if (typeof window !== undefined) {
+//   if (
+//     window.location.pathname !== "/comingsoon" &&
+//     window.location.pathname !== "/comingsoon/"
+//   ) {
+//     window.location.replace("/comingsoon/")
+//   }
+// }
 
 let firebase
 
