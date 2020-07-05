@@ -1,14 +1,13 @@
 import React from "react"
 import { Emojione } from "react-emoji-render"
-import {
-  useDocumentOnce,
-  useDocumentDataOnce,
-} from "react-firebase-hooks/firestore"
+import { useDocumentDataOnce } from "react-firebase-hooks/firestore"
 import { useLocalStorage } from "../../utils/customHooks"
 
 let firebase
 
-if (typeof window !== "undefined") {
+const isProd = process.env.GATSBY_PRODUCTION
+
+if (typeof window !== "undefined" && isProd) {
   firebase = require("firebase/app")
   require("firebase/firestore")
 }
@@ -42,7 +41,7 @@ export default () => {
 
   const [reacts, setReacts] = useLocalStorage("reacts", {})
   const [value, loading, error] =
-    typeof window !== "undefined"
+    typeof window !== "undefined" && isProd
       ? useDocumentDataOnce(firebase.firestore().doc(`reacts/${contentID}`))
       : [0, true, false]
   let contentReacts = reacts && reacts[contentID]
@@ -97,11 +96,24 @@ export default () => {
         <Results />
       ) : (
         <>
-          <div className="col-xs-12 text-align-center bold">
-            <h3>Is it rant-worthy?</h3>
-          </div>
-          <ReactButton label="👍 Worthy" onClick={() => judge("worthy")} />
-          <ReactButton label="👎 Unworthy" onClick={() => judge("unworthy")} />
+          {isProd ? (
+            <>
+              <div className="col-xs-12 text-align-center bold">
+                <h3>Is it rant-worthy?</h3>
+              </div>
+              <ReactButton label="👍 Worthy" onClick={() => judge("worthy")} />
+              <ReactButton
+                label="👎 Unworthy"
+                onClick={() => judge("unworthy")}
+              />{" "}
+            </>
+          ) : (
+            <div className="col-xs-12 text-align-center bold pad-3 margin-5-b is-light-grey-bg">
+              <h4>
+                Article reactions will appear here when your post is live.
+              </h4>
+            </div>
+          )}
         </>
       )}
     </Wrapper>

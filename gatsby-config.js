@@ -2,6 +2,31 @@ require("dotenv").config({
   path: `.env`,
 })
 
+const dynamicPlugins = []
+
+if (process.env.GATSBY_PRODUCTION) {
+  dynamicPlugins.push({
+    resolve: "gatsby-plugin-firebase",
+    options: {
+      credentials: {
+        apiKey: process.env.FIREBASE_API_KEY,
+        authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+        databaseURL: process.env.FIREBASE_DB_URL,
+        projectId: process.env.FIREBASE_PROJECT_ID,
+        storageBucket: process.env.FIREBASE_SB,
+        messagingSenderId: process.env.FIREBASE_MSG_SENDER_ID,
+        appId: process.env.FIREBASE_APP_ID,
+      },
+    },
+  })
+  dynamicPlugins.push({
+    resolve: `gatsby-plugin-google-analytics`,
+    options: {
+      trackingId: process.env.VIEW_ID,
+    },
+  })
+}
+
 module.exports = {
   siteMetadata: {
     title: `DesignRant`,
@@ -27,7 +52,6 @@ module.exports = {
       },
     },
     `gatsby-transformer-yaml`,
-
     {
       resolve: `gatsby-transformer-remark`,
       options: {
@@ -53,12 +77,7 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-sass`,
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: process.env.VIEW_ID,
-      },
-    },
+
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -91,19 +110,5 @@ module.exports = {
         filter: (node, getNode) => node.frontmatter.type === "Post",
       },
     },
-    {
-      resolve: "gatsby-plugin-firebase",
-      options: {
-        credentials: {
-          apiKey: process.env.FIREBASE_API_KEY,
-          authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-          databaseURL: process.env.FIREBASE_DB_URL,
-          projectId: process.env.FIREBASE_PROJECT_ID,
-          storageBucket: process.env.FIREBASE_SB,
-          messagingSenderId: process.env.FIREBASE_MSG_SENDER_ID,
-          appId: process.env.FIREBASE_APP_ID,
-        },
-      },
-    },
-  ],
+  ].concat(dynamicPlugins),
 }
