@@ -105,7 +105,7 @@ export default ({ data }) => {
         )}
       </div>
       <div>
-        <p>Get the weekely DesignRant newsletter straight to your inbox.</p>
+        <p>Get the weekly DesignRant newsletter straight to your inbox.</p>
         <SubscribeForm />
       </div>
     </Layout>
