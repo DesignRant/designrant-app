@@ -12,7 +12,7 @@ import WorkWithUs from "./scripts/work_with_us"
 
 let firebase
 
-if (typeof window !== "undefined") {
+if (typeof window !== "undefined" && process.env.GATSBY_PRODUCTION) {
   const config = {
     apiKey: process.env.FIREBASE_API_KEY,
     authDomain: process.env.FIREBASE_AUTH_DOMAIN,

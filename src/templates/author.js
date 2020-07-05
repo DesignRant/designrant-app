@@ -61,7 +61,7 @@ export default ({
           className="col-xs-12 col-md-6 margin-3-b"
         >
           <button className="bubble-button border-radius fill-width">
-            Vist Their Site
+            Vist Site
           </button>
         </a>
       )}

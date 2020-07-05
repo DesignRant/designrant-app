@@ -4,7 +4,7 @@ import Img from "gatsby-image"
 import _ from "lodash"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import SubscribeForm from "../components/Newsletter/Subscribe"
+import SubscribeForm from "../components/Article/Newsletter/Subscribe"
 
 export default ({ data }) => {
   const { currentPage, numPages } = data.sitePage.context
@@ -19,11 +19,11 @@ export default ({ data }) => {
             style={{ boxShadow: `none`, textDecoration: "none" }}
             to={node.fields.slug}
           >
-            <div className="row is-white-bg  margin-3-b shadow-drop-2-center is-black">
+            <div className="row is-white-bg  margin-3-b shadow-drop-2-center is-black ">
               <div className="col-xs-12 pad-0 hide-on-big">
                 <Img
                   fluid={node.frontmatter.hero.childImageSharp.fluid}
-                  className="shadow"
+                  className="shadow "
                   style={{
                     width: "100%",
                     height: "100%",
@@ -32,7 +32,7 @@ export default ({ data }) => {
                   }}
                 />
               </div>
-              <div className=" col-xs-12  col-md-8">
+              <div className=" col-xs-12  col-md-8 ">
                 <div key={node.fields.slug} className=" pad-3-lr pad-2-tb">
                   <div>
                     <h2 className="margin-1-b">{title}</h2>
