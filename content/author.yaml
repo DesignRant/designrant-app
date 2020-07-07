@@ -14,3 +14,11 @@
   avatar: avatars/yp-avatar.png
   twitter: yannispanagis
   buymeacoffee: yannis
+- id: Tony Stark
+  from: MCU
+  avatar: avatars/avatar-tony-stark.png
+  website: https://marvel.com/
+  shortBio: I'm Iron Man
+  bio: You know, the flying guy
+  twitter: ironman
+  buymeacoffee: ironman
