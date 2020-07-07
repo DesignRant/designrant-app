@@ -8,9 +8,17 @@ import ArticleShareOptions from "../components/Article/ArticleShareOptions"
 import RantWorthy from "../components/Article/RantWorthy"
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
-  const post = data.markdownRemark
-  const siteTitle = data.site.siteMetadata.title
-  const { previous, next } = pageContext
+  const post = data.markdownRemark;
+  const siteTitle = data.site.siteMetadata.title;
+  const { previous, next } = pageContext;
+
+  function sanitizeMarkdown(textInput) {
+    var Filter = require('bad-words'),
+    filter = new Filter();
+    return filter.clean(textInput) //Don't be an ******
+  }
+
+  const sanitizedPost = sanitizeMarkdown(post.html);
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -52,7 +60,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             ))}
           </div>
           <div className="margin-5-b lato">
-            <section dangerouslySetInnerHTML={{ __html: post.html }} />
+            <section dangerouslySetInnerHTML={{ __html: sanitizedPost }} />
           </div>
           <RantWorthy location={location} />
           <ArticleShareOptions
