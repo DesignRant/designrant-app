@@ -44,8 +44,13 @@ const Layout = ({ children, showAuthors }) => {
               <div className="margin-1-lr">{children}</div>
               {showAuthors && (
                 <footer className="is-black text-align-center margin-5-t">
+                  <p>
                   We're not usually this negative. Why not{" "}
                   <Link to="/authors">meet the authors</Link>?
+                  </p>
+                  <p style={{opacity: '70%'}}>
+                    <Link to="/legal">Legal</Link>
+                  </p>
                 </footer>
               )}
             </main>
