@@ -1,0 +1,40 @@
+.interactions-link {
+  max-height: 75px;
+  align-items: center;
+}
+
+.social {
+  max-height: 75px;
+  height: 75px;
+  width: 75px;
+  margin-right: 10px;
+}
+
+.large-number {
+  font-size: 1.2 * 1em;
+  font-weight: bolder;
+}
+
+.align-interactions-vertical {
+  display: flex;
+  align-items: center;
+}
+
+.top-rants {
+  border: unset;
+}
+
+@media only screen and (max-width: 700px) {
+  .interactions-link > h3 {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .top-rants {
+    flex-direction: column;
+    border-bottom: black solid 2px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+}

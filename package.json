@@ -45,6 +45,7 @@
     "react-helmet": "^6.1.0",
     "react-lottie": "^1.2.3",
     "react-share": "^4.2.0",
+    "react-tooltip": "^4.2.7",
     "string-similarity": "^4.0.1",
     "use-dark-mode": "^2.3.1"
   },

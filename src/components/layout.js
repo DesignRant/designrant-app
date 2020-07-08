@@ -2,6 +2,7 @@ import React from "react"
 import { Helmet } from "react-helmet"
 import { Link } from "gatsby"
 import CookieConsent from "react-cookie-consent"
+import ReactTooltip from "react-tooltip"
 import Header from "./Header"
 
 const Layout = ({ children, showAuthors }) => {
@@ -32,6 +33,10 @@ const Layout = ({ children, showAuthors }) => {
           avoid ending up on a site like this one.
         </h4>
       </CookieConsent>
+      <ReactTooltip
+        className="info-tooltip"
+        className="is-black-bg is-white lato"
+      />
       <body>
         <div className="container margin-10-tb ">
           <div className="row">
