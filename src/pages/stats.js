@@ -293,7 +293,7 @@ function Stats({ user }) {
               </a>
             </div>
           </div>
-          <div className="flex margin-1-t">
+          <div className="flex margin-1-t margin-8-b">
             <div
               className="is-yellow-bg-always"
               style={{
@@ -325,7 +325,7 @@ function Stats({ user }) {
               </a>
             </div>
           </div>
-          <div className="flex margin-1-t">
+          <div className="flex margin-1-t margin-8-b">
             <div
               className="is-yellow-bg-always"
               style={{
@@ -357,7 +357,7 @@ function Stats({ user }) {
               </a>
             </div>
           </div>
-          <div className="flex margin-1-t">
+          <div className="flex margin-1-t margin-8-b">
             <div
               className="is-yellow-bg-always"
               style={{
