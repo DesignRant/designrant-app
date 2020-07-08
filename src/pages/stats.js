@@ -24,6 +24,7 @@ function Stats({ user }) {
   const approval = {
     title: `What's wrong with WhatsApp's "Delete for Everyone" feature`,
     author: "Yannis",
+    link: "https://designrant.app", // Will be link to post
     downVotePercentage: 2,
     upVotePercentage: 98,
     downVotes: 1,
@@ -32,6 +33,7 @@ function Stats({ user }) {
   const contested = {
     title: "What is DesignRant?",
     author: "Samuel Larsen Disney",
+    link: "https://designrant.app", // Will be link to post
     downVotePercentage: 50,
     upVotePercentage: 50,
     downVotes: 16,
@@ -40,6 +42,7 @@ function Stats({ user }) {
   const controversial = {
     title: "Cookies Everywhere",
     author: "Ryan Gregory",
+    link: "https://designrant.app", // Will be link to post
     downVotePercentage: 87,
     upVotePercentage: 13,
     downVotes: 7,
@@ -48,6 +51,7 @@ function Stats({ user }) {
   const mjolnir = {
     title: `What's wrong with WhatsApp's "Delete for Everyone" feature`,
     author: "Yannis",
+    link: "https://designrant.app", // Will be link to post
     downVotePercentage: 2,
     upVotePercentage: 98,
     downVotes: 1,
@@ -280,6 +284,15 @@ function Stats({ user }) {
         <div className="col-xs-12 margin-2-b is-white-bg pad-3">
           <h1>Rant Awards</h1>
           <h3>Universal Approval - (Highest voted)</h3>
+          <div className="row">
+            <div className="col-xs-12 pad-0">
+              <a href={approval.link} target="_blank" rel="noreferrer">
+                <h4 className="margin-0">
+                  {approval.title} - {approval.author}
+                </h4>
+              </a>
+            </div>
+          </div>
           <div className="flex margin-1-t">
             <div
               className="is-yellow-bg-always"
@@ -303,6 +316,15 @@ function Stats({ user }) {
             />
           </div>
           <h3>Heaviest Contested - (Closest to 50% with more than 10 votes)</h3>
+          <div className="row">
+            <div className="col-xs-12 pad-0">
+              <a href={contested.link} target="_blank" rel="noreferrer">
+                <h4 className="margin-0">
+                  {contested.title} - {contested.author}
+                </h4>
+              </a>
+            </div>
+          </div>
           <div className="flex margin-1-t">
             <div
               className="is-yellow-bg-always"
@@ -326,6 +348,15 @@ function Stats({ user }) {
             />
           </div>
           <h3>Most Controversial - (Lowest ranking)</h3>
+          <div className="row">
+            <div className="col-xs-12 pad-0">
+              <a href={controversial.link} target="_blank" rel="noreferrer">
+                <h4 className="margin-0">
+                  {controversial.title} - {controversial.author}
+                </h4>
+              </a>
+            </div>
+          </div>
           <div className="flex margin-1-t">
             <div
               className="is-yellow-bg-always"
@@ -349,6 +380,15 @@ function Stats({ user }) {
             />
           </div>
           <h3>Mjolnir - (The week's most worthy)</h3>
+          <div className="row">
+            <div className="col-xs-12 pad-0">
+              <a href={mjolnir.link} target="_blank" rel="noreferrer">
+                <h4 className="margin-0">
+                  {mjolnir.title} - {mjolnir.author}
+                </h4>
+              </a>
+            </div>
+          </div>
           <div className="flex margin-1-t">
             <div
               className="is-yellow-bg-always"
