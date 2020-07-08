@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { graphql } from "gatsby";
 import addToMailchimp from "gatsby-plugin-mailchimp"
 // import useDarkMode from "use-dark-mode"
 import SEO from "../components/seo"
