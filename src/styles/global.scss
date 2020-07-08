@@ -9,6 +9,8 @@
 
 //files;
 @import './layout';
+@import './nav';
+@import './article';
 @import './colors';
 @import './inputs';
 @import './opacity';
@@ -159,3 +161,4 @@ a:hover {
   -webkit-font-variant-ligatures: discretionary-ligatures;
   font-variant-ligatures: discretionary-ligatures;
 }
+

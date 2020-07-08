@@ -59,9 +59,11 @@ module.exports = {
           {
             resolve: `gatsby-remark-images`,
             options: {
-              maxWidth: 590,
+              maxWidth: 390,
+              linkImagesToOriginal: false,
             },
           },
+          `gatsby-remark-images-medium-zoom`,
           {
             resolve: `gatsby-remark-responsive-iframe`,
             options: {
