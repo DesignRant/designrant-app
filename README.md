@@ -3,6 +3,7 @@
 </div>
 
  <img alt="build-status" src="https://designrant.semaphoreci.com/badges/designrant-app.svg" />
+ 
 
 # 👋 Welcome to DesignRant's Repository
 

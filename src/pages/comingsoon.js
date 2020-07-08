@@ -1,12 +1,12 @@
 import React, { useState } from "react"
 import addToMailchimp from "gatsby-plugin-mailchimp"
-import useDarkMode from "use-dark-mode"
+// import useDarkMode from "use-dark-mode"
 import SEO from "../components/seo"
 import Logo from "../../content/assets/icon.svg"
 import LogoDark from "../../content/assets/icon-dark.svg"
 
 const ComingSoon = ({ data }) => {
-  const darkMode = useDarkMode(false)
+  // const darkMode = useDarkMode(false)
   const [email, setEmail] = useState("")
   const [submitted, setSubmitted] = useState(false)
   const handleSubmit = () => {
@@ -15,23 +15,22 @@ const ComingSoon = ({ data }) => {
     })
   }
   const siteIntro = data.markdownRemark.html
-
+  if (typeof document !== "undefined") {
+    document.body.style.backgroundColor = "white"
+  }
   return (
-    <div className="is-black">
+    <div className="is-black-always" style={{ minHeight: "86vh" }}>
       <SEO title="Coming Soon" />
       <div
         className="margin-10-tb pad-3-lr"
         style={{ maxWidth: 800, margin: "auto" }}
       >
-        <img
-          src={darkMode.value ? LogoDark : Logo}
-          className="logo-small margin-2-b"
-        />
+        <img src={Logo} className="logo-small margin-2-b" />
         <div dangerouslySetInnerHTML={{ __html: siteIntro }}></div>
 
         {submitted ? (
           <div className="row pad-4-tb pad-4-lr border-radius is-white-bg">
-            <div className="col-xs-12 flex align-vertical is-black pad-0">
+            <div className="col-xs-12 flex align-vertical is-black-always  pad-0">
               <h3 className="margin-1-tb">
                 ✅ Awesome, you're all signed up!{" "}
               </h3>
@@ -49,7 +48,7 @@ const ComingSoon = ({ data }) => {
                 name="email"
                 label="email-input"
                 placeholder="Enter your email"
-                className="input pad-3-tb "
+                className="input-special pad-3-tb "
                 onChange={e => setEmail(e.target.value)}
               />
             </div>

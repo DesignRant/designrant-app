@@ -15,3 +15,22 @@
   outline: none;
   @extend .is-black-border;
 }
+
+
+.input-special {
+  font-family: Lato;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  @extend .is-light-grey-border;
+  @extend .is-white-bg-always;
+  @extend .is-black-always;
+  border: 2px solid;
+  border-radius: 4px;
+  font-size: medium;
+  width: 100%;
+}
+.input:focus {
+  outline: none;
+  @extend .is-black-border-always;
+}
