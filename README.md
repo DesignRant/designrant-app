@@ -2,6 +2,8 @@
   <img alt="Logo" src="https://ik.imagekit.io/sld/cover_odI2P6tOsR.png" width="1000"/>
 </div>
 
+ <img alt="build-status" src="https://designrant.semaphoreci.com/badges/designrant-app.svg" />
+
 # 👋 Welcome to DesignRant's Repository
 
 #### [You can see it live @ DesignRant.app ](https://designrant.app/)
