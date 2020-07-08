@@ -8,17 +8,17 @@ import ArticleShareOptions from "../components/Article/ArticleShareOptions"
 import RantWorthy from "../components/Article/RantWorthy"
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
-  const post = data.markdownRemark;
-  const siteTitle = data.site.siteMetadata.title;
-  const { previous, next } = pageContext;
+  const post = data.markdownRemark
+  const siteTitle = data.site.siteMetadata.title
+  const { previous, next } = pageContext
 
   function sanitizeMarkdown(textInput) {
-    var Filter = require('bad-words'),
-    filter = new Filter();
+    var Filter = require("bad-words"),
+      filter = new Filter()
     return filter.clean(textInput) //Don't be an ******
   }
 
-  const sanitizedPost = sanitizeMarkdown(post.html);
+  const sanitizedPost = sanitizeMarkdown(post.html)
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -49,18 +49,17 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           <div className="flex align-horizontal margin-2-t">
             {post.frontmatter.tags.map((item, index) => (
               <Link to={`/tags/${_.kebabCase(item)}`}>
-                <p
-                  className={`tag-primary ${
-                    index !== 0 ? "margin-1-l" : ""
-                  }`}
-                >
+                <p className={`tag-primary ${index !== 0 ? "margin-1-l" : ""}`}>
                   {item}
                 </p>
               </Link>
             ))}
           </div>
           <div className="margin-5-b lato">
-            <section dangerouslySetInnerHTML={{ __html: sanitizedPost }} />
+            <section
+              className="article"
+              dangerouslySetInnerHTML={{ __html: sanitizedPost }}
+            />
           </div>
           <RantWorthy location={location} />
           <ArticleShareOptions
