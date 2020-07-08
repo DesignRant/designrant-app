@@ -279,7 +279,7 @@ function Stats({ user }) {
         </div>
         <div className="col-xs-12 margin-2-b is-white-bg pad-3">
           <h1>Rant Awards</h1>
-          <h3>Universal Approval - (Highest Voted)</h3>
+          <h3>Universal Approval - (Highest voted)</h3>
           <div className="flex margin-1-t">
             <div
               className="is-yellow-bg-always"
