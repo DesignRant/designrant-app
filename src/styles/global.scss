@@ -22,6 +22,7 @@
 @import './animista.scss';
 @import './social.scss';
 @import './tags.scss';
+@import './stats.scss';
 
 @for $i from 1 through 6 {
   h#{7 - $i} {
