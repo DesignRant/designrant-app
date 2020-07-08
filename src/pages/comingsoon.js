@@ -1,12 +1,12 @@
 import React, { useState } from "react"
 import addToMailchimp from "gatsby-plugin-mailchimp"
-import useDarkMode from "use-dark-mode"
+// import useDarkMode from "use-dark-mode"
 import SEO from "../components/seo"
 import Logo from "../../content/assets/icon.svg"
 import LogoDark from "../../content/assets/icon-dark.svg"
 
 const ComingSoon = ({ data }) => {
-  const darkMode = useDarkMode(false)
+  // const darkMode = useDarkMode(false)
   const [email, setEmail] = useState("")
   const [submitted, setSubmitted] = useState(false)
   const handleSubmit = () => {
@@ -23,10 +23,7 @@ const ComingSoon = ({ data }) => {
         className="margin-10-tb pad-3-lr"
         style={{ maxWidth: 800, margin: "auto" }}
       >
-        <img
-          src={darkMode.value ? LogoDark : Logo}
-          className="logo-small margin-2-b"
-        />
+        <img src={Logo} className="logo-small margin-2-b" />
         <div dangerouslySetInnerHTML={{ __html: siteIntro }}></div>
 
         {submitted ? (
