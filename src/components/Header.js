@@ -7,14 +7,14 @@ import useDarkMode from "use-dark-mode"
 export default () => {
   const darkMode = useDarkMode(false)
   return (
-    <div className="row">
+    <div className="row icon-container">
       <div className="col-xs-4 pad-0 col-sm-2 col-md-12">
         <Link to="/">
           <img src={darkMode.value ? LogoDark : Logo} className="grow logo" />
         </Link>
       </div>
       <div className="col-xs-8 col-sm-10 col-md-12 nav-buttons">
-        <div>
+        <div className="icon-container">
           <div className="is-black flex margin-1-t justify-space-between">
             <button type="button" className="grow">
               <h2
