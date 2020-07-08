@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders correctly 1`] = `
+<div
+  className="row icon-container"
+>
+  <div
+    className="col-xs-4 pad-0 col-sm-2 col-md-12"
+  >
+    <a
+      href="/"
+    >
+      <img
+        className="grow logo"
+        src="test-file-stub"
+      />
+    </a>
+  </div>
+  <div
+    className="col-xs-8 col-sm-10 col-md-12 nav-buttons"
+  >
+    <div
+      className="icon-container"
+    >
+      <div
+        className="is-black flex margin-1-t justify-space-between"
+      >
+        <button
+          className="grow"
+          type="button"
+        >
+          <h2
+            className="las la-adjust link margin-0 nav-icon rotate-icon  rotate-light"
+            onClick={[Function]}
+          />
+        </button>
+        <button
+          type="button"
+        >
+          <a
+            href="/about"
+          >
+            <h2
+              className="las la-info-circle link margin-0 nav-icon"
+            />
+          </a>
+        </button>
+        <button
+          type="button"
+        >
+          <a
+            href="/search"
+          >
+            <h2
+              className="las la-search link margin-0 nav-icon"
+            />
+          </a>
+        </button>
+      </div>
+      <div
+        className="is-black flex margin-1-t justify-space-between"
+      >
+        <button
+          type="button"
+        >
+          <a
+            href="/suggest"
+          >
+            <h2
+              className="las la-plus link margin-0 nav-icon"
+            />
+          </a>
+        </button>
+        <button
+          type="button"
+        >
+          <a
+            href="https://write.designrant.app"
+          >
+            <h2
+              className="las la-feather link margin-0 nav-icon"
+            />
+          </a>
+        </button>
+        <button
+          type="button"
+        >
+          <a
+            href="/stats"
+          >
+            <h2
+              className="las la-chart-bar link margin-0 nav-icon"
+            />
+          </a>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
