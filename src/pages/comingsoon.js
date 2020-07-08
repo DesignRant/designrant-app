@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import addToMailchimp from "gatsby-plugin-mailchimp"
 // import useDarkMode from "use-dark-mode"
 import SEO from "../components/seo"
-import Logo from "../../content/assets/icon.svg"
+import Logo from "../../content/assets/icon-blue.svg"
 import LogoDark from "../../content/assets/icon-dark.svg"
 
 const ComingSoon = ({ data }) => {
