@@ -23,7 +23,7 @@ Anyone else claiming to be associated with DesignRant or using our reputation fo
 
 <!-- add all the official contact details for developers + official design rant accounts here -->
 
-Twitter: @samtwitter, @yannistwitter, @ryantwitter and @designranttwitter
+Twitter: @samtwitter, @yannistwitter, @ryantwitter and @DesignRantApp
 <!-- other social inks go here as well -->
 
 We do not use other accounts and do not use other aliases on these social networks. For the purposes of reducing occurrences of this, an up to date list of all accounts associated with DesignRant.app wil be kept here.

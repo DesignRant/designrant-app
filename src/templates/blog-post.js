@@ -24,7 +24,12 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
     <Layout location={location} title={siteTitle}>
       <SEO
         title={post.frontmatter.title}
+        location={location}
         description={post.frontmatter.description || post.excerpt}
+        image={
+          "https://designrant.app" +
+          post.frontmatter.hero.childImageSharp.fluid.src
+        }
       />
 
       <div className="is-white-bg">

@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { graphql } from "gatsby";
+import { graphql } from "gatsby"
 import addToMailchimp from "gatsby-plugin-mailchimp"
 // import useDarkMode from "use-dark-mode"
 import SEO from "../components/seo"
@@ -30,8 +30,8 @@ const ComingSoon = ({ data }) => {
         <div dangerouslySetInnerHTML={{ __html: siteIntro }}></div>
 
         {submitted ? (
-          <div className="row pad-4-tb pad-4-lr border-radius is-white-bg">
-            <div className="col-xs-12 flex align-vertical is-black-always  pad-0">
+          <div className="row pad-4-tb pad-4-lr border-radius is-white-bg is-black">
+            <div className="col-xs-12 flex align-vertical pad-0">
               <h3 className="margin-1-tb">
                 ✅ Awesome, you're all signed up!{" "}
               </h3>
