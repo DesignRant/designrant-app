@@ -20,7 +20,6 @@ const Suggest = ({ data, location }) => {
     typeof window !== "undefined" &&
       firebase.firestore().collection(`suggestions`)
   )
-  console.log(suggestions)
   const [submitted, setSubmitted] = useState()
   const siteTitle = data.site.siteMetadata.title
   const addSuggestion = () => {
