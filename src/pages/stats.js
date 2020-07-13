@@ -1,11 +1,44 @@
 import React from "react"
 import Layout from "../components/layout"
+import { graphql } from "gatsby"
+import Img from "gatsby-image"
+import { useCollectionOnce } from "react-firebase-hooks/firestore"
+import SEO from "../components/seo"
 
-import Coffee from "../../content/assets/coffee.png"
-import Twitter from "../../content/assets/twitter.svg"
-import Website from "../../content/assets/website.svg"
+let firebase
 
-function Stats({ user }) {
+const isProd = process.env.GATSBY_PRODUCTION
+
+if (typeof window !== "undefined" && isProd) {
+  firebase = require("firebase/app")
+  require("firebase/firestore")
+}
+
+export default ({ user, data }) => {
+  let posts = data.allMarkdownRemark.nodes.map(item => ({
+    url: item.fields.slug,
+    reactsID: item.fields.slug.split("/blog/")[1],
+    ...item.frontmatter,
+    author: item.frontmatter.author.id,
+  }))
+  const [reacts, loading, error] =
+    typeof window !== "undefined" && isProd
+      ? useCollectionOnce(firebase.firestore().collection(`reacts`))
+      : [0, true, false]
+  const totalWorthy = 0
+  const totalUnworthy = 0
+  if (!loading && !error) {
+    reacts.forEach(react => {
+      const { id } = react
+      const data = react.data()
+      // if data.worthy -> totalWothy += data.worthy
+      let postRef = posts.findIndex(item => item.reactsID === id)
+      if (postRef > -1) {
+        posts[postRef].reacts = data
+      }
+    })
+  }
+  console.log(posts)
   const rants = 4
   const authors = 3
   const words = 3439
@@ -109,9 +142,12 @@ function Stats({ user }) {
 
   return (
     <Layout>
+      <SEO title="Stats" />
       <div className="row">
         <div className="col-xs-12 margin-2-b is-white-bg pad-3">
-          <h1>The Numbers</h1>
+          <h1>
+            <i class="las la-glasses"></i> The Numbers
+          </h1>
           <h3>
             <span className="large-number">{addCommas(rants)}</span>
             {rants !== 1 ? <>{" rants have "}</> : <>{" rant has "}</>}
@@ -179,10 +215,12 @@ function Stats({ user }) {
           </h3>
         </div>
         <div className="col-xs-12 margin-2-b is-white-bg pad-3">
-          <h1>Spreading The Love</h1>
+          <h1>
+            <i class="las la-heart"></i> Spreading The Love
+          </h1>
           <h3>
             We love to see our authors getting the attention they deserve. Let's
-            see how our author's personal links have been interacted with.
+            see how many times our author's personal links have been visited.
           </h3>
           <div className="col-xs-12 pad-0">
             <div className="row">
@@ -190,29 +228,15 @@ function Stats({ user }) {
                 <h3>Link</h3>
               </div>
               <div className="col-xs-6">
-                <h3>Interactions</h3>
+                <h3>Visits</h3>
               </div>
             </div>
             {user.website && (
               <div className="row">
                 <div className="col-xs-6 pad-0">
-                  <a
-                    href={user.website}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="row interactions-link"
-                  >
-                    <div className="col-xs-3 pad-0 interactions-link">
-                      <img
-                        src={Website}
-                        className="social grow-lg"
-                        alt="coffee"
-                      />
-                    </div>
-                    <div className="col-xs-9 pad-2-l interactions-link">
-                      <h3>Personal Sites</h3>
-                    </div>
-                  </a>
+                  <h3>
+                    <i class="las la-globe"></i> Personal Site
+                  </h3>
                 </div>
                 <div className="col-xs-6 align-interactions-vertical">
                   <h3 className="large-number">{addCommas(websiteI)}</h3>
@@ -222,23 +246,9 @@ function Stats({ user }) {
             {user.twitter && (
               <div className="row">
                 <div className="col-xs-6 pad-0">
-                  <a
-                    href={`https://twitter.com/${user.twitter}/`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="row interactions-link"
-                  >
-                    <div className="col-xs-3 pad-0 interactions-link">
-                      <img
-                        src={Twitter}
-                        className="social grow-lg"
-                        alt="coffee"
-                      />
-                    </div>
-                    <div className="col-xs-9 pad-2-l interactions-link">
-                      <h3>Twitter Pages</h3>
-                    </div>
-                  </a>
+                  <h3>
+                    <i class="lab la-twitter"></i> Twitter
+                  </h3>
                 </div>
                 <div className="col-xs-6 align-interactions-vertical">
                   <h3 className="large-number">{addCommas(twitterI)}</h3>
@@ -248,28 +258,11 @@ function Stats({ user }) {
             {(user.kofi || user.buymeacoffee) && (
               <div className="row">
                 <div className="col-xs-6 pad-0">
-                  <a
-                    href={
-                      user.kofi
-                        ? `https://ko-fi.com/${user.kofi}/`
-                        : `https://www.buymeacoffee.com/${user.buymeacoffee}`
-                    }
-                    target="_blank"
-                    rel="noreferrer"
-                    className="row interactions-link"
-                  >
-                    <div className="col-xs-3 pad-0 interactions-link">
-                      <img
-                        src={Coffee}
-                        className="social grow-lg"
-                        alt="coffee"
-                      />
-                    </div>
-                    <div className="col-xs-9 pad-2-l interactions-link">
-                      <h3>Coffee Purchases</h3>
-                    </div>
-                  </a>
+                  <h3>
+                    <i class="las la-coffee"></i> Coffee
+                  </h3>
                 </div>
+
                 <div className="col-xs-6 align-interactions-vertical">
                   <h3 className="large-number">
                     {user.kofi ? addCommas(kofiI) : addCommas(buymeacoffeeI)}{" "}
@@ -280,7 +273,10 @@ function Stats({ user }) {
           </div>
         </div>
         <div className="col-xs-12 margin-2-b is-white-bg pad-3">
-          <h1>Rant Awards</h1>
+          <h1>
+            {" "}
+            <i class="las la-medal"></i> Rant Awards
+          </h1>
           <h3>Universal Approval - (Highest voted)</h3>
           <div className="row">
             <div className="col-xs-12 pad-0">
@@ -411,22 +407,34 @@ function Stats({ user }) {
           </div>
         </div>
         <div className="col-xs-12 margin-2-b is-white-bg pad-3">
-          <h1>Rants Of The Month</h1>
-          {orderedPosts.length > 0 &&
-            orderedPosts.map((post, index) => {
+          <h1>
+            <i class="las la-calendar"></i> Rants Of The Month
+          </h1>
+          {posts.length > 0 &&
+            posts.map((post, index) => {
               if (index > 4) return
               else
                 return (
-                  <a href={post.link} target="_blank" rel="noreferrer">
+                  <a href={post.url} target="_blank" rel="noreferrer">
                     <div
                       key={`post-${post.id}`}
                       className="row align-interactions-vertical top-rants is-black-border"
                     >
-                      <div className="col-xs-12 col-sm-2">
-                        <img src={post.hero} className="social" alt="hero" />
+                      <div className="col-xs-12 col-sm-2 ">
+                        <Img
+                          fluid={post.hero.childImageSharp.fluid}
+                          style={{
+                            width: "100%",
+                            minWidth: 100,
+                            minHeight: 50,
+                            objectFit: "cover",
+                          }}
+                        />
                       </div>
                       <div className="col-xs-12 col-sm-6">
-                        <h3 className="top-rants-title">{post.title}</h3>
+                        <h3 className="top-rants-title pad-1-l">
+                          {post.title}
+                        </h3>
                       </div>
                       <div className="col-xs-12 col-sm-2">
                         <h3 className="top-rants-rating">
@@ -448,4 +456,32 @@ function Stats({ user }) {
   )
 }
 
-export default Stats
+export const pageQuery = graphql`
+  {
+    allMarkdownRemark(filter: { frontmatter: { type: { eq: "Post" } } }) {
+      nodes {
+        fields {
+          slug
+        }
+        wordCount {
+          words
+        }
+        frontmatter {
+          type
+          title
+          author {
+            id
+          }
+          date
+          hero {
+            childImageSharp {
+              fluid(maxWidth: 100) {
+                ...GatsbyImageSharpFluid_noBase64
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`

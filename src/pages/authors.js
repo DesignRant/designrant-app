@@ -3,6 +3,7 @@ import { Link } from "gatsby"
 import Img from "gatsby-image"
 import { graphql } from "gatsby"
 import _ from "lodash"
+import { trackCustomEvent } from "gatsby-plugin-google-analytics"
 
 import Twitter from "../../content/assets/twitter.svg"
 import Layout from "../components/layout"
@@ -38,13 +39,21 @@ export default ({
                     className="margin-1-t"
                     style={{ position: "absolute", top: 15, right: 15 }}
                   >
-                    <a
-                      href={`https://twitter.com/${author.twitter}/`}
-                      target="_blank"
-                      className=""
+                    <button
+                      onClick={() => {
+                        trackCustomEvent({
+                          category: "AuthorLink",
+                          action: "Click",
+                          label: "twitter",
+                        })
+                        window.open(
+                          `https://twitter.com/${author.twitter}/`,
+                          "_blank"
+                        )
+                      }}
                     >
                       <img src={Twitter} className="twitter grow-lg" />
-                    </a>
+                    </button>
                   </div>
                 )}
                 <Link to={`/author/${_.kebabCase(author.id)}`}>

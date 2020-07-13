@@ -2,6 +2,7 @@
 import React from "react"
 import { graphql, Link } from "gatsby"
 import Img from "gatsby-image"
+import { trackCustomEvent } from "gatsby-plugin-google-analytics"
 
 import Twitter from "../../content/assets/twitter.svg"
 import Layout from "../components/layout"
@@ -39,13 +40,18 @@ export default ({
 
         {twitter && (
           <div className="margin-1-t">
-            <a
-              href={`https://twitter.com/${twitter}/`}
-              target="_blank"
-              rel="noreferrer"
+            <button
+              onClick={() => {
+                trackCustomEvent({
+                  category: "AuthorLink",
+                  action: "Click",
+                  label: "twitter",
+                })
+                window.open(`https://twitter.com/${twitter}/`, "_blank")
+              }}
             >
               <img src={Twitter} className="twitter grow-lg" alt="twitter" />
-            </a>
+            </button>
           </div>
         )}
       </div>
@@ -54,32 +60,43 @@ export default ({
       </div>
 
       {website && (
-        <a
-          href={website}
-          target="_blank"
-          rel="noreferrer"
+        <button
+          onClick={() => {
+            trackCustomEvent({
+              category: "AuthorLink",
+              action: "Click",
+              label: "website",
+            })
+            window.open(website, "_blank")
+          }}
           className="col-xs-12 col-md-6 margin-3-b"
         >
           <button className="bubble-button border-radius fill-width">
             Vist Site
           </button>
-        </a>
+        </button>
       )}
       {(kofi || buymeacoffee) && (
-        <a
-          href={
-            kofi
-              ? `https://ko-fi.com/${kofi}/`
-              : `https://www.buymeacoffee.com/${buymeacoffee}`
-          }
-          target="_blank"
-          rel="noreferrer"
+        <button
+          onClick={() => {
+            trackCustomEvent({
+              category: "AuthorLink",
+              action: "Click",
+              label: kofi ? "kofi" : "buymeacoffee",
+            })
+            window.open(
+              kofi
+                ? `https://ko-fi.com/${kofi}/`
+                : `https://www.buymeacoffee.com/${buymeacoffee}`,
+              "_blank"
+            )
+          }}
           className="col-xs-12 col-md-6 margin-3-b"
         >
           <button className="bubble-button border-radius fill-width">
             Buy Them A Coffee
           </button>
-        </a>
+        </button>
       )}
 
       <div className="col-xs-12">
