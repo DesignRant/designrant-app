@@ -15,115 +15,189 @@ if (typeof window !== "undefined" && isProd) {
 }
 
 export default ({ user, data }) => {
-  let posts = data.allMarkdownRemark.nodes.map(item => ({
-    url: item.fields.slug,
-    reactsID: item.fields.slug.split("/blog/")[1],
-    ...item.frontmatter,
-    author: item.frontmatter.author.id,
-  }))
+  // Starting values
+  let today = new Date().getDate()
+  let oneWeekAgo = new Date(new Date().setDate(today - 8)) // Set to 8 to include 7th day ago
+  let twoWeeksAgo = new Date(new Date().setDate(today - 15)) // Set to 15 to include 14th day ago
+  let totalWords = 0
+  let authorList = []
+  let totalWorthy = 0
+  let totalUnworthy = 0
+  let totalRank = 0
+  let postsTwoWeeks = 0
+  let authorsTwoWeeks = []
+  let highestVoted = 0
+  let lowestVoted = 100
+  let contestedDistanceFrom50 = 50
+  let highestVotedWeek = 0
+  let highestVotedIndex = 0
+  let lowestVotedIndex = 0
+  let contestedIndex = 0
+  let weekWorthyIndex = 0
+  let orderedPosts = []
+
+  // Get post data
+  let posts = data.allMarkdownRemark.nodes.map(item => {
+    totalWords += item.wordCount.words
+    authorList.push(item.frontmatter.author.id)
+    if (new Date(item.frontmatter.date) > twoWeeksAgo) {
+      postsTwoWeeks += 1
+      authorsTwoWeeks.push(item.frontmatter.author.id)
+    }
+    return {
+      url: item.fields.slug,
+      reactsID: item.fields.slug.split("/blog/")[1],
+      ...item.frontmatter,
+      author: item.frontmatter.author.id,
+      wordCount: item.wordCount.words,
+    }
+  })
+
   const [reacts, loading, error] =
     typeof window !== "undefined" && isProd
       ? useCollectionOnce(firebase.firestore().collection(`reacts`))
       : [0, true, false]
-  const totalWorthy = 0
-  const totalUnworthy = 0
+
+  // Get ranking data
   if (!loading && !error) {
     reacts.forEach(react => {
       const { id } = react
       const data = react.data()
-      // if data.worthy -> totalWothy += data.worthy
+      if (data.worthy) totalWorthy += data.worthy
+      if (data.unworthy) totalUnworthy += data.unworthy
+
+      // Overall ranking
+      let rank = 0
+      if (data.worthy) {
+        rank = data.unworthy
+          ? (data.worthy / (data.worthy + data.unworthy)) * 100
+          : 100
+      }
+      totalRank += rank
+
       let postRef = posts.findIndex(item => item.reactsID === id)
       if (postRef > -1) {
-        posts[postRef].reacts = data
+        posts[postRef].reacts = {
+          ...data,
+          rank: Math.round(rank),
+        }
       }
+
+      // Ranking for the month
+      let monthWorthys = 0
+      let monthUnworthys = 0
+      let rankDates = Object.keys(posts[postRef].reacts.byDay)
+      rankDates.forEach(date => {
+        // Check if ranked in current month
+        if (
+          new Date(date).getMonth === new Date().getMonth &&
+          new Date(date).getFullYear === new Date().getFullYear
+        ) {
+          if (posts[postRef].reacts.byDay[date].worthy)
+            monthWorthys += posts[postRef].reacts.byDay[date].worthy
+          if (posts[postRef].reacts.byDay[date].unworthy)
+            monthUnworthys += posts[postRef].reacts.byDay[date].unworthy
+        }
+      })
+      if (postRef > -1) {
+        posts[postRef].reacts = {
+          ...posts[postRef].reacts,
+          monthRank: Math.round(
+            (monthWorthys / (monthWorthys + monthUnworthys)) * 100
+          ),
+        }
+      }
+
+      // Universal Approval
+      if (rank > highestVoted) {
+        highestVoted = rank
+        highestVotedIndex = postRef
+      }
+      if (rank === highestVoted) {
+        // If equal ranking but older then has held longer and is better
+        if (posts[postRef].date < posts[highestVotedIndex.date])
+          highestVotedIndex = postRef
+      }
+
+      // Most Controversial
+      if (rank < lowestVoted) {
+        lowestVoted = rank
+        lowestVotedIndex = postRef
+      }
+      if (rank === lowestVoted) {
+        // If equal ranking but older then has held longer and is worse
+        if (posts[postRef].date < posts[highestVotedIndex.date])
+          lowestVotedIndex = postRef
+      }
+
+      // Heaviest Contested
+      if (Math.abs(rank - 50) < contestedDistanceFrom50) {
+        contestedDistanceFrom50 = Math.abs(rank - 50)
+        contestedIndex = postRef
+      }
+      let totalNew = 0
+      let totalOld = 0
+      // If equal ranking then see which has most votes
+      if (Math.abs(rank - 50) === contestedDistanceFrom50) {
+        if (data.worthy) totalNew += data.worthy
+        if (data.unworthy) totalNew += data.unworthy
+        if (posts[contestedIndex].worthy)
+          totalOld += posts[contestedIndex].worthy
+        if (posts[contestedIndex].unworthy)
+          totalOld += posts[contestedIndex].unworthy
+        if (totalNew > totalOld) {
+          contestedIndex = postRef
+        }
+      }
+
+      // Mjolnir
+      if (
+        rank > highestVotedWeek &&
+        new Date(posts[postRef].date) > oneWeekAgo
+      ) {
+        highestVotedWeek = rank
+        weekWorthyIndex = postRef
+      }
+      if (
+        rank === highestVotedWeek &&
+        new Date(posts[postRef].date) > oneWeekAgo
+      ) {
+        // If equal ranking but older then has held longer and is better
+        if (posts[postRef].date < posts[weekWorthyIndex.date])
+          weekWorthyIndex = postRef
+      }
+    })
+
+    // Order posts by rank
+    orderedPosts = [...posts].sort((a, b) => {
+      return a.reacts.monthRank > b.reacts.monthRank
+        ? -1
+        : b.reacts.monthRank > a.reacts.monthRank
+        ? 1
+        : 0
     })
   }
   console.log(posts)
-  const rants = 4
-  const authors = 3
-  const words = 3439
+
+  const rants = posts.length
+  const authors = [...new Set(authorList)].length
+  const words = totalWords
   const totalViews = 178
   const mostTotalViews = 56
   const mostUniqueViewers = 22
-  const votes = 59
-  const upVotePercentage = 74
-  const averagePercentage = 70
-  const twoWeeksRants = 4
-  const twoWeeksAuthorsContributed = 3
+  const votes = totalWorthy + totalUnworthy
+  const upVotePercentage = Math.round((totalWorthy / votes) * 100)
+  const averagePercentage = Math.round(totalRank / rants)
+  const twoWeeksRants = postsTwoWeeks
+  const twoWeeksAuthorsContributed = [...new Set(authorsTwoWeeks)].length
   const twitterI = 123
   const websiteI = 13
   const kofiI = 7
   const buymeacoffeeI = 2
-  const approval = {
-    title: `What's wrong with WhatsApp's "Delete for Everyone" feature`,
-    author: "Yannis",
-    link: "https://designrant.app", // Will be link to post
-    downVotePercentage: 2,
-    upVotePercentage: 98,
-    downVotes: 1,
-    upVotes: 49,
-  }
-  const contested = {
-    title: "What is DesignRant?",
-    author: "Samuel Larsen Disney",
-    link: "https://designrant.app", // Will be link to post
-    downVotePercentage: 50,
-    upVotePercentage: 50,
-    downVotes: 16,
-    upVotes: 16,
-  }
-  const controversial = {
-    title: "Cookies Everywhere",
-    author: "Ryan Gregory",
-    link: "https://designrant.app", // Will be link to post
-    downVotePercentage: 87,
-    upVotePercentage: 13,
-    downVotes: 7,
-    upVotes: 1,
-  }
-  const mjolnir = {
-    title: `What's wrong with WhatsApp's "Delete for Everyone" feature`,
-    author: "Yannis",
-    link: "https://designrant.app", // Will be link to post
-    downVotePercentage: 2,
-    upVotePercentage: 98,
-    downVotes: 1,
-    upVotes: 49,
-  }
-  const topRantsMonth = [
-    {
-      id: "afsdfvdfv",
-      title: "My very first post",
-      hero:
-        "https://designrant.app/static/icon-4b2d12b45903abdca2ee7c635f626597.svg", // will just be a link to posts hero
-      rating: 75,
-      link: "https://designrant.app", // Will be link to post
-    },
-    {
-      id: "afsdfvdfsdsdvv",
-      title: "What is DesignRant?",
-      hero:
-        "https://designrant.app/static/icon-4b2d12b45903abdca2ee7c635f626597.svg", // will just be a link to posts hero
-      rating: 50,
-      link: "https://designrant.app",
-    },
-    {
-      id: "afsdfvdfvasdaskc",
-      title: `What's wrong with WhatsApp's "Delete for Everyone" feature`,
-      hero:
-        "https://designrant.app/static/icon-4b2d12b45903abdca2ee7c635f626597.svg", // will just be a link to posts hero
-      rating: 98,
-      link: "https://designrant.app",
-    },
-    {
-      id: "afs231313dfvdfv",
-      title: "Cookies Everywhere",
-      hero:
-        "https://designrant.app/static/icon-4b2d12b45903abdca2ee7c635f626597.svg", // will just be a link to posts hero
-      rating: 13,
-      link: "https://designrant.app",
-    },
-  ]
+  const approval = posts[highestVotedIndex]
+  const contested = posts[contestedIndex]
+  const controversial = posts[lowestVotedIndex]
+  const mjolnir = posts[weekWorthyIndex]
   user = {
     ...user,
     twitter: "SamLarsenDisney",
@@ -131,10 +205,6 @@ export default ({ user, data }) => {
     kofi: "sldcodes",
     buymeacoffee: "yannis",
   }
-
-  let orderedPosts = topRantsMonth.sort((a, b) =>
-    a.rating > b.rating ? -1 : b.rating > a.rating ? 1 : 0
-  )
 
   const addCommas = value => {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -161,38 +231,40 @@ export default ({ user, data }) => {
               <>{" unique author. "}</>
             )}
           </h3>
-          <h3>
-            Rants have been viewed{" "}
-            {totalViews !== 1 ? (
-              <>
-                <span className="large-number">{addCommas(totalViews)}</span>{" "}
-                {"times, "}
-              </>
-            ) : (
-              <> {"once, "}</>
-            )}
-            with the most popular rant being viewed{" "}
-            {mostTotalViews !== 1 ? (
-              <>
-                <span className="large-number">
-                  {addCommas(mostTotalViews)}
-                </span>{" "}
-                {"times by "}
-              </>
-            ) : (
-              <> {"once by "}</>
-            )}
-            {mostUniqueViewers !== 1 ? (
-              <>
-                <span className="large-number">
-                  {addCommas(mostUniqueViewers)}
-                </span>{" "}
-                {" different people."}
-              </>
-            ) : (
-              <> {" 1 person."}</>
-            )}
-          </h3>
+          {process.env.GOOGLE_ANALYTICS_IS_LIVE && (
+            <h3>
+              Rants have been viewed{" "}
+              {totalViews !== 1 ? (
+                <>
+                  <span className="large-number">{addCommas(totalViews)}</span>{" "}
+                  {"times, "}
+                </>
+              ) : (
+                <> {"once, "}</>
+              )}
+              with the most popular rant being viewed{" "}
+              {mostTotalViews !== 1 ? (
+                <>
+                  <span className="large-number">
+                    {addCommas(mostTotalViews)}
+                  </span>{" "}
+                  {"times by "}
+                </>
+              ) : (
+                <> {"once by "}</>
+              )}
+              {mostUniqueViewers !== 1 ? (
+                <>
+                  <span className="large-number">
+                    {addCommas(mostUniqueViewers)}
+                  </span>{" "}
+                  {" different people."}
+                </>
+              ) : (
+                <> {" 1 person."}</>
+              )}
+            </h3>
+          )}
           <h3>
             <span className="large-number">{addCommas(votes)}</span>
             {rants !== 1 ? <>{" votes have "}</> : <>{" vote has "}</>}
@@ -222,219 +294,251 @@ export default ({ user, data }) => {
             We love to see our authors getting the attention they deserve. Let's
             see how many times our author's personal links have been visited.
           </h3>
-          <div className="col-xs-12 pad-0">
+          {process.env.GOOGLE_ANALYTICS_IS_LIVE ? (
+            <div className="col-xs-12 pad-0">
+              <div className="row">
+                <div className="col-xs-6 pad-0">
+                  <h3>Link</h3>
+                </div>
+                <div className="col-xs-6">
+                  <h3>Visits</h3>
+                </div>
+              </div>
+              {user.website && (
+                <div className="row">
+                  <div className="col-xs-6 pad-0">
+                    <h3>
+                      <i class="las la-globe"></i> Personal Site
+                    </h3>
+                  </div>
+                  <div className="col-xs-6 align-interactions-vertical">
+                    <h3 className="large-number">{addCommas(websiteI)}</h3>
+                  </div>
+                </div>
+              )}
+              {user.twitter && (
+                <div className="row">
+                  <div className="col-xs-6 pad-0">
+                    <h3>
+                      <i class="lab la-twitter"></i> Twitter
+                    </h3>
+                  </div>
+                  <div className="col-xs-6 align-interactions-vertical">
+                    <h3 className="large-number">{addCommas(twitterI)}</h3>
+                  </div>
+                </div>
+              )}
+              {(user.kofi || user.buymeacoffee) && (
+                <div className="row">
+                  <div className="col-xs-6 pad-0">
+                    <h3>
+                      <i class="las la-coffee"></i> Coffee
+                    </h3>
+                  </div>
+                  <div className="col-xs-6 align-interactions-vertical">
+                    <h3 className="large-number">
+                      {user.kofi ? addCommas(kofiI) : addCommas(buymeacoffeeI)}{" "}
+                    </h3>
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="col-xs-12 pad-0">
+              <p>
+                Oops, this bit isn't ready yet. We'll let you know these fun
+                stats shortly.
+              </p>
+            </div>
+          )}
+        </div>
+        {!loading && !error && (
+          <div className="col-xs-12 margin-2-b is-white-bg pad-3">
+            <h1>
+              {" "}
+              <i class="las la-medal"></i> Rant Awards
+            </h1>
+            <h3>Universal Approval - (Highest voted)</h3>
             <div className="row">
-              <div className="col-xs-6 pad-0">
-                <h3>Link</h3>
-              </div>
-              <div className="col-xs-6">
-                <h3>Visits</h3>
+              <div className="col-xs-12 pad-0">
+                <a href={approval.url} target="_blank" rel="noreferrer">
+                  <h4 className="margin-0">
+                    {approval.title} - {approval.author}
+                  </h4>
+                </a>
               </div>
             </div>
-            {user.website && (
-              <div className="row">
-                <div className="col-xs-6 pad-0">
-                  <h3>
-                    <i class="las la-globe"></i> Personal Site
-                  </h3>
-                </div>
-                <div className="col-xs-6 align-interactions-vertical">
-                  <h3 className="large-number">{addCommas(websiteI)}</h3>
-                </div>
+            <div className="flex margin-1-t margin-8-b">
+              <div
+                className="is-yellow-bg-always"
+                style={{
+                  width: `${100 - approval.reacts.rank}%`,
+                  height: 20,
+                  borderTopLeftRadius: 5,
+                  borderBottomLeftRadius: 5,
+                  borderTopRightRadius: !approval.reacts.worthy && 5,
+                  borderBottomRightRadius: !approval.reacts.worthy && 5,
+                }}
+                data-tip={`${100 - approval.reacts.rank}% - ${
+                  approval.reacts.unworthy
+                } Downvotes`}
+              />
+              <div
+                className="is-light-blue-bg-always"
+                style={{
+                  width: `${approval.reacts.rank}%`,
+                  height: 20,
+                  borderTopRightRadius: 5,
+                  borderBottomRightRadius: 5,
+                  borderTopLeftRadius: !approval.reacts.unworthy && 5,
+                  borderBottomLeftRadius: !approval.reacts.unworthy && 5,
+                }}
+                data-tip={`${approval.reacts.rank}% - ${approval.reacts.worthy} Upvotes`}
+              />
+            </div>
+            <h3>Heaviest Contested - (Closest to 50%)</h3>
+            <div className="row">
+              <div className="col-xs-12 pad-0">
+                <a href={contested.url} target="_blank" rel="noreferrer">
+                  <h4 className="margin-0">
+                    {contested.title} - {contested.author}
+                  </h4>
+                </a>
               </div>
-            )}
-            {user.twitter && (
-              <div className="row">
-                <div className="col-xs-6 pad-0">
-                  <h3>
-                    <i class="lab la-twitter"></i> Twitter
-                  </h3>
-                </div>
-                <div className="col-xs-6 align-interactions-vertical">
-                  <h3 className="large-number">{addCommas(twitterI)}</h3>
-                </div>
+            </div>
+            <div className="flex margin-1-t margin-8-b">
+              <div
+                className="is-yellow-bg-always"
+                style={{
+                  width: `${100 - contested.reacts.rank}%`,
+                  height: 20,
+                  borderTopLeftRadius: 5,
+                  borderBottomLeftRadius: 5,
+                  borderTopRightRadius: !contested.reacts.worthy && 5,
+                  borderBottomRightRadius: !contested.reacts.worthy && 5,
+                }}
+                data-tip={`${100 - contested.reacts.rank}% - ${
+                  contested.reacts.unworthy
+                } Downvotes`}
+              />
+              <div
+                className="is-light-blue-bg-always"
+                style={{
+                  width: `${contested.reacts.rank}%`,
+                  height: 20,
+                  borderTopRightRadius: 5,
+                  borderBottomRightRadius: 5,
+                  borderTopLeftRadius: !contested.reacts.unworthy && 5,
+                  borderBottomLeftRadius: !contested.reacts.unworthy && 5,
+                }}
+                data-tip={`${contested.reacts.rank}% - ${contested.reacts.worthy} Upvotes`}
+              />
+            </div>
+            <h3>Most Controversial - (Lowest ranking)</h3>
+            <div className="row">
+              <div className="col-xs-12 pad-0">
+                <a href={controversial.url} target="_blank" rel="noreferrer">
+                  <h4 className="margin-0">
+                    {controversial.title} - {controversial.author}
+                  </h4>
+                </a>
               </div>
-            )}
-            {(user.kofi || user.buymeacoffee) && (
-              <div className="row">
-                <div className="col-xs-6 pad-0">
-                  <h3>
-                    <i class="las la-coffee"></i> Coffee
-                  </h3>
-                </div>
-
-                <div className="col-xs-6 align-interactions-vertical">
-                  <h3 className="large-number">
-                    {user.kofi ? addCommas(kofiI) : addCommas(buymeacoffeeI)}{" "}
-                  </h3>
-                </div>
+            </div>
+            <div className="flex margin-1-t margin-8-b">
+              <div
+                className="is-yellow-bg-always"
+                style={{
+                  width: `${100 - controversial.reacts.rank}%`,
+                  height: 20,
+                  borderTopLeftRadius: 5,
+                  borderBottomLeftRadius: 5,
+                  borderTopRightRadius: !controversial.reacts.worthy && 5,
+                  borderBottomRightRadius: !controversial.reacts.worthy && 5,
+                }}
+                data-tip={`${100 - controversial.reacts.rank}% - ${
+                  controversial.reacts.unworthy
+                } Downvotes`}
+              />
+              <div
+                className="is-light-blue-bg-always"
+                style={{
+                  width: `${controversial.reacts.rank}%`,
+                  height: 20,
+                  borderTopRightRadius: 5,
+                  borderBottomRightRadius: 5,
+                  borderTopLeftRadius: !controversial.reacts.unworthy && 5,
+                  borderBottomLeftRadius: !controversial.reacts.unworthy && 5,
+                }}
+                data-tip={`${controversial.reacts.rank}% - ${controversial.reacts.worthy} Upvotes`}
+              />
+            </div>
+            <h3>Mjolnir - (The week's most worthy)</h3>
+            <div className="row">
+              <div className="col-xs-12 pad-0">
+                <a href={mjolnir.url} target="_blank" rel="noreferrer">
+                  <h4 className="margin-0">
+                    {mjolnir.title} - {mjolnir.author}
+                  </h4>
+                </a>
               </div>
-            )}
-          </div>
-        </div>
-        <div className="col-xs-12 margin-2-b is-white-bg pad-3">
-          <h1>
-            {" "}
-            <i class="las la-medal"></i> Rant Awards
-          </h1>
-          <h3>Universal Approval - (Highest voted)</h3>
-          <div className="row">
-            <div className="col-xs-12 pad-0">
-              <a href={approval.link} target="_blank" rel="noreferrer">
-                <h4 className="margin-0">
-                  {approval.title} - {approval.author}
-                </h4>
-              </a>
+            </div>
+            <div className="flex margin-1-t">
+              <div
+                className="is-yellow-bg-always"
+                style={{
+                  width: `${100 - mjolnir.reacts.rank}%`,
+                  height: 20,
+                  borderTopLeftRadius: 5,
+                  borderBottomLeftRadius: 5,
+                  borderTopRightRadius: !mjolnir.reacts.worthy && 5,
+                  borderBottomRightRadius: !mjolnir.reacts.worthy && 5,
+                }}
+                data-tip={`${100 - mjolnir.reacts.rank}% - ${
+                  mjolnir.reacts.unworthy
+                } Downvotes`}
+              />
+              <div
+                className="is-light-blue-bg-always"
+                style={{
+                  width: `${mjolnir.reacts.rank}%`,
+                  height: 20,
+                  borderTopRightRadius: 5,
+                  borderBottomRightRadius: 5,
+                  borderTopLeftRadius: !mjolnir.reacts.unworthy && 5,
+                  borderBottomLeftRadius: !mjolnir.reacts.unworthy && 5,
+                }}
+                data-tip={`${mjolnir.reacts.rank}% - ${mjolnir.reacts.worthy} Upvotes`}
+              />
             </div>
           </div>
-          <div className="flex margin-1-t margin-8-b">
-            <div
-              className="is-yellow-bg-always"
-              style={{
-                width: `${approval.downVotePercentage}%`,
-                height: 20,
-                borderTopLeftRadius: 5,
-                borderBottomLeftRadius: 5,
-              }}
-              data-tip={`${approval.downVotePercentage}% - ${approval.downVotes} Downvotes`}
-            />
-            <div
-              className="is-light-blue-bg-always"
-              style={{
-                width: `${approval.upVotePercentage}%`,
-                height: 20,
-                borderTopRightRadius: 5,
-                borderBottomRightRadius: 5,
-              }}
-              data-tip={`${approval.upVotePercentage}% - ${approval.upVotes} Upvotes`}
-            />
-          </div>
-          <h3>Heaviest Contested - (Closest to 50% with more than 10 votes)</h3>
-          <div className="row">
-            <div className="col-xs-12 pad-0">
-              <a href={contested.link} target="_blank" rel="noreferrer">
-                <h4 className="margin-0">
-                  {contested.title} - {contested.author}
-                </h4>
-              </a>
-            </div>
-          </div>
-          <div className="flex margin-1-t margin-8-b">
-            <div
-              className="is-yellow-bg-always"
-              style={{
-                width: `${contested.downVotePercentage}%`,
-                height: 20,
-                borderTopLeftRadius: 5,
-                borderBottomLeftRadius: 5,
-              }}
-              data-tip={`${contested.downVotePercentage}% - ${contested.downVotes} Downvotes`}
-            />
-            <div
-              className="is-light-blue-bg-always"
-              style={{
-                width: `${contested.upVotePercentage}%`,
-                height: 20,
-                borderTopRightRadius: 5,
-                borderBottomRightRadius: 5,
-              }}
-              data-tip={`${contested.upVotePercentage}% - ${contested.upVotes} Upvotes`}
-            />
-          </div>
-          <h3>Most Controversial - (Lowest ranking)</h3>
-          <div className="row">
-            <div className="col-xs-12 pad-0">
-              <a href={controversial.link} target="_blank" rel="noreferrer">
-                <h4 className="margin-0">
-                  {controversial.title} - {controversial.author}
-                </h4>
-              </a>
-            </div>
-          </div>
-          <div className="flex margin-1-t margin-8-b">
-            <div
-              className="is-yellow-bg-always"
-              style={{
-                width: `${controversial.downVotePercentage}%`,
-                height: 20,
-                borderTopLeftRadius: 5,
-                borderBottomLeftRadius: 5,
-              }}
-              data-tip={`${controversial.downVotePercentage}% - ${controversial.downVotes} Downvotes`}
-            />
-            <div
-              className="is-light-blue-bg-always"
-              style={{
-                width: `${controversial.upVotePercentage}%`,
-                height: 20,
-                borderTopRightRadius: 5,
-                borderBottomRightRadius: 5,
-              }}
-              data-tip={`${controversial.upVotePercentage}% - ${controversial.upVotes} Upvotes`}
-            />
-          </div>
-          <h3>Mjolnir - (The week's most worthy)</h3>
-          <div className="row">
-            <div className="col-xs-12 pad-0">
-              <a href={mjolnir.link} target="_blank" rel="noreferrer">
-                <h4 className="margin-0">
-                  {mjolnir.title} - {mjolnir.author}
-                </h4>
-              </a>
-            </div>
-          </div>
-          <div className="flex margin-1-t">
-            <div
-              className="is-yellow-bg-always"
-              style={{
-                width: `${mjolnir.downVotePercentage}%`,
-                height: 20,
-                borderTopLeftRadius: 5,
-                borderBottomLeftRadius: 5,
-              }}
-              data-tip={`${mjolnir.downVotePercentage}% - ${mjolnir.downVotes} Downvotes`}
-            />
-            <div
-              className="is-light-blue-bg-always"
-              style={{
-                width: `${mjolnir.upVotePercentage}%`,
-                height: 20,
-                borderTopRightRadius: 5,
-                borderBottomRightRadius: 5,
-              }}
-              data-tip={`${mjolnir.upVotePercentage}% - ${mjolnir.upVotes} Upvotes`}
-            />
-          </div>
-        </div>
+        )}
         <div className="col-xs-12 margin-2-b is-white-bg pad-3">
           <h1>
             <i class="las la-calendar"></i> Rants Of The Month
           </h1>
-          {posts.length > 0 &&
-            posts.map((post, index) => {
+          {orderedPosts.length > 0 &&
+            orderedPosts.map((post, index) => {
               if (index > 4) return
               else
                 return (
-                  <a href={post.url} target="_blank" rel="noreferrer">
+                  <a
+                    href={post.url}
+                    key={post.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <div
                       key={`post-${post.id}`}
                       className="row align-interactions-vertical top-rants is-black-border"
                     >
-                      <div className="col-xs-12 col-sm-2 ">
+                      <div className="col-xs-12 col-sm-2">
                         <Img
                           fluid={post.hero.childImageSharp.fluid}
-                          style={{
-                            width: "100%",
-                            minWidth: 100,
-                            minHeight: 50,
-                            objectFit: "cover",
-                          }}
+                          className="top-rants-image"
                         />
                       </div>
                       <div className="col-xs-12 col-sm-6">
-                        <h3 className="top-rants-title pad-1-l">
-                          {post.title}
-                        </h3>
+                        <h3 className="top-rants-title">{post.title}</h3>
                       </div>
                       <div className="col-xs-12 col-sm-2">
                         <h3 className="top-rants-rating">
@@ -443,7 +547,7 @@ export default ({ user, data }) => {
                       </div>
                       <div className="col-xs-12 col-sm-2">
                         <h3 className="top-rants-rating">
-                          {post.rating}% Rating
+                          {post.reacts.monthRank}% Rating
                         </h3>
                       </div>
                     </div>
