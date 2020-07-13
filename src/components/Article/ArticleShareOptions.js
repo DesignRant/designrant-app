@@ -21,7 +21,7 @@ export default ({ location, twitter, desc }) => {
           className="flex align-horizontal justify-space-between"
           style={{ margin: "auto", maxWidth: 300 }}
         >
-          {navigator.share && (
+          {typeof navigator !== undefined && navigator.share && (
             <button
               className="is-green-bg is-white-always margin-0 margin-2-r grow"
               style={{ height: 38, width: 38, borderRadius: "50%" }}
