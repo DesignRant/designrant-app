@@ -107,9 +107,9 @@ export default ({
         </h4>
         {postNodes.map(({ node: post }, idx) => (
           <div key={post.id}>
-            <a href={post.fields.slug}>
+            <Link to={post.fields.slug}>
               <p>{post.frontmatter.title}</p>
-            </a>
+            </Link>
           </div>
         ))}
       </div>

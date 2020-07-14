@@ -4,6 +4,7 @@ import { graphql } from "gatsby"
 import Img from "gatsby-image"
 import { useCollectionOnce } from "react-firebase-hooks/firestore"
 import SEO from "../components/seo"
+import CountUp from "react-countup"
 
 let firebase
 
@@ -219,12 +220,18 @@ export default ({ user, data }) => {
             <i class="las la-glasses"></i> The Numbers
           </h1>
           <h3>
-            <span className="large-number">{addCommas(rants)}</span>
+            <span className="large-number">
+              <CountUp end={rants} start={0} duration={0.5} />
+            </span>
             {rants !== 1 ? <>{" rants have "}</> : <>{" rant has "}</>}
             been written, totalling{" "}
-            <span className="large-number">{addCommas(words)}</span>
+            <span className="large-number">
+              <CountUp end={words} start={0} duration={0.5} />
+            </span>
             {authors !== 1 ? <>{" words from "}</> : <>{" word from "}</>}
-            <span className="large-number">{addCommas(authors)}</span>
+            <span className="large-number">
+              <CountUp end={authors} start={0} duration={0.5} />
+            </span>
             {authors !== 1 ? (
               <>{" unique authors. "}</>
             ) : (
@@ -286,15 +293,17 @@ export default ({ user, data }) => {
             contributed to the site.
           </h3>
         </div>
-        <div className="col-xs-12 margin-2-b is-white-bg pad-3">
-          <h1>
-            <i class="las la-heart"></i> Spreading The Love
-          </h1>
-          <h3>
-            We love to see our authors getting the attention they deserve. Let's
-            see how many times our author's personal links have been visited.
-          </h3>
-          {process.env.GOOGLE_ANALYTICS_IS_LIVE ? (
+        {process.env.GOOGLE_ANALYTICS_IS_LIVE ? (
+          <div className="col-xs-12 margin-2-b is-white-bg pad-3">
+            <h1>
+              <i class="las la-heart"></i> Spreading The Love
+            </h1>
+            <h3>
+              We love to see our authors getting the attention they deserve.
+              Let's see how many times our author's personal links have been
+              visited.
+            </h3>
+
             <div className="col-xs-12 pad-0">
               <div className="row">
                 <div className="col-xs-6 pad-0">
@@ -343,15 +352,10 @@ export default ({ user, data }) => {
                 </div>
               )}
             </div>
-          ) : (
-            <div className="col-xs-12 pad-0">
-              <p>
-                Oops, this bit isn't ready yet. We'll let you know these fun
-                stats shortly.
-              </p>
-            </div>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div></div>
+        )}
         {!loading && !error && (
           <div className="col-xs-12 margin-2-b is-white-bg pad-3">
             <h1>
@@ -538,16 +542,20 @@ export default ({ user, data }) => {
                         />
                       </div>
                       <div className="col-xs-12 col-sm-6">
-                        <h3 className="top-rants-title">{post.title}</h3>
-                      </div>
-                      <div className="col-xs-12 col-sm-2">
-                        <h3 className="top-rants-rating">
-                          {post.rating} Views
+                        <h3 className="top-rants-title margin-1-tb">
+                          {post.title}
                         </h3>
                       </div>
                       <div className="col-xs-12 col-sm-2">
-                        <h3 className="top-rants-rating">
-                          {post.reacts.monthRank}% Rating
+                        {process.env.GOOGLE_ANALYTICS_IS_LIVE && (
+                          <h3 className="top-rants-rating margin-0">
+                            {post.rating} Views
+                          </h3>
+                        )}
+                      </div>
+                      <div className="col-xs-12 col-sm-2">
+                        <h3 className="top-rants-rating margin-0">
+                          {post.reacts.monthRank}% Worthy
                         </h3>
                       </div>
                     </div>

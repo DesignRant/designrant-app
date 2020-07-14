@@ -27,12 +27,12 @@
 
 @media only screen and (max-width: 767px) {
   .top-rants {
-    flex-direction: column;
-    border-bottom: black solid 2px;
-    text-align: center;
+
+    border-bottom: #00000005 solid 2px;
+    
     margin-bottom: 10px;
   }
   .top-rants-image {
-    min-width: 60vw;
+    // min-width: 60vw;
   }
 }

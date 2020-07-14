@@ -78,9 +78,9 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   // Create blog posts and legal posts - can add other post types here too
-  posts.forEach(( post, index) => {
+  posts.forEach((post, index) => {
     const previous = index === posts.length - 1 ? null : posts[index + 1].node
-    const next = index === 0 ? null : posts[index - 1].node 
+    const next = index === 0 ? null : posts[index - 1].node
     createPage({
       path: post.node.fields.slug,
       component: blogPost,
@@ -88,18 +88,18 @@ exports.createPages = async ({ graphql, actions }) => {
         slug: post.node.fields.slug,
         previous,
         next,
-      }
+      },
     })
   })
 
-  legals.forEach((document) => {
+  legals.forEach(document => {
     createPage({
       path: document.node.fields.slug,
-      component: path.resolve("./src/templates/legalTemplate.js"),
+      component: legalPage,
       context: { slug: document.node.fields.slug },
     })
   })
-  
+
   // Create Tags pages
   // pulled directly from https://www.gatsbyjs.org/docs/adding-tags-and-categories-to-blog-posts/#add-tags-to-your-markdown-files
   let tags = []
@@ -163,15 +163,25 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       value: node.frontmatter.author,
     })
   }
-  
+
   if (
-    node.internal.type === `MarkdownRemark` && 
+    node.internal.type === `MarkdownRemark` &&
     node.frontmatter.type === "Legal"
   ) {
     createNodeField({
       node,
       name: `slug`,
-      value: "legal/" + _.kebabCase(node.frontmatter.title)
+      value: "legal/" + _.kebabCase(node.frontmatter.title),
     })
   }
+}
+
+const fs = require("fs")
+
+exports.onPostBuild = () => {
+  fs.copyFile(`./firebase.json`, `./public/firebase.json`, err => {
+    if (err) {
+      throw err
+    }
+  })
 }

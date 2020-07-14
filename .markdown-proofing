@@ -1,0 +1,16 @@
+{
+  "presets": [],
+  "analyzers": [
+    "sensitivity",
+    "spelling",
+    "statistics",
+    "write-good"
+  ],
+  "rules": {
+    "sensitivity": "warning",
+    "spelling-error": "warning",
+    "statistics-flesch-kincaid-grade-level": "info, warning > 12",
+    "statistics-flesch-kincaid-reading-ease": "warning <= 40",
+    "write-good": "info"
+  }
+}
