@@ -1,11 +1,11 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Layout from "../components/layout"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 import { useCollectionOnce } from "react-firebase-hooks/firestore"
 import SEO from "../components/seo"
 import CountUp from "react-countup"
-
+import ReactTooltip from "react-tooltip"
 let firebase
 
 const isProd = process.env.GATSBY_PRODUCTION
@@ -58,6 +58,10 @@ export default ({ user, data }) => {
     typeof window !== "undefined" && isProd
       ? useCollectionOnce(firebase.firestore().collection(`reacts`))
       : [0, true, false]
+
+  useEffect(() => {
+    ReactTooltip.rebuild()
+  }, [loading])
 
   // Get ranking data
   if (!loading && !error) {
@@ -170,21 +174,25 @@ export default ({ user, data }) => {
     })
 
     // Order posts by rank
-    orderedPosts = [...posts].sort((a, b) => {
-      if (a.react && b.reacts) {
-        return a.reacts.monthRank > b.reacts.monthRank
-          ? -1
-          : b.reacts.monthRank > a.reacts.monthRank
-          ? 1
-          : 0
-      } else return 0
-    })
+    orderedPosts = [...posts]
+      .sort((a, b) => {
+        if (a.reacts && b.reacts) {
+          return a.reacts.monthRank > b.reacts.monthRank
+            ? -1
+            : b.reacts.monthRank > a.reacts.monthRank
+            ? 1
+            : 0
+        } else return 0
+      })
+      .filter(posts => posts.reacts)
   }
   console.log(posts)
 
-  const rants = posts.length
+  const totalRants = posts.length
+  const rants = posts.filter(post => post.reacts).length
   const authors = [...new Set(authorList)].length
   const words = totalWords
+  const timeToRead = Math.floor(totalWords / 200)
   const totalViews = 178
   const mostTotalViews = 56
   const mostUniqueViewers = 22
@@ -215,6 +223,10 @@ export default ({ user, data }) => {
 
   return (
     <Layout>
+      <ReactTooltip
+        className="info-tooltip"
+        className="is-black-bg is-white lato"
+      />
       <SEO title="Stats" />
       <div className="row">
         <div className="col-xs-12 margin-2-b is-white-bg pad-3">
@@ -223,7 +235,7 @@ export default ({ user, data }) => {
           </h1>
           <h3>
             <span className="large-number">
-              <CountUp end={rants} start={0} duration={0.5} />
+              <CountUp end={totalRants} start={0} duration={0.5} />
             </span>
             {rants !== 1 ? <>{" rants have "}</> : <>{" rant has "}</>}
             been written, totalling{" "}
@@ -239,6 +251,8 @@ export default ({ user, data }) => {
             ) : (
               <>{" unique author. "}</>
             )}
+            It would take you <span className="large-number">{timeToRead}</span>{" "}
+            minutes to read every post on this site.
           </h3>
           {process.env.GOOGLE_ANALYTICS_IS_LIVE && (
             <h3>
@@ -385,9 +399,13 @@ export default ({ user, data }) => {
                   borderTopRightRadius: !approval.reacts.worthy && 5,
                   borderBottomRightRadius: !approval.reacts.worthy && 5,
                 }}
-                data-tip={`${100 - approval.reacts.rank}% - ${
-                  approval.reacts.unworthy
-                } Downvotes`}
+                data-tip={
+                  !loading
+                    ? `${100 - approval.reacts.rank}% - ${
+                        approval.reacts.unworthy
+                      } Downvotes`
+                    : ""
+                }
               />
               <div
                 className="is-light-blue-bg-always"
@@ -399,7 +417,11 @@ export default ({ user, data }) => {
                   borderTopLeftRadius: !approval.reacts.unworthy && 5,
                   borderBottomLeftRadius: !approval.reacts.unworthy && 5,
                 }}
-                data-tip={`${approval.reacts.rank}% - ${approval.reacts.worthy} Upvotes`}
+                data-tip={
+                  !loading
+                    ? `${approval.reacts.rank}% - ${approval.reacts.worthy} Upvotes`
+                    : ""
+                }
               />
             </div>
             <h3>Heaviest Contested - (Closest to 50%)</h3>
@@ -518,12 +540,12 @@ export default ({ user, data }) => {
             </div>
           </div>
         )}
-        <div className="col-xs-12 margin-2-b is-white-bg pad-3">
-          <h1>
-            <i class="las la-calendar"></i> Rants Of The Month
-          </h1>
-          {orderedPosts.length > 0 &&
-            orderedPosts.map((post, index) => {
+        {orderedPosts.length > 0 && (
+          <div className="col-xs-12 margin-2-b is-white-bg pad-3">
+            <h1>
+              <i class="las la-calendar"></i> Rants Of The Month
+            </h1>
+            {orderedPosts.map((post, index) => {
               if (index > 4) return
               else
                 return (
@@ -535,27 +557,33 @@ export default ({ user, data }) => {
                   >
                     <div
                       key={`post-${post.id}`}
-                      className="row align-interactions-vertical top-rants is-black-border"
+                      className="row align-interactions-vertical top-rants is-black-border margin-1-b"
                     >
-                      <div className="col-xs-12 col-sm-2">
+                      <div className="col-xs-12 col-sm-2 ">
                         <Img
                           fluid={post.hero.childImageSharp.fluid}
                           className="top-rants-image"
                         />
                       </div>
-                      <div className="col-xs-12 col-sm-6">
+                      <div className="col-xs-6 col-sm-6">
                         <h3 className="top-rants-title margin-1-tb">
                           {post.title}
                         </h3>
                       </div>
-                      <div className="col-xs-12 col-sm-2">
-                        {process.env.GOOGLE_ANALYTICS_IS_LIVE && (
+                      {process.env.GOOGLE_ANALYTICS_IS_LIVE && (
+                        <div className="col-xs-12 col-sm-2">
                           <h3 className="top-rants-rating margin-0">
                             {post.rating} Views
                           </h3>
-                        )}
-                      </div>
-                      <div className="col-xs-12 col-sm-2">
+                        </div>
+                      )}
+                      <div
+                        className={`col-xs-6 text-align-right ${
+                          process.env.GOOGLE_ANALYTICS_IS_LIVE
+                            ? "col-sm-2"
+                            : "col-sm-4"
+                        } `}
+                      >
                         <h3 className="top-rants-rating margin-0">
                           {post.reacts
                             ? post.reacts.monthRank + "% Worthy"
@@ -566,7 +594,8 @@ export default ({ user, data }) => {
                   </a>
                 )
             })}
-        </div>
+          </div>
+        )}
       </div>
     </Layout>
   )
