@@ -171,11 +171,13 @@ export default ({ user, data }) => {
 
     // Order posts by rank
     orderedPosts = [...posts].sort((a, b) => {
-      return a.reacts.monthRank > b.reacts.monthRank
-        ? -1
-        : b.reacts.monthRank > a.reacts.monthRank
-        ? 1
-        : 0
+      if (a.react && b.reacts) {
+        return a.reacts.monthRank > b.reacts.monthRank
+          ? -1
+          : b.reacts.monthRank > a.reacts.monthRank
+          ? 1
+          : 0
+      } else return 0
     })
   }
   console.log(posts)
@@ -555,7 +557,9 @@ export default ({ user, data }) => {
                       </div>
                       <div className="col-xs-12 col-sm-2">
                         <h3 className="top-rants-rating margin-0">
-                          {post.reacts.monthRank}% Worthy
+                          {post.reacts
+                            ? post.reacts.monthRank + "% Worthy"
+                            : "Unvoted"}
                         </h3>
                       </div>
                     </div>
