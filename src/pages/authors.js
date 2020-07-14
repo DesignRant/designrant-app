@@ -26,9 +26,9 @@ export default ({
         </p>
       </div>
       <div className="row">
-        {authorNodes.map(({ node: author }) => (
+        {authorNodes.map(({ node: author }, index) => (
           <>
-            <div className="col-xs-12 col-md-4 pad-1-lr">
+            <div className="col-xs-12 col-md-4  pad-1-lr">
               <div
                 key={`author-${author.id}`}
                 className="pad-3 is-white-bg border-radius shadow-drop-2-center  fill-height"
@@ -72,7 +72,12 @@ export default ({
                 </Link>
               </div>
             </div>
-            <div className="col-xs-12 margin-10-b hide-on-big"></div>
+            <div className="col-xs-12 margin-8-b hide-on-big"></div>
+            {index !== 0 && index % 2 === 0 && (
+              <>
+                <div className="col-xs-12 margin-10-b hide-on-small"></div>
+              </>
+            )}
           </>
         ))}
       </div>
