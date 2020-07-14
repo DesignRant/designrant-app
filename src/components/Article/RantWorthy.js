@@ -1,5 +1,6 @@
 import React from "react"
 import { Emojione } from "react-emoji-render"
+import { format } from "date-fns"
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore"
 import { useLocalStorage } from "../../utils/customHooks"
 
@@ -55,6 +56,11 @@ export default () => {
         .set(
           {
             [type]: firebase.firestore.FieldValue.increment(1),
+            byDay: {
+              [format(new Date(), "yyyy-MM-dd")]: {
+                [type]: firebase.firestore.FieldValue.increment(1),
+              },
+            },
           },
           { merge: true }
         )

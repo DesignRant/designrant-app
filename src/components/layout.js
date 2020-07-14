@@ -33,10 +33,7 @@ const Layout = ({ children, showAuthors }) => {
           avoid ending up on a site like this one.
         </h4>
       </CookieConsent>
-      <ReactTooltip
-        className="info-tooltip"
-        className="is-black-bg is-white lato"
-      />
+
       <body>
         <div className="container margin-10-tb ">
           <div className="row">
@@ -46,14 +43,18 @@ const Layout = ({ children, showAuthors }) => {
               </div>
             </div>
             <main className="col-xs-12 col-md-10 ">
+              <ReactTooltip
+                className="info-tooltip"
+                className="is-black-bg is-white lato"
+              />
               <div className="margin-1-lr">{children}</div>
               {showAuthors && (
                 <footer className="is-black text-align-center margin-5-t">
                   <p>
-                  We're not usually this negative. Why not{" "}
-                  <Link to="/authors">meet the authors</Link>?
+                    We're not usually this negative. Why not{" "}
+                    <Link to="/authors">meet the authors</Link>?
                   </p>
-                  <p style={{opacity: '70%'}}>
+                  <p style={{ opacity: "70%" }}>
                     <Link to="/legal">Legal</Link>
                   </p>
                 </footer>
