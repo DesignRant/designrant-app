@@ -2,7 +2,7 @@ import React from "react"
 import { Helmet } from "react-helmet"
 import { Link } from "gatsby"
 import CookieConsent from "react-cookie-consent"
-import ReactTooltip from "react-tooltip"
+
 import Header from "./Header"
 
 const Layout = ({ children, showAuthors }) => {
@@ -43,10 +43,6 @@ const Layout = ({ children, showAuthors }) => {
               </div>
             </div>
             <main className="col-xs-12 col-md-10 ">
-              <ReactTooltip
-                className="info-tooltip"
-                className="is-black-bg is-white lato"
-              />
               <div className="margin-1-lr">{children}</div>
               {showAuthors && (
                 <footer className="is-black text-align-center margin-5-t">

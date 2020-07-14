@@ -12,14 +12,6 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   const siteTitle = data.site.siteMetadata.title
   const { previous, next } = pageContext
 
-  function sanitizeMarkdown(textInput) {
-    var Filter = require("bad-words"),
-      filter = new Filter()
-    return filter.clean(textInput) //Don't be an ******
-  }
-
-  const sanitizedPost = sanitizeMarkdown(post.html)
-
   return (
     <Layout location={location} title={siteTitle}>
       <SEO
@@ -63,7 +55,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           <div className="margin-5-b lato">
             <section
               className="article"
-              dangerouslySetInnerHTML={{ __html: sanitizedPost }}
+              dangerouslySetInnerHTML={{ __html: post.html }}
             />
           </div>
           <RantWorthy location={location} />
