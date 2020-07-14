@@ -28,7 +28,6 @@ export class Search extends Component {
         />
         <div className="row margin-3-t">
           {this.state.results.map(page => {
-            console.log({ page })
             return (
               <Link
                 style={{ boxShadow: `none`, textDecoration: "none" }}

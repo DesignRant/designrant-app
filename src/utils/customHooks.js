@@ -10,7 +10,6 @@ export function useLocalStorage(key, initialValue) {
 
       return item ? JSON.parse(item) : initialValue
     } catch (error) {
-      console.log(error)
       return initialValue
     }
   })

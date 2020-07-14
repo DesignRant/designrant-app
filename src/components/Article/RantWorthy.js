@@ -65,7 +65,6 @@ export default () => {
     <div className="row margin-1-b">{children}</div>
   )
   const Results = () => {
-    console.log(value)
     let worthy = 1
     let unworthy = 1
     if (value && value.worthy) {

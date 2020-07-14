@@ -67,9 +67,11 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             />
           </div>
           <RantWorthy location={location} />
+          <div className="line opacity-5 margin-5-t margin-5-b" />
           <ArticleShareOptions
             location={location}
             twitter={post.frontmatter.author.twitter}
+            desc={post.frontmatter.description}
           />
           <div className="line opacity-5 margin-5-t" />
           <footer>

@@ -3,14 +3,14 @@ title: The Problem With Slack
 author: Alex Panagis
 date: "2020-07-09"
 type: Post
-description: Let's face it group chat is the equivelant of being in an all-day meeting with no agenda. To keep up with what's going on, you need to be present & attentive all the time which takes your attention away from truly meaningful work. 
+description: Let's face it group chat is the equivalent of being in an all-day meeting with no agenda. To keep up with what's going on, you need to be present & attentive all the time which takes your attention away from truly meaningful work. 
 hero: "./hero.png"
 tags: ['Slack', 'Messaging', 'UX']
 ---
 
 #### Slack is like being in an all-day meeting with random participants and no agenda.
 
-Let's face it group chat is the equivelant of being in an all-day meeting with no agenda. To keep up with what's going on, you need to be present & attentive all the time which takes your attention away from truly meaningful work. 
+Let's face it group chat is the equivalent of being in an all-day meeting with no agenda. To keep up with what's going on, you need to be present & attentive all the time which takes your attention away from truly meaningful work. 
 
 When we first launched the ScaleMath Pro Community, it started out in Slack. It started as a big idea and as with all my ideas I didn't hesitate to build something. Slack was the easy way, it's what everyone was doing and it worked. Driving engagement and building a community by using software that most people already use for work is easy. People already hang out in the app so *every now and then* they're more likely to get involved. 
 

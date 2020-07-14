@@ -98,12 +98,10 @@ function Stats({ user }) {
     kofi: "sldcodes",
     buymeacoffee: "yannis",
   }
-  console.log(user)
 
   let orderedPosts = topRantsMonth.sort((a, b) =>
     a.rating > b.rating ? -1 : b.rating > a.rating ? 1 : 0
   )
-  console.log(orderedPosts)
 
   const addCommas = value => {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
