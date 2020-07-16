@@ -27,9 +27,10 @@ const Suggest = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
   const addSuggestion = () => {
     if (formVal.length > 1) {
-      firebase.firestore().collection("suggestions").add({
-        suggestion: formVal,
-        date: new Date(),
+      fetch("https://designrant-api.herokuapp.com/suggest", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ formVal }),
       })
       setSubmitted(true)
     }
@@ -42,28 +43,18 @@ const Suggest = ({ data, location }) => {
       newStars.splice(index, 1)
       setStars(newStars)
 
-      firebase
-        .firestore()
-        .collection("suggestions")
-        .doc(id)
-        .set(
-          {
-            stars: firebase.firestore.FieldValue.increment(-1),
-          },
-          { merge: true }
-        )
+      fetch("https://designrant-api.herokuapp.com/stars", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, vote: -1 }),
+      })
     } else {
       setStars([...stars, id])
-      firebase
-        .firestore()
-        .collection("suggestions")
-        .doc(id)
-        .set(
-          {
-            stars: firebase.firestore.FieldValue.increment(1),
-          },
-          { merge: true }
-        )
+      fetch("https://designrant-api.herokuapp.com/stars", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, vote: 1 }),
+      })
     }
   }
   return (
