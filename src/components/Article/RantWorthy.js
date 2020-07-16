@@ -49,21 +49,12 @@ export default () => {
   const judge = type => {
     if (!loading && !error && !contentReacts) {
       setReacts({ ...reacts, [contentID]: type })
-      firebase
-        .firestore()
-        .collection("reacts")
-        .doc(contentID)
-        .set(
-          {
-            [type]: firebase.firestore.FieldValue.increment(1),
-            byDay: {
-              [format(new Date(), "yyyy-MM-dd")]: {
-                [type]: firebase.firestore.FieldValue.increment(1),
-              },
-            },
-          },
-          { merge: true }
-        )
+
+      fetch("https://designrant-api.herokuapp.com/", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contentID, type }),
+      })
     }
   }
 
