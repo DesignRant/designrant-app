@@ -5,6 +5,7 @@ import _ from "lodash"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import SubscribeForm from "../components/Article/Newsletter/Subscribe"
+import { trackCustomEvent } from "gatsby-plugin-google-analytics"
 
 export default ({ data }) => {
   const { currentPage, numPages } = data.sitePage.context
@@ -91,7 +92,7 @@ export default ({ data }) => {
           item =>
             item <= numPages && (
               <button
-                onClick={()=> {
+                onClick={() => {
                   trackCustomEvent({
                     category: "Mailing List",
                     action: "Click",
