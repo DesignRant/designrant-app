@@ -23,8 +23,14 @@
   twitter: alexjpanagis
 - id: Ryan Gregory
   from: London, UK
-  website: https://designrant.app
+  website: https://www.linkedin.com/in/ryan-gregory-232003189/
   shortBio: Developer at DesignRant.
   bio: Developer at DesignRant, Front End Developer and Master of Computer Science from the University of Southampton. Always learning.
   avatar: avatars/rg-avatar.png
   twitter: ryangregorydev
+- id: Maurice Banerjee Palmer
+  from: London, UK
+  website: https://www.linkedin.com/in/mbanerjeepalmer/
+  shortBio: Product Manager & Adventurist
+  bio: Product manager with a background in startups and law at LSE. Likes to code himself out of his problems. Favourite colour - Yellow. Scared of - Flies
+  avatar: avatars/mp-avatar.png

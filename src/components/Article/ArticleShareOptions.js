@@ -39,7 +39,9 @@ export default ({ location, twitter, desc }) => {
             <LinkedinIcon round={true} style={{ height: 40 }} />
           </LinkedinShareButton>
           <TwitterShareButton
-            url={`Just found this - ${location.href} by @${twitter} on @DesignRantApp`}
+            url={`Just found this - ${location.href}${
+              twitter ? ` by @${twitter}` : ``
+            } on @DesignRantApp`}
             className="grow"
           >
             <TwitterIcon round={true} style={{ height: 40 }} />

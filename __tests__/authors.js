@@ -9,7 +9,6 @@ const expectedAuthorKeys = [
   "shortBio",
   "bio",
   "avatar",
-  "twitter",
 ]
 describe("Authors Data Formatting", () => {
   doc.forEach(author => {
