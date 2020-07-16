@@ -3,6 +3,7 @@ import { Emojione } from "react-emoji-render"
 import { format } from "date-fns"
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore"
 import { useLocalStorage } from "../../utils/customHooks"
+import { trackCustomEvent } from "gatsby-plugin-google-analytics"
 
 let firebase
 
@@ -49,7 +50,11 @@ export default () => {
   const judge = type => {
     if (!loading && !error && !contentReacts) {
       setReacts({ ...reacts, [contentID]: type })
-
+      trackCustomEvent({
+        category: "RantWorthy",
+        action: "Click",
+        label: type,
+      })
       fetch("https://designrant-api.herokuapp.com/", {
         method: "post",
         headers: { "Content-Type": "application/json" },

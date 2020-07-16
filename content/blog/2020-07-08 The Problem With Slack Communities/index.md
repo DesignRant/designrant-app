@@ -8,7 +8,7 @@ hero: "./hero.png"
 tags: ['Slack', 'Messaging', 'UX']
 ---
 
-#### Slack is like being in an all-day meeting with random participants and no agenda.
+#### Slack is like being in an all-day meeting with random participants and no agenda
 
 Let’s face it group chat is the equivalent of being in an all-day meeting with no agenda. To keep up with what’s going on, you need to be present & attentive all the time which takes your attention away from truly meaningful work.
 

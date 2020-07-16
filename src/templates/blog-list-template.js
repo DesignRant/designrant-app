@@ -1,5 +1,5 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
+import { Link, graphql, navigate } from "gatsby"
 import Img from "gatsby-image"
 import _ from "lodash"
 import Layout from "../components/layout"
@@ -90,7 +90,16 @@ export default ({ data }) => {
         {Array.from({ length: 5 }, (v, k) => k + 1).map(
           item =>
             item <= numPages && (
-              <Link to={item === 1 ? `/` : `/${item}`}>
+              <button
+                onClick={()=> {
+                  trackCustomEvent({
+                    category: "Mailing List",
+                    action: "Click",
+                    label: "subscribed",
+                  })
+                  navigate(item === 1 ? `/` : `/${item}`)
+                }}
+              >
                 <div
                   className={`${
                     item === currentPage
@@ -100,7 +109,7 @@ export default ({ data }) => {
                 >
                   <p className="margin-0">{item}</p>
                 </div>
-              </Link>
+              </button>
             )
         )}
       </div>

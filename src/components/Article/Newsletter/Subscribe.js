@@ -1,12 +1,20 @@
 import React, { useState } from "react"
 import addToMailchimp from "gatsby-plugin-mailchimp"
 import { Emojione } from "react-emoji-render"
+import { trackCustomEvent } from "gatsby-plugin-google-analytics"
+
 const SubscribeForm = () => {
   const [email, setEmail] = useState("")
   const [submitted, setSubmitted] = useState(false)
   const handleSubmit = () => {
     addToMailchimp(email).then(data => {
       setSubmitted(true)
+    })
+
+    trackCustomEvent({
+      category: "Mailing List",
+      action: "Click",
+      label: "subscribed",
     })
   }
 
