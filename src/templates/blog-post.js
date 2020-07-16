@@ -1,7 +1,9 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
+import { Link, graphql, navigate } from "gatsby"
 import Img from "gatsby-image"
 import _ from "lodash"
+import { trackCustomEvent } from "gatsby-plugin-google-analytics"
+
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import ArticleShareOptions from "../components/Article/ArticleShareOptions"
@@ -100,16 +102,34 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         >
           <li>
             {previous && (
-              <Link to={previous.fields.slug} rel="prev">
-                <p>← {previous.frontmatter.title}</p>
-              </Link>
+              <button
+                onClick={()=> {
+                  trackCustomEvent({
+                    category: "Explore from post",
+                    action: "Click",
+                    label: "previous",
+                  })
+                  navigate(previous.fields.slug)
+                }}
+              >
+                <p className="is-black">← {previous.frontmatter.title}</p>
+              </button>
             )}
           </li>
           <li>
             {next && (
-              <Link to={next.fields.slug} rel="next">
-                <p>{next.frontmatter.title} →</p>
-              </Link>
+              <button
+                onClick={()=> {
+                  trackCustomEvent({
+                    category: "Explore from post",
+                    action: "Click",
+                    label: "next",
+                  })
+                  navigate(next.fields.slug)
+                }}
+              >
+                <p className="is-black">{next.frontmatter.title} →</p>
+              </button>
             )}
           </li>
         </ul>

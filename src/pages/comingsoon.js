@@ -5,6 +5,7 @@ import addToMailchimp from "gatsby-plugin-mailchimp"
 import SEO from "../components/seo"
 import Logo from "../../content/assets/icon.svg"
 import LogoDark from "../../content/assets/icon-dark.svg"
+import { trackCustomEvent } from "gatsby-plugin-google-analytics"
 
 const ComingSoon = ({ data }) => {
   // const darkMode = useDarkMode(false)
@@ -13,6 +14,12 @@ const ComingSoon = ({ data }) => {
   const handleSubmit = () => {
     addToMailchimp(email).then(data => {
       setSubmitted(true)
+    })
+
+    trackCustomEvent({
+      category: "Mailing List",
+      action: "Click",
+      label: "subscribed",
     })
   }
   const siteIntro = data.markdownRemark.html
