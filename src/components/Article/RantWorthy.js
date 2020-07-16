@@ -55,7 +55,7 @@ export default () => {
         action: "Click",
         label: type,
       })
-      fetch("https://designrant-api.herokuapp.com/", {
+      fetch("https://designrant-api.herokuapp.com/worthy", {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ contentID, type }),
