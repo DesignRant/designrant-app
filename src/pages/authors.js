@@ -73,9 +73,10 @@ export default ({
               </div>
             </div>
             <div className="col-xs-12 margin-8-b hide-on-big"></div>
-            {index !== 0 && index % 2 === 0 && (
+            {index !== 0 && (index + 1) % 3 === 0 && (
               <>
-                <div className="col-xs-12 margin-10-b hide-on-small"></div>
+                {console.log(index)}
+                <div className="col-xs-12 margin-8-b hide-on-small"></div>
               </>
             )}
           </>
