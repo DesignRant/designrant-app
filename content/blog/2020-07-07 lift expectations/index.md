@@ -1,5 +1,5 @@
 ---
-title: Lift expectations
+title: Lift Expectations
 author: Becky Bayliss
 type: Post
 date: 2020-07-18
