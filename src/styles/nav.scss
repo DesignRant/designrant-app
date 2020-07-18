@@ -1,0 +1,13 @@
+.nav-icon {
+  font-size: 36px;
+}
+
+@media only screen and (min-width: 992px) {
+  .icon-container {
+    width: 120px;
+  }
+  .nav-buttons {
+    padding: 0px;
+    justify-content: flex-start !important;
+  }
+}

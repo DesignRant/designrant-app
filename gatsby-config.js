@@ -51,6 +51,14 @@ module.exports = {
         name: `assets`,
       },
     },
+    // additional instance of this plugin to read source nodes from second location in filesystem
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/content/legal`,
+        name: `legal`,
+      },
+    },
     `gatsby-transformer-yaml`,
     {
       resolve: `gatsby-transformer-remark`,
@@ -59,9 +67,11 @@ module.exports = {
           {
             resolve: `gatsby-remark-images`,
             options: {
-              maxWidth: 590,
+              maxWidth: 390,
+              linkImagesToOriginal: false,
             },
           },
+          `gatsby-remark-images-medium-zoom`,
           {
             resolve: `gatsby-remark-responsive-iframe`,
             options: {

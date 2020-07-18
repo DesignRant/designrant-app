@@ -1,17 +1,18 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
+import { Link, graphql, navigate } from "gatsby"
 import Img from "gatsby-image"
 import _ from "lodash"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import SubscribeForm from "../components/Article/Newsletter/Subscribe"
+import { trackCustomEvent } from "gatsby-plugin-google-analytics"
 
 export default ({ data }) => {
   const { currentPage, numPages } = data.sitePage.context
   const posts = data.allMarkdownRemark.edges
   return (
     <Layout showAuthors>
-      <SEO title={`${currentPage}`} />
+      <SEO title={`Home of Short, Sharp User Experience Complaints.`} />
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.fields.slug
         return (
@@ -90,7 +91,16 @@ export default ({ data }) => {
         {Array.from({ length: 5 }, (v, k) => k + 1).map(
           item =>
             item <= numPages && (
-              <Link to={item === 1 ? `/` : `/${item}`}>
+              <button
+                onClick={() => {
+                  trackCustomEvent({
+                    category: "Mailing List",
+                    action: "Click",
+                    label: "subscribed",
+                  })
+                  navigate(item === 1 ? `/` : `/${item}`)
+                }}
+              >
                 <div
                   className={`${
                     item === currentPage
@@ -100,7 +110,7 @@ export default ({ data }) => {
                 >
                   <p className="margin-0">{item}</p>
                 </div>
-              </Link>
+              </button>
             )
         )}
       </div>

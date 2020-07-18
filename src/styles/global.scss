@@ -9,6 +9,8 @@
 
 //files;
 @import './layout';
+@import './nav';
+@import './article';
 @import './colors';
 @import './inputs';
 @import './opacity';
@@ -20,6 +22,8 @@
 @import './animista.scss';
 @import './social.scss';
 @import './tags.scss';
+@import './stats.scss';
+@import './suggest.scss';
 
 @for $i from 1 through 6 {
   h#{7 - $i} {
@@ -159,3 +163,4 @@ a:hover {
   -webkit-font-variant-ligatures: discretionary-ligatures;
   font-variant-ligatures: discretionary-ligatures;
 }
+

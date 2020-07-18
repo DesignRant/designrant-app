@@ -2,6 +2,9 @@
   <img alt="Logo" src="https://ik.imagekit.io/sld/cover_odI2P6tOsR.png" width="1000"/>
 </div>
 
+ <img alt="build-status" src="https://designrant.semaphoreci.com/badges/designrant-app.svg" />
+ 
+
 # 👋 Welcome to DesignRant's Repository
 
 #### [You can see it live @ DesignRant.app ](https://designrant.app/)
@@ -84,7 +87,7 @@ Add front-matter to the top of the markdown post in this format:
 ---
 title: Does Disney+ need space(bar)?
 author: Sam Larsen-Disney
-date: "2020-05-04"
+date: 2020-05-04
 type: Post
 description: You'd think that a company late to the party would have worked out the importance of the biggest button on our keyboard.
 hero: "./cover-img.png"

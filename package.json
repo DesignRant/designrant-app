@@ -26,6 +26,7 @@
     "gatsby-remark-copy-images": "^0.2.1",
     "gatsby-remark-copy-linked-files": "^2.3.10",
     "gatsby-remark-images": "^3.3.17",
+    "gatsby-remark-images-medium-zoom": "^1.7.0",
     "gatsby-remark-prismjs": "^3.5.9",
     "gatsby-remark-responsive-iframe": "^2.4.10",
     "gatsby-remark-smartypants": "^2.3.9",
@@ -33,21 +34,31 @@
     "gatsby-transformer-remark": "^2.8.23",
     "gatsby-transformer-sharp": "^2.5.10",
     "gatsby-transformer-yaml": "^2.4.9",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "node-sass": "^4.14.1",
     "prismjs": "^1.20.0",
     "react": "^16.13.1",
     "react-cookie-consent": "^5.1.2",
+    "react-countup": "^4.3.3",
     "react-dom": "^16.13.1",
     "react-emoji-render": "^1.2.4",
     "react-firebase-hooks": "^2.2.0",
     "react-helmet": "^6.1.0",
+    "react-lottie": "^1.2.3",
     "react-share": "^4.2.0",
+    "react-tooltip": "^4.2.7",
     "string-similarity": "^4.0.1",
     "use-dark-mode": "^2.3.1"
   },
   "devDependencies": {
-    "prettier": "2.0.5"
+    "babel-jest": "^26.1.0",
+    "babel-preset-gatsby": "^0.5.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.1.0",
+    "js-yaml": "^3.14.0",
+    "markdown-proofing": "^1.0.2",
+    "prettier": "2.0.5",
+    "react-test-renderer": "^16.13.1"
   },
   "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
   "keywords": [
@@ -61,11 +72,13 @@
   },
   "scripts": {
     "build": "gatsby build",
-    "develop": "gatsby develop -o",
+    "develop": "gatsby develop -o -p 4000",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "npm run test:unit && npm run test:markdown-blog",
+    "test:markdown-blog": "markdown-proofing content/blog/*/*.md",
+    "test:unit": "jest"
   }
 }

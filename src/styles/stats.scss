@@ -1,0 +1,38 @@
+.social {
+  max-height: 75px;
+  height: 75px;
+  width: 75px;
+  margin-right: 10px;
+}
+
+.large-number {
+  font-size: 1.2 * 1em;
+  font-weight: bolder;
+}
+
+.align-interactions-vertical {
+  display: flex;
+  align-items: center;
+}
+
+.top-rants {
+  border: unset;
+  min-height: 85px;
+}
+
+.top-rants-image {
+  width: 100%;
+  min-height: 55px;
+}
+
+@media only screen and (max-width: 767px) {
+  .top-rants {
+
+    border-bottom: #00000005 solid 2px;
+    
+    margin-bottom: 10px;
+  }
+  .top-rants-image {
+    // min-width: 60vw;
+  }
+}

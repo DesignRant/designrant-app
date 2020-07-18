@@ -3,6 +3,7 @@ import { Link } from "gatsby"
 import Img from "gatsby-image"
 import { graphql } from "gatsby"
 import _ from "lodash"
+import { trackCustomEvent } from "gatsby-plugin-google-analytics"
 
 import Twitter from "../../content/assets/twitter.svg"
 import Layout from "../components/layout"
@@ -25,9 +26,9 @@ export default ({
         </p>
       </div>
       <div className="row">
-        {authorNodes.map(({ node: author }) => (
+        {authorNodes.map(({ node: author }, index) => (
           <>
-            <div className="col-xs-12 col-md-4 pad-1-lr">
+            <div className="col-xs-12 col-md-4  pad-1-lr">
               <div
                 key={`author-${author.id}`}
                 className="pad-3 is-white-bg border-radius shadow-drop-2-center  fill-height"
@@ -38,13 +39,21 @@ export default ({
                     className="margin-1-t"
                     style={{ position: "absolute", top: 15, right: 15 }}
                   >
-                    <a
-                      href={`https://twitter.com/${author.twitter}/`}
-                      target="_blank"
-                      className=""
+                    <button
+                      onClick={() => {
+                        trackCustomEvent({
+                          category: "AuthorLink",
+                          action: "Click",
+                          label: "twitter",
+                        })
+                        window.open(
+                          `https://twitter.com/${author.twitter}/`,
+                          "_blank"
+                        )
+                      }}
                     >
                       <img src={Twitter} className="twitter grow-lg" />
-                    </a>
+                    </button>
                   </div>
                 )}
                 <Link to={`/author/${_.kebabCase(author.id)}`}>
@@ -63,7 +72,12 @@ export default ({
                 </Link>
               </div>
             </div>
-            <div className="col-xs-12 margin-10-b hide-on-big"></div>
+            <div className="col-xs-12 margin-8-b hide-on-big"></div>
+            {index !== 0 && index % 2 === 0 && (
+              <>
+                <div className="col-xs-12 margin-10-b hide-on-small"></div>
+              </>
+            )}
           </>
         ))}
       </div>

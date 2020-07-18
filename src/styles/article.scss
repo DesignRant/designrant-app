@@ -1,0 +1,16 @@
+.article {
+
+    pre {
+        @extend .is-yellow-bg;
+        @extend .is-grey-always;
+        @extend .pad-2;
+        @extend .border-radius;
+        white-space: pre-wrap; //css3
+        white-space: moz-pre-wrap; //firefox
+        white-space: -pre-wrap; //opera 4-6
+        white-space: -o-pre-wrap; //opera 7
+        word-wrap: break-word; //internet explorer
+    }
+    
+
+}

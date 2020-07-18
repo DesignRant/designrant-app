@@ -24,7 +24,7 @@ const SEO = ({ description, title, image, location }) => {
 
   return (
     <Helmet>
-      <title>{title} | DesignRant </title>
+      <title>DesignRant | {title}</title>
 
       <meta name="title" content={`${title} | DesignRant `} />
       <meta name="description" content={metaDescription} />

@@ -2,6 +2,7 @@ import React from "react"
 import { Helmet } from "react-helmet"
 import { Link } from "gatsby"
 import CookieConsent from "react-cookie-consent"
+
 import Header from "./Header"
 
 const Layout = ({ children, showAuthors }) => {
@@ -32,6 +33,7 @@ const Layout = ({ children, showAuthors }) => {
           avoid ending up on a site like this one.
         </h4>
       </CookieConsent>
+
       <body>
         <div className="container margin-10-tb ">
           <div className="row">
@@ -42,12 +44,27 @@ const Layout = ({ children, showAuthors }) => {
             </div>
             <main className="col-xs-12 col-md-10 ">
               <div className="margin-1-lr">{children}</div>
-              {showAuthors && (
-                <footer className="is-black text-align-center margin-5-t">
-                  We're not usually this negative. Why not{" "}
-                  <Link to="/authors">meet the authors</Link>?
-                </footer>
-              )}
+
+              <footer className="is-black text-align-center margin-1-t">
+                {showAuthors && (
+                  <p>
+                    We're not usually this negative. Why not{" "}
+                    <Link to="/authors">meet the authors</Link>?
+                  </p>
+                )}
+                <p className="margin-1-t" style={{ opacity: "30%" }}>
+                  -
+                </p>
+                <p className="legal" style={{ opacity: "70%" }}>
+                  All views expressed on this site are those of the individual
+                  and do not represent the opinions of any entity whatsover with
+                  which they have been, are now or will be affiliated with.
+                </p>
+                <p className="legal" style={{ opacity: "70%" }}>
+                  <Link to="/stats">Stats</Link> |{" "}
+                  <Link to="/legal">Legal</Link>
+                </p>
+              </footer>
             </main>
           </div>
         </div>

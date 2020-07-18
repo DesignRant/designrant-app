@@ -4,14 +4,16 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
+
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
   const authorPage = path.resolve(`./src/templates/author.js`)
   const tagPage = path.resolve(`./src/templates/tagTemplate.js`)
+  const legalPage = path.resolve(`./src/templates/legalTemplate.js`)
 
   const result = await graphql(
     `
       {
-        allMarkdownRemark(
+        posts: allMarkdownRemark(
           sort: { fields: [frontmatter___date], order: DESC }
           limit: 1000
           filter: { frontmatter: { type: { eq: "Post" } } }
@@ -25,6 +27,25 @@ exports.createPages = async ({ graphql, actions }) => {
               frontmatter {
                 title
                 tags
+                type
+              }
+            }
+          }
+        }
+
+        legal: allMarkdownRemark(
+          sort: { fields: [frontmatter___date], order: DESC }
+          limit: 1000
+          filter: { frontmatter: { type: { eq: "Legal" } } }
+        ) {
+          edges {
+            node {
+              fields {
+                slug
+              }
+              frontmatter {
+                title
+                type
               }
             }
           }
@@ -37,7 +58,9 @@ exports.createPages = async ({ graphql, actions }) => {
     throw result.errors
   }
 
-  const posts = result.data.allMarkdownRemark.edges
+  const posts = result.data.posts.edges
+  const legals = result.data.legal.edges
+
   const postsPerPage = 5
   const numPages = Math.ceil(posts.length / postsPerPage)
   Array.from({ length: numPages }).forEach((_, i) => {
@@ -54,10 +77,10 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   })
 
+  // Create blog posts and legal posts - can add other post types here too
   posts.forEach((post, index) => {
     const previous = index === posts.length - 1 ? null : posts[index + 1].node
     const next = index === 0 ? null : posts[index - 1].node
-
     createPage({
       path: post.node.fields.slug,
       component: blogPost,
@@ -66,6 +89,14 @@ exports.createPages = async ({ graphql, actions }) => {
         previous,
         next,
       },
+    })
+  })
+
+  legals.forEach(document => {
+    createPage({
+      path: document.node.fields.slug,
+      component: legalPage,
+      context: { slug: document.node.fields.slug },
     })
   })
 
@@ -94,7 +125,7 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   const authorSet = new Set()
-  result.data.allMarkdownRemark.edges.forEach(edge => {
+  result.data.posts.edges.forEach(edge => {
     if (edge.node.fields.authorId) {
       authorSet.add(edge.node.fields.authorId)
     }
@@ -132,4 +163,25 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       value: node.frontmatter.author,
     })
   }
+
+  if (
+    node.internal.type === `MarkdownRemark` &&
+    node.frontmatter.type === "Legal"
+  ) {
+    createNodeField({
+      node,
+      name: `slug`,
+      value: "legal/" + _.kebabCase(node.frontmatter.title),
+    })
+  }
+}
+
+const fs = require("fs")
+
+exports.onPostBuild = () => {
+  fs.copyFile(`./firebase.json`, `./public/firebase.json`, err => {
+    if (err) {
+      throw err
+    }
+  })
 }
