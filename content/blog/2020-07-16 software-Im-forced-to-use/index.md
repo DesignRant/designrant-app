@@ -3,7 +3,7 @@ title: Software I'm Forced To Use
 author: Maurice Banerjee Palmer
 date: "2020-07-16"
 type: Post
-description: Are you tired of cookie popups as much as I am? There has to be a way to stop this, maybe the creator of the Web has an idea...
+description: Hallmarks of internal software, enterprise software and government software. That is, software I'm forced to use.
 hero: "./hero.png"
 tags: ["Software", "Internal-Tooling", "Product"]
 ---
