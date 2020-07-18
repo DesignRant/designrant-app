@@ -11,6 +11,9 @@
         white-space: -o-pre-wrap; //opera 7
         word-wrap: break-word; //internet explorer
     }
-    
+    img {
+        max-width: 95%;
+        text-align: center;
+    }
 
 }
