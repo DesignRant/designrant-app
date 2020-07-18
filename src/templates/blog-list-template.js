@@ -12,7 +12,7 @@ export default ({ data }) => {
   const posts = data.allMarkdownRemark.edges
   return (
     <Layout showAuthors>
-      <SEO title={`${currentPage}`} />
+      <SEO title={`Page ${currentPage}`} />
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.fields.slug
         return (

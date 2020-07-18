@@ -104,7 +104,7 @@ const Suggest = ({ data, location }) => {
       )}
       {!loading && !error && (
         <div className="margin-1-lr">
-          <h1 className="is-black">Rants</h1>
+          <h3 className="is-black">Suggested Rants</h3>
           <div className="row">
             {suggestions.docs
               .sort((a, b) => {
