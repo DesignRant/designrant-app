@@ -61,7 +61,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             />
           </div>
           <RantWorthy location={location} />
-          <div className="line opacity-5 margin-5-t margin-5-b" />
+
           <ArticleShareOptions
             location={location}
             twitter={post.frontmatter.author.twitter}
@@ -103,7 +103,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           <li>
             {previous && (
               <button
-                onClick={()=> {
+                onClick={() => {
                   trackCustomEvent({
                     category: "Explore from post",
                     action: "Click",
@@ -119,7 +119,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           <li>
             {next && (
               <button
-                onClick={()=> {
+                onClick={() => {
                   trackCustomEvent({
                     category: "Explore from post",
                     action: "Click",
