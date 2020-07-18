@@ -2,10 +2,10 @@
 title: Lift expectations
 author: Becky Bayliss
 type: Post
-date: "2020-07-07"
+date: 2020-07-18
 description: Dear Schindler, -1,0,3,4,9? ‘Er'‘Er'?! I'm no expert in lift design, but I usually know how to use one.
 hero: "./hero.png"
-tags: ['UX']
+tags: ['UX', "real world"]
 ---
 
 I moved into a block of flats last year, and until very recently, the lift (elevator if you're American) was broken. The building is 4 floors and a basement, -1, 0, 1, 2, 3. So you can imagine my reaction and the many questions I had when I used the lift for the first time.
