@@ -151,7 +151,7 @@ If you have questions about implementation, please refer to the [Gatsby docs](ht
    npm install
    ```
 
-4. Start the development server
+4. Start the development serve
 
    ```sh
    npm start
