@@ -1,7 +1,7 @@
 ---
 title: Software I'm Forced To Use
 author: Maurice Banerjee Palmer
-date: "2020-07-16"
+date: 2020-07-14
 type: Post
 description: Hallmarks of internal software, enterprise software and government software. That is, software I'm forced to use.
 hero: "./hero.png"

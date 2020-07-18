@@ -1,7 +1,7 @@
 ---
 title: What's wrong with WhatsApp's "Delete for Everyone" feature.
 author: Yannis Panagis
-date: "2020-07-05"
+date: 2020-07-18
 type: Post
 description: You'd think that with 1 billion daily active users and an incredible team, WhatsApp would have noticed the importance of making features do what they say they do.
 hero: "./hero.png"

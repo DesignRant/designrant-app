@@ -68,7 +68,7 @@ export default () => {
   )
   const Results = () => {
     let worthy = 1
-    let unworthy = 1
+    let unworthy = 0
     if (value && value.worthy) {
       worthy = value.worthy
     }

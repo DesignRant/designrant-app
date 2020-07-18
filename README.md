@@ -87,7 +87,7 @@ Add front-matter to the top of the markdown post in this format:
 ---
 title: Does Disney+ need space(bar)?
 author: Sam Larsen-Disney
-date: "2020-05-04"
+date: 2020-05-04
 type: Post
 description: You'd think that a company late to the party would have worked out the importance of the biggest button on our keyboard.
 hero: "./cover-img.png"

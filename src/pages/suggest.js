@@ -7,8 +7,10 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Loader from "../components/Loader"
 import { useLocalStorage } from "../utils/customHooks"
-let firebase
+import Filter from "bad-words"
 
+let firebase
+const filter = new Filter()
 const isProd = process.env.GATSBY_PRODUCTION
 
 if (typeof window !== "undefined" && isProd) {
@@ -30,7 +32,7 @@ const Suggest = ({ data, location }) => {
       fetch("https://designrant-api.herokuapp.com/suggest", {
         method: "post",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ formVal }),
+        body: JSON.stringify({ formVal: filter.clean(formVal) }),
       })
       setSubmitted(true)
     }
