@@ -94,9 +94,9 @@ export default ({ data }) => {
               <button
                 onClick={() => {
                   trackCustomEvent({
-                    category: "Mailing List",
+                    category: "Pagination",
                     action: "Click",
-                    label: "subscribed",
+                    label: `/${item}`,
                   })
                   navigate(item === 1 ? `/` : `/${item}`)
                 }}
