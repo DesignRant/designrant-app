@@ -180,8 +180,8 @@ export default ({ user, data }) => {
           return a.reacts.monthRank > b.reacts.monthRank
             ? -1
             : b.reacts.monthRank > a.reacts.monthRank
-            ? 1
-            : 0
+              ? 1
+              : 0
         } else return 0
       })
       .filter(posts => posts.reacts)
@@ -249,8 +249,8 @@ export default ({ user, data }) => {
             {authors !== 1 ? (
               <>{" unique authors. "}</>
             ) : (
-              <>{" unique author. "}</>
-            )}
+                <>{" unique author. "}</>
+              )}
             It would take you <span className="large-number">{timeToRead}</span>{" "}
             minutes to read every post on this site.
           </h3>
@@ -263,8 +263,8 @@ export default ({ user, data }) => {
                   {"times, "}
                 </>
               ) : (
-                <> {"once, "}</>
-              )}
+                  <> {"once, "}</>
+                )}
               with the most popular rant being viewed{" "}
               {mostTotalViews !== 1 ? (
                 <>
@@ -274,8 +274,8 @@ export default ({ user, data }) => {
                   {"times by "}
                 </>
               ) : (
-                <> {"once by "}</>
-              )}
+                  <> {"once by "}</>
+                )}
               {mostUniqueViewers !== 1 ? (
                 <>
                   <span className="large-number">
@@ -284,8 +284,8 @@ export default ({ user, data }) => {
                   {" different people."}
                 </>
               ) : (
-                <> {" 1 person."}</>
-              )}
+                  <> {" 1 person."}</>
+                )}
             </h3>
           )}
           <h3>
@@ -370,8 +370,8 @@ export default ({ user, data }) => {
             </div>
           </div>
         ) : (
-          <div></div>
-        )}
+            <div></div>
+          )}
         {!loading && !error && (
           <div className="col-xs-12 margin-2-b is-white-bg pad-3">
             <h1>
@@ -390,36 +390,36 @@ export default ({ user, data }) => {
             </div>
             <div className="flex margin-1-t margin-8-b">
               <div
-                className="is-yellow-bg-always"
-                style={{
-                  width: `${100 - approval.reacts.rank}%`,
-                  height: 20,
-                  borderTopLeftRadius: 5,
-                  borderBottomLeftRadius: 5,
-                  borderTopRightRadius: !approval.reacts.worthy && 5,
-                  borderBottomRightRadius: !approval.reacts.worthy && 5,
-                }}
-                data-tip={
-                  !loading
-                    ? `${100 - approval.reacts.rank}% - ${
-                        approval.reacts.unworthy
-                      } Downvotes`
-                    : ""
-                }
-              />
-              <div
                 className="is-light-blue-bg-always"
                 style={{
                   width: `${approval.reacts.rank}%`,
                   height: 20,
-                  borderTopRightRadius: 5,
-                  borderBottomRightRadius: 5,
-                  borderTopLeftRadius: !approval.reacts.unworthy && 5,
-                  borderBottomLeftRadius: !approval.reacts.unworthy && 5,
+                  borderTopLeftRadius: 5,
+                  borderBottomLeftRadius: 5,
+                  borderTopRightRadius: !approval.reacts.unworthy && 5,
+                  borderBottomRightRadius: !approval.reacts.unworthy && 5,
                 }}
                 data-tip={
                   !loading
                     ? `${approval.reacts.rank}% - ${approval.reacts.worthy} Upvotes`
+                    : ""
+                }
+              />
+              <div
+                className="is-yellow-bg-always"
+                style={{
+                  width: `${100 - approval.reacts.rank}%`,
+                  height: 20,
+                  borderTopRightRadius: 5,
+                  borderBottomRightRadius: 5,
+                  borderTopLeftRadius: !approval.reacts.worthy && 5,
+                  borderBottomLeftRadius: !approval.reacts.worthy && 5,
+                }}
+                data-tip={
+                  !loading
+                    ? `${100 - approval.reacts.rank}% - ${
+                    approval.reacts.unworthy
+                    } Downvotes`
                     : ""
                 }
               />
@@ -436,30 +436,30 @@ export default ({ user, data }) => {
             </div>
             <div className="flex margin-1-t margin-8-b">
               <div
-                className="is-yellow-bg-always"
-                style={{
-                  width: `${100 - contested.reacts.rank}%`,
-                  height: 20,
-                  borderTopLeftRadius: 5,
-                  borderBottomLeftRadius: 5,
-                  borderTopRightRadius: !contested.reacts.worthy && 5,
-                  borderBottomRightRadius: !contested.reacts.worthy && 5,
-                }}
-                data-tip={`${100 - contested.reacts.rank}% - ${
-                  contested.reacts.unworthy
-                } Downvotes`}
-              />
-              <div
                 className="is-light-blue-bg-always"
                 style={{
                   width: `${contested.reacts.rank}%`,
                   height: 20,
-                  borderTopRightRadius: 5,
-                  borderBottomRightRadius: 5,
-                  borderTopLeftRadius: !contested.reacts.unworthy && 5,
-                  borderBottomLeftRadius: !contested.reacts.unworthy && 5,
+                  borderTopLeftRadius: 5,
+                  borderBottomLeftRadius: 5,
+                  borderTopRightRadius: !contested.reacts.unworthy && 5,
+                  borderBottomRightRadius: !contested.reacts.unworthy && 5,
                 }}
                 data-tip={`${contested.reacts.rank}% - ${contested.reacts.worthy} Upvotes`}
+              />
+              <div
+                className="is-yellow-bg-always"
+                style={{
+                  width: `${100 - contested.reacts.rank}%`,
+                  height: 20,
+                  borderTopRightRadius: 5,
+                  borderBottomRightRadius: 5,
+                  borderTopLeftRadius: !contested.reacts.worthy && 5,
+                  borderBottomLeftRadius: !contested.reacts.worthy && 5,
+                }}
+                data-tip={`${100 - contested.reacts.rank}% - ${
+                  contested.reacts.unworthy
+                  } Downvotes`}
               />
             </div>
             <h3>Most Controversial - (Lowest ranking)</h3>
@@ -474,30 +474,30 @@ export default ({ user, data }) => {
             </div>
             <div className="flex margin-1-t margin-8-b">
               <div
-                className="is-yellow-bg-always"
-                style={{
-                  width: `${100 - controversial.reacts.rank}%`,
-                  height: 20,
-                  borderTopLeftRadius: 5,
-                  borderBottomLeftRadius: 5,
-                  borderTopRightRadius: !controversial.reacts.worthy && 5,
-                  borderBottomRightRadius: !controversial.reacts.worthy && 5,
-                }}
-                data-tip={`${100 - controversial.reacts.rank}% - ${
-                  controversial.reacts.unworthy
-                } Downvotes`}
-              />
-              <div
                 className="is-light-blue-bg-always"
                 style={{
                   width: `${controversial.reacts.rank}%`,
                   height: 20,
-                  borderTopRightRadius: 5,
-                  borderBottomRightRadius: 5,
-                  borderTopLeftRadius: !controversial.reacts.unworthy && 5,
-                  borderBottomLeftRadius: !controversial.reacts.unworthy && 5,
+                  borderTopLeftRadius: 5,
+                  borderBottomLeftRadius: 5,
+                  borderTopRightRadius: !controversial.reacts.unworthy && 5,
+                  borderBottomRightRadius: !controversial.reacts.unworthy && 5,
                 }}
                 data-tip={`${controversial.reacts.rank}% - ${controversial.reacts.worthy} Upvotes`}
+              />
+              <div
+                className="is-yellow-bg-always"
+                style={{
+                  width: `${100 - controversial.reacts.rank}%`,
+                  height: 20,
+                  borderTopRightRadius: 5,
+                  borderBottomRightRadius: 5,
+                  borderTopLeftRadius: !controversial.reacts.worthy && 5,
+                  borderBottomLeftRadius: !controversial.reacts.worthy && 5,
+                }}
+                data-tip={`${100 - controversial.reacts.rank}% - ${
+                  controversial.reacts.unworthy
+                  } Downvotes`}
               />
             </div>
             <h3>Mjolnir - (The week's most worthy)</h3>
@@ -512,31 +512,32 @@ export default ({ user, data }) => {
             </div>
             <div className="flex margin-1-t">
               <div
-                className="is-yellow-bg-always"
-                style={{
-                  width: `${100 - mjolnir.reacts.rank}%`,
-                  height: 20,
-                  borderTopLeftRadius: 5,
-                  borderBottomLeftRadius: 5,
-                  borderTopRightRadius: !mjolnir.reacts.worthy && 5,
-                  borderBottomRightRadius: !mjolnir.reacts.worthy && 5,
-                }}
-                data-tip={`${100 - mjolnir.reacts.rank}% - ${
-                  mjolnir.reacts.unworthy
-                } Downvotes`}
-              />
-              <div
                 className="is-light-blue-bg-always"
                 style={{
                   width: `${mjolnir.reacts.rank}%`,
                   height: 20,
-                  borderTopRightRadius: 5,
-                  borderBottomRightRadius: 5,
-                  borderTopLeftRadius: !mjolnir.reacts.unworthy && 5,
-                  borderBottomLeftRadius: !mjolnir.reacts.unworthy && 5,
+                  borderTopLeftRadius: 5,
+                  borderBottomLeftRadius: 5,
+                  borderTopRightRadius: !mjolnir.reacts.unworthy && 5,
+                  borderBottomRightRadius: !mjolnir.reacts.unworthy && 5,
                 }}
                 data-tip={`${mjolnir.reacts.rank}% - ${mjolnir.reacts.worthy} Upvotes`}
               />
+              <div
+                className="is-yellow-bg-always"
+                style={{
+                  width: `${100 - mjolnir.reacts.rank}%`,
+                  height: 20,
+                  borderTopRightRadius: 5,
+                  borderBottomRightRadius: 5,
+                  borderTopLeftRadius: !mjolnir.reacts.worthy && 5,
+                  borderBottomLeftRadius: !mjolnir.reacts.worthy && 5,
+                }}
+                data-tip={`${100 - mjolnir.reacts.rank}% - ${
+                  mjolnir.reacts.unworthy
+                  } Downvotes`}
+              />
+
             </div>
           </div>
         )}
@@ -582,7 +583,7 @@ export default ({ user, data }) => {
                           process.env.GOOGLE_ANALYTICS_IS_LIVE
                             ? "col-sm-2"
                             : "col-sm-4"
-                        } `}
+                          } `}
                       >
                         <h3 className="top-rants-rating margin-0">
                           {post.reacts
