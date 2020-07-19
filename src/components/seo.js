@@ -26,18 +26,18 @@ const SEO = ({ description, title, image, location }) => {
     <Helmet>
       <title>DesignRant | {title}</title>
 
-      <meta name="title" content={`${title} | DesignRant `} />
+      <meta name="title" content={`DesignRant | ${title}`} />
       <meta name="description" content={metaDescription} />
       <link rel="canonical" href={url} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={url} />
-      <meta property="og:title" content={`${title} | DesignRant `} />
+      <meta property="og:title" content={`DesignRant | ${title}`} />
       <meta property="og:description" content={metaDescription} />
       <meta property="og:image" content={metaImage} />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:creator" content="DesignRant" />
-      <meta name="twitter:title" content={`${title} | DesignRant `} />
+      <meta name="twitter:title" content={`DesignRant | ${title}`} />
       <meta property="twitter:url" content={url} />
       <meta name="twitter:description" content={metaDescription} />
       <meta property="twitter:image" content={metaImage} />
