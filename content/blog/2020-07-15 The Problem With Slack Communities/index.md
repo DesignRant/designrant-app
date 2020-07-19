@@ -1,14 +1,14 @@
 ---
 title: The Problem With Slack
 author: Alex Panagis
-date: "2020-07-09"
+date: 2020-07-15
 type: Post
 description: Let's face it group chat is the equivalent of being in an all-day meeting with no agenda. To keep up with what's going on, you need to be present & attentive all the time which takes your attention away from truly meaningful work. 
 hero: "./hero.png"
 tags: ['Slack', 'Messaging', 'UX']
 ---
 
-#### Slack is like being in an all-day meeting with random participants and no agenda.
+#### Slack is like being in an all-day meeting with random participants and no agenda
 
 Let’s face it group chat is the equivalent of being in an all-day meeting with no agenda. To keep up with what’s going on, you need to be present & attentive all the time which takes your attention away from truly meaningful work.
 

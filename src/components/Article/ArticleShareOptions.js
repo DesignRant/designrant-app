@@ -16,6 +16,9 @@ export default ({ location, twitter, desc }) => {
   }
   return (
     <div className="row flex" style={{ justifyContent: "center" }}>
+      <div className="col-xs-12 text-align-center">
+        <p className="margin-5-tb opacity-70">SHARE</p>
+      </div>
       <div className="col-xs-12  text-align-center">
         <div
           className="flex align-horizontal justify-space-between"
@@ -39,7 +42,9 @@ export default ({ location, twitter, desc }) => {
             <LinkedinIcon round={true} style={{ height: 40 }} />
           </LinkedinShareButton>
           <TwitterShareButton
-            url={`Just found this - ${location.href} by @${twitter} on @DesignRantApp`}
+            url={`Just found this - ${location.href}${
+              twitter ? ` by @${twitter}` : ``
+            } on @DesignRantApp`}
             className="grow"
           >
             <TwitterIcon round={true} style={{ height: 40 }} />

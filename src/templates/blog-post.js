@@ -1,7 +1,9 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
+import { Link, graphql, navigate } from "gatsby"
 import Img from "gatsby-image"
 import _ from "lodash"
+import { trackCustomEvent } from "gatsby-plugin-google-analytics"
+
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import ArticleShareOptions from "../components/Article/ArticleShareOptions"
@@ -11,14 +13,6 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata.title
   const { previous, next } = pageContext
-
-  function sanitizeMarkdown(textInput) {
-    var Filter = require("bad-words"),
-      filter = new Filter()
-    return filter.clean(textInput) //Don't be an ******
-  }
-
-  const sanitizedPost = sanitizeMarkdown(post.html)
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -63,11 +57,11 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           <div className="margin-5-b lato">
             <section
               className="article"
-              dangerouslySetInnerHTML={{ __html: sanitizedPost }}
+              dangerouslySetInnerHTML={{ __html: post.html }}
             />
           </div>
           <RantWorthy location={location} />
-          <div className="line opacity-5 margin-5-t margin-5-b" />
+
           <ArticleShareOptions
             location={location}
             twitter={post.frontmatter.author.twitter}
@@ -108,16 +102,34 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         >
           <li>
             {previous && (
-              <Link to={previous.fields.slug} rel="prev">
-                <p>← {previous.frontmatter.title}</p>
-              </Link>
+              <button
+                onClick={() => {
+                  trackCustomEvent({
+                    category: "Explore from post",
+                    action: "Click",
+                    label: "previous",
+                  })
+                  navigate(previous.fields.slug)
+                }}
+              >
+                <p className="is-black">← {previous.frontmatter.title}</p>
+              </button>
             )}
           </li>
           <li>
             {next && (
-              <Link to={next.fields.slug} rel="next">
-                <p>{next.frontmatter.title} →</p>
-              </Link>
+              <button
+                onClick={() => {
+                  trackCustomEvent({
+                    category: "Explore from post",
+                    action: "Click",
+                    label: "next",
+                  })
+                  navigate(next.fields.slug)
+                }}
+              >
+                <p className="is-black">{next.frontmatter.title} →</p>
+              </button>
             )}
           </li>
         </ul>

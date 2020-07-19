@@ -1,11 +1,11 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Layout from "../components/layout"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 import { useCollectionOnce } from "react-firebase-hooks/firestore"
 import SEO from "../components/seo"
 import CountUp from "react-countup"
-
+import ReactTooltip from "react-tooltip"
 let firebase
 
 const isProd = process.env.GATSBY_PRODUCTION
@@ -58,6 +58,10 @@ export default ({ user, data }) => {
     typeof window !== "undefined" && isProd
       ? useCollectionOnce(firebase.firestore().collection(`reacts`))
       : [0, true, false]
+
+  useEffect(() => {
+    ReactTooltip.rebuild()
+  }, [loading])
 
   // Get ranking data
   if (!loading && !error) {
@@ -170,21 +174,25 @@ export default ({ user, data }) => {
     })
 
     // Order posts by rank
-    orderedPosts = [...posts].sort((a, b) => {
-      if (a.react && b.reacts) {
-        return a.reacts.monthRank > b.reacts.monthRank
-          ? -1
-          : b.reacts.monthRank > a.reacts.monthRank
-          ? 1
-          : 0
-      } else return 0
-    })
+    orderedPosts = [...posts]
+      .sort((a, b) => {
+        if (a.reacts && b.reacts) {
+          return a.reacts.monthRank > b.reacts.monthRank
+            ? -1
+            : b.reacts.monthRank > a.reacts.monthRank
+              ? 1
+              : 0
+        } else return 0
+      })
+      .filter(posts => posts.reacts)
   }
   console.log(posts)
 
-  const rants = posts.length
+  const totalRants = posts.length
+  const rants = posts.filter(post => post.reacts).length
   const authors = [...new Set(authorList)].length
   const words = totalWords
+  const timeToRead = Math.floor(totalWords / 200)
   const totalViews = 178
   const mostTotalViews = 56
   const mostUniqueViewers = 22
@@ -215,6 +223,10 @@ export default ({ user, data }) => {
 
   return (
     <Layout>
+      <ReactTooltip
+        className="info-tooltip"
+        className="is-black-bg is-white lato"
+      />
       <SEO title="Stats" />
       <div className="row">
         <div className="col-xs-12 margin-2-b is-white-bg pad-3">
@@ -223,7 +235,7 @@ export default ({ user, data }) => {
           </h1>
           <h3>
             <span className="large-number">
-              <CountUp end={rants} start={0} duration={0.5} />
+              <CountUp end={totalRants} start={0} duration={0.5} />
             </span>
             {rants !== 1 ? <>{" rants have "}</> : <>{" rant has "}</>}
             been written, totalling{" "}
@@ -237,8 +249,10 @@ export default ({ user, data }) => {
             {authors !== 1 ? (
               <>{" unique authors. "}</>
             ) : (
-              <>{" unique author. "}</>
-            )}
+                <>{" unique author. "}</>
+              )}
+            It would take you <span className="large-number">{timeToRead}</span>{" "}
+            minutes to read every post on this site.
           </h3>
           {process.env.GOOGLE_ANALYTICS_IS_LIVE && (
             <h3>
@@ -249,8 +263,8 @@ export default ({ user, data }) => {
                   {"times, "}
                 </>
               ) : (
-                <> {"once, "}</>
-              )}
+                  <> {"once, "}</>
+                )}
               with the most popular rant being viewed{" "}
               {mostTotalViews !== 1 ? (
                 <>
@@ -260,8 +274,8 @@ export default ({ user, data }) => {
                   {"times by "}
                 </>
               ) : (
-                <> {"once by "}</>
-              )}
+                  <> {"once by "}</>
+                )}
               {mostUniqueViewers !== 1 ? (
                 <>
                   <span className="large-number">
@@ -270,8 +284,8 @@ export default ({ user, data }) => {
                   {" different people."}
                 </>
               ) : (
-                <> {" 1 person."}</>
-              )}
+                  <> {" 1 person."}</>
+                )}
             </h3>
           )}
           <h3>
@@ -356,8 +370,8 @@ export default ({ user, data }) => {
             </div>
           </div>
         ) : (
-          <div></div>
-        )}
+            <div></div>
+          )}
         {!loading && !error && (
           <div className="col-xs-12 margin-2-b is-white-bg pad-3">
             <h1>
@@ -376,30 +390,38 @@ export default ({ user, data }) => {
             </div>
             <div className="flex margin-1-t margin-8-b">
               <div
-                className="is-yellow-bg-always"
-                style={{
-                  width: `${100 - approval.reacts.rank}%`,
-                  height: 20,
-                  borderTopLeftRadius: 5,
-                  borderBottomLeftRadius: 5,
-                  borderTopRightRadius: !approval.reacts.worthy && 5,
-                  borderBottomRightRadius: !approval.reacts.worthy && 5,
-                }}
-                data-tip={`${100 - approval.reacts.rank}% - ${
-                  approval.reacts.unworthy
-                } Downvotes`}
-              />
-              <div
                 className="is-light-blue-bg-always"
                 style={{
                   width: `${approval.reacts.rank}%`,
                   height: 20,
+                  borderTopLeftRadius: 5,
+                  borderBottomLeftRadius: 5,
+                  borderTopRightRadius: !approval.reacts.unworthy && 5,
+                  borderBottomRightRadius: !approval.reacts.unworthy && 5,
+                }}
+                data-tip={
+                  !loading
+                    ? `${approval.reacts.rank}% - ${approval.reacts.worthy} Upvotes`
+                    : ""
+                }
+              />
+              <div
+                className="is-yellow-bg-always"
+                style={{
+                  width: `${100 - approval.reacts.rank}%`,
+                  height: 20,
                   borderTopRightRadius: 5,
                   borderBottomRightRadius: 5,
-                  borderTopLeftRadius: !approval.reacts.unworthy && 5,
-                  borderBottomLeftRadius: !approval.reacts.unworthy && 5,
+                  borderTopLeftRadius: !approval.reacts.worthy && 5,
+                  borderBottomLeftRadius: !approval.reacts.worthy && 5,
                 }}
-                data-tip={`${approval.reacts.rank}% - ${approval.reacts.worthy} Upvotes`}
+                data-tip={
+                  !loading
+                    ? `${100 - approval.reacts.rank}% - ${
+                    approval.reacts.unworthy
+                    } Downvotes`
+                    : ""
+                }
               />
             </div>
             <h3>Heaviest Contested - (Closest to 50%)</h3>
@@ -414,30 +436,30 @@ export default ({ user, data }) => {
             </div>
             <div className="flex margin-1-t margin-8-b">
               <div
-                className="is-yellow-bg-always"
-                style={{
-                  width: `${100 - contested.reacts.rank}%`,
-                  height: 20,
-                  borderTopLeftRadius: 5,
-                  borderBottomLeftRadius: 5,
-                  borderTopRightRadius: !contested.reacts.worthy && 5,
-                  borderBottomRightRadius: !contested.reacts.worthy && 5,
-                }}
-                data-tip={`${100 - contested.reacts.rank}% - ${
-                  contested.reacts.unworthy
-                } Downvotes`}
-              />
-              <div
                 className="is-light-blue-bg-always"
                 style={{
                   width: `${contested.reacts.rank}%`,
                   height: 20,
-                  borderTopRightRadius: 5,
-                  borderBottomRightRadius: 5,
-                  borderTopLeftRadius: !contested.reacts.unworthy && 5,
-                  borderBottomLeftRadius: !contested.reacts.unworthy && 5,
+                  borderTopLeftRadius: 5,
+                  borderBottomLeftRadius: 5,
+                  borderTopRightRadius: !contested.reacts.unworthy && 5,
+                  borderBottomRightRadius: !contested.reacts.unworthy && 5,
                 }}
                 data-tip={`${contested.reacts.rank}% - ${contested.reacts.worthy} Upvotes`}
+              />
+              <div
+                className="is-yellow-bg-always"
+                style={{
+                  width: `${100 - contested.reacts.rank}%`,
+                  height: 20,
+                  borderTopRightRadius: 5,
+                  borderBottomRightRadius: 5,
+                  borderTopLeftRadius: !contested.reacts.worthy && 5,
+                  borderBottomLeftRadius: !contested.reacts.worthy && 5,
+                }}
+                data-tip={`${100 - contested.reacts.rank}% - ${
+                  contested.reacts.unworthy
+                  } Downvotes`}
               />
             </div>
             <h3>Most Controversial - (Lowest ranking)</h3>
@@ -452,30 +474,30 @@ export default ({ user, data }) => {
             </div>
             <div className="flex margin-1-t margin-8-b">
               <div
-                className="is-yellow-bg-always"
-                style={{
-                  width: `${100 - controversial.reacts.rank}%`,
-                  height: 20,
-                  borderTopLeftRadius: 5,
-                  borderBottomLeftRadius: 5,
-                  borderTopRightRadius: !controversial.reacts.worthy && 5,
-                  borderBottomRightRadius: !controversial.reacts.worthy && 5,
-                }}
-                data-tip={`${100 - controversial.reacts.rank}% - ${
-                  controversial.reacts.unworthy
-                } Downvotes`}
-              />
-              <div
                 className="is-light-blue-bg-always"
                 style={{
                   width: `${controversial.reacts.rank}%`,
                   height: 20,
-                  borderTopRightRadius: 5,
-                  borderBottomRightRadius: 5,
-                  borderTopLeftRadius: !controversial.reacts.unworthy && 5,
-                  borderBottomLeftRadius: !controversial.reacts.unworthy && 5,
+                  borderTopLeftRadius: 5,
+                  borderBottomLeftRadius: 5,
+                  borderTopRightRadius: !controversial.reacts.unworthy && 5,
+                  borderBottomRightRadius: !controversial.reacts.unworthy && 5,
                 }}
                 data-tip={`${controversial.reacts.rank}% - ${controversial.reacts.worthy} Upvotes`}
+              />
+              <div
+                className="is-yellow-bg-always"
+                style={{
+                  width: `${100 - controversial.reacts.rank}%`,
+                  height: 20,
+                  borderTopRightRadius: 5,
+                  borderBottomRightRadius: 5,
+                  borderTopLeftRadius: !controversial.reacts.worthy && 5,
+                  borderBottomLeftRadius: !controversial.reacts.worthy && 5,
+                }}
+                data-tip={`${100 - controversial.reacts.rank}% - ${
+                  controversial.reacts.unworthy
+                  } Downvotes`}
               />
             </div>
             <h3>Mjolnir - (The week's most worthy)</h3>
@@ -490,40 +512,41 @@ export default ({ user, data }) => {
             </div>
             <div className="flex margin-1-t">
               <div
-                className="is-yellow-bg-always"
-                style={{
-                  width: `${100 - mjolnir.reacts.rank}%`,
-                  height: 20,
-                  borderTopLeftRadius: 5,
-                  borderBottomLeftRadius: 5,
-                  borderTopRightRadius: !mjolnir.reacts.worthy && 5,
-                  borderBottomRightRadius: !mjolnir.reacts.worthy && 5,
-                }}
-                data-tip={`${100 - mjolnir.reacts.rank}% - ${
-                  mjolnir.reacts.unworthy
-                } Downvotes`}
-              />
-              <div
                 className="is-light-blue-bg-always"
                 style={{
                   width: `${mjolnir.reacts.rank}%`,
                   height: 20,
-                  borderTopRightRadius: 5,
-                  borderBottomRightRadius: 5,
-                  borderTopLeftRadius: !mjolnir.reacts.unworthy && 5,
-                  borderBottomLeftRadius: !mjolnir.reacts.unworthy && 5,
+                  borderTopLeftRadius: 5,
+                  borderBottomLeftRadius: 5,
+                  borderTopRightRadius: !mjolnir.reacts.unworthy && 5,
+                  borderBottomRightRadius: !mjolnir.reacts.unworthy && 5,
                 }}
                 data-tip={`${mjolnir.reacts.rank}% - ${mjolnir.reacts.worthy} Upvotes`}
               />
+              <div
+                className="is-yellow-bg-always"
+                style={{
+                  width: `${100 - mjolnir.reacts.rank}%`,
+                  height: 20,
+                  borderTopRightRadius: 5,
+                  borderBottomRightRadius: 5,
+                  borderTopLeftRadius: !mjolnir.reacts.worthy && 5,
+                  borderBottomLeftRadius: !mjolnir.reacts.worthy && 5,
+                }}
+                data-tip={`${100 - mjolnir.reacts.rank}% - ${
+                  mjolnir.reacts.unworthy
+                  } Downvotes`}
+              />
+
             </div>
           </div>
         )}
-        <div className="col-xs-12 margin-2-b is-white-bg pad-3">
-          <h1>
-            <i class="las la-calendar"></i> Rants Of The Month
-          </h1>
-          {orderedPosts.length > 0 &&
-            orderedPosts.map((post, index) => {
+        {orderedPosts.length > 0 && (
+          <div className="col-xs-12 margin-2-b is-white-bg pad-3">
+            <h1>
+              <i class="las la-calendar"></i> Rants Of The Month
+            </h1>
+            {orderedPosts.map((post, index) => {
               if (index > 4) return
               else
                 return (
@@ -535,27 +558,33 @@ export default ({ user, data }) => {
                   >
                     <div
                       key={`post-${post.id}`}
-                      className="row align-interactions-vertical top-rants is-black-border"
+                      className="row align-interactions-vertical top-rants is-black-border margin-1-b"
                     >
-                      <div className="col-xs-12 col-sm-2">
+                      <div className="col-xs-12 col-sm-2 ">
                         <Img
                           fluid={post.hero.childImageSharp.fluid}
                           className="top-rants-image"
                         />
                       </div>
-                      <div className="col-xs-12 col-sm-6">
+                      <div className="col-xs-6 col-sm-6">
                         <h3 className="top-rants-title margin-1-tb">
                           {post.title}
                         </h3>
                       </div>
-                      <div className="col-xs-12 col-sm-2">
-                        {process.env.GOOGLE_ANALYTICS_IS_LIVE && (
+                      {process.env.GOOGLE_ANALYTICS_IS_LIVE && (
+                        <div className="col-xs-12 col-sm-2">
                           <h3 className="top-rants-rating margin-0">
                             {post.rating} Views
                           </h3>
-                        )}
-                      </div>
-                      <div className="col-xs-12 col-sm-2">
+                        </div>
+                      )}
+                      <div
+                        className={`col-xs-6 text-align-right ${
+                          process.env.GOOGLE_ANALYTICS_IS_LIVE
+                            ? "col-sm-2"
+                            : "col-sm-4"
+                          } `}
+                      >
                         <h3 className="top-rants-rating margin-0">
                           {post.reacts
                             ? post.reacts.monthRank + "% Worthy"
@@ -566,7 +595,8 @@ export default ({ user, data }) => {
                   </a>
                 )
             })}
-        </div>
+          </div>
+        )}
       </div>
     </Layout>
   )

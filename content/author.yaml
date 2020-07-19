@@ -14,6 +14,13 @@
   avatar: avatars/yp-avatar.png
   twitter: yannispanagis
   buymeacoffee: yannis
+- id: Becky Bayliss
+  from: Brighton, UK
+  website: https://rebeccabayliss.com/
+  shortBio: User Experience Designer
+  bio: I am a User Experience Designer with a mixed background of industrial design, service design, product design and user experience; currently working as a UX designer at a finacial services company.
+  avatar: avatars/rb-avatar.jpeg
+  twitter: Becky_Bayliss
 - id: Alex Panagis
   from: Zurich, Switzerland
   website: https://scalemath.com/
@@ -23,8 +30,15 @@
   twitter: alexjpanagis
 - id: Ryan Gregory
   from: London, UK
-  website: https://designrant.app
+  website: https://www.linkedin.com/in/ryan-gregory-232003189/
   shortBio: Developer at DesignRant.
   bio: Developer at DesignRant, Front End Developer and Master of Computer Science from the University of Southampton. Always learning.
   avatar: avatars/rg-avatar.png
   twitter: ryangregorydev
+- id: Maurice Banerjee Palmer
+  from: London, UK
+  website: https://www.linkedin.com/in/mbanerjeepalmer/
+  shortBio: Interested in how how products and services affect us, and vice versa.
+  bio: Interested in how products and services affect us, and vice versa.
+  avatar: avatars/mp-avatar.png
+  twitter: mbanerjeepalmer

@@ -2,10 +2,11 @@ import React from "react"
 import { Helmet } from "react-helmet"
 import { Link } from "gatsby"
 import CookieConsent from "react-cookie-consent"
-import ReactTooltip from "react-tooltip"
+import useDarkMode from "use-dark-mode"
 import Header from "./Header"
 
 const Layout = ({ children, showAuthors }) => {
+  const darkMode = useDarkMode(false)
   return (
     <div className="is-grey">
       <Helmet>
@@ -43,22 +44,45 @@ const Layout = ({ children, showAuthors }) => {
               </div>
             </div>
             <main className="col-xs-12 col-md-10 ">
-              <ReactTooltip
-                className="info-tooltip"
-                className="is-black-bg is-white lato"
-              />
               <div className="margin-1-lr">{children}</div>
-              {showAuthors && (
-                <footer className="is-black text-align-center margin-5-t">
-                  <p>
-                    We're not usually this negative. Why not{" "}
-                    <Link to="/authors">meet the authors</Link>?
-                  </p>
-                  <p style={{ opacity: "70%" }}>
-                    <Link to="/legal">Legal</Link>
-                  </p>
-                </footer>
-              )}
+
+              <footer className="is-black text-align-center margin-1-t">
+                {showAuthors && (
+                  <>
+                    <p>
+                      We're not usually this negative. Why not{" "}
+                      <Link to="/authors">meet the authors</Link>?
+                    </p>
+                    <a
+                      href="https://www.producthunt.com/posts/designrant?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-designrant"
+                      target="_blank"
+                    >
+                      <img
+                        src={`https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=219526&theme=${
+                          darkMode.value ? "dark" : "light"
+                        }`}
+                        alt="DesignRant - Short, sharp, user experience complaints. | Product Hunt Embed"
+                        style={{ width: 250, height: 54 }}
+                        width="250px"
+                        height="54px"
+                      />
+                    </a>
+                  </>
+                )}
+                <p className="margin-1-t" style={{ opacity: "30%" }}>
+                  -
+                </p>
+
+                <p className="legal" style={{ opacity: "70%" }}>
+                  All views expressed on this site are those of the individual
+                  and do not represent the opinions of any entity whatsover with
+                  which they have been, are now or will be affiliated with.
+                </p>
+                <p className="legal" style={{ opacity: "70%" }}>
+                  <Link to="/stats">Stats</Link> |{" "}
+                  <Link to="/legal">Legal</Link>
+                </p>
+              </footer>
             </main>
           </div>
         </div>

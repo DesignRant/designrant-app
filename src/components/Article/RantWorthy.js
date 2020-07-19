@@ -3,6 +3,7 @@ import { Emojione } from "react-emoji-render"
 import { format } from "date-fns"
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore"
 import { useLocalStorage } from "../../utils/customHooks"
+import { trackCustomEvent } from "gatsby-plugin-google-analytics"
 
 let firebase
 
@@ -49,21 +50,16 @@ export default () => {
   const judge = type => {
     if (!loading && !error && !contentReacts) {
       setReacts({ ...reacts, [contentID]: type })
-      firebase
-        .firestore()
-        .collection("reacts")
-        .doc(contentID)
-        .set(
-          {
-            [type]: firebase.firestore.FieldValue.increment(1),
-            byDay: {
-              [format(new Date(), "yyyy-MM-dd")]: {
-                [type]: firebase.firestore.FieldValue.increment(1),
-              },
-            },
-          },
-          { merge: true }
-        )
+      trackCustomEvent({
+        category: "RantWorthy",
+        action: "Click",
+        label: type,
+      })
+      fetch("https://designrant-api.herokuapp.com/worthy", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contentID, type }),
+      })
     }
   }
 
@@ -72,7 +68,7 @@ export default () => {
   )
   const Results = () => {
     let worthy = 1
-    let unworthy = 1
+    let unworthy = 0
     if (value && value.worthy) {
       worthy = value.worthy
     }
