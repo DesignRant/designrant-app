@@ -118,18 +118,18 @@ const Suggest = ({ data, location }) => {
                 const id = item.id
                 const starred = stars.includes(id)
                 return (
-                  <div className="col-xs-12 col-md-6">
+                  <div className="col-xs-12 col-md-6 pad-5-b pad-0-lr">
                     <div
-                      className="margin-1 is-white-bg pad-2 border-radius grow"
+                      className="margin-1 is-white-bg pad-1 pad-3-t border-radius grow fill-height"
                       onClick={() => {
                         starSuggestion(id)
                       }}
                     >
                       <div className="row">
                         <div className="col-xs-2">
-                          <div className="flex align-vertical align-horizontal fill-height">
+                          <div className="flex align-vertical align-horizontal ">
                             <h2
-                              className={`margin-0 margin-1-b ${
+                              className={`margin-1-t margin-1-b ${
                                 starred ? "is-yellow" : "is-grey opacity-50"
                               }`}
                             >
@@ -140,11 +140,11 @@ const Suggest = ({ data, location }) => {
                             )}
                           </div>
                         </div>
-                        <div className="col-xs-10">
-                          <h4 className="margin-1-b">
+                        <div className="col-xs-10 ">
+                          <h4 className="margin-1-b margin-2-t">
                             {suggestion.suggestion}
                           </h4>
-                          <p className="opacity-60 margin-0-t">
+                          <p className="opacity-60 margin-0-t margin-0-b">
                             {format(
                               new Date(suggestion.date.seconds * 1000),
                               "HH:mm MMMM dd"
