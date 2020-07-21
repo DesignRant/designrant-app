@@ -1,9 +1,9 @@
 ---
-title: Fingerprint sensor or home button?
+title: Fingerprint Sensor Or Home Button?
 author: Arthur Ceccotti
 type: Post
 date: 2020-07-21
-description: When the success of your payment is based on how many nanometers your finger pressed a button 
+description: When the success of your payment is based on how many nanometers your finger pressed a button.
 hero: "./hero.png"
 tags: ["fingerprint", "smartphone", "payments"]
 ---
