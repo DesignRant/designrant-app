@@ -21,7 +21,7 @@ Biometrics also provide an extra factor of authentication, as, unlike a password
 
 For that I bring you the [Huawei P20](https://www.amazon.co.uk/Huawei-5-8-Inch-FullView-Smartphone-Headphones-Black/dp/B07C7FDWP8) smartphone. 
 
-Besides the obvious national security concerns of the Chinese government spying on your hopefully innocent traffic, this phone has a much more subtle user experience problem: the fingerprint sensor. 🇨🇳☝️ 
+Besides the obvious national security concerns of the Chinese government spying on your hopefully innocent traffic, this phone has a much more subtle user experience problem: the fingerprint sensor. 🇨🇳 ☝️
 
 And when I say the fingerprint sensor, I mean the home-page button at the bottom. The distinction between both really depends on how hard you press the button, which in my experience is *impossible* to measure as a human.
 
