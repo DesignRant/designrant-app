@@ -15,7 +15,7 @@ In my opinion, the best use of security technology is biometrics (ie. your human
 <img src="dogo.png" alt="Someone figured out my password, now I have to rename my dog" width="600"/>
 
 
-Biometrics also provide an extra factor of authentication, as, unlike a password, nobody else has your biometrics (unless, of-course, they chop off your finger or eyes) 😬 -- this is known as *inherence*, or *something you are*. This is so relevant that if you follow the Payments space, biometrics will be [one of the preferred ways to confirm online payments with your bank starting in 2021](https://www.biometricupdate.com/201910/how-behavioral-biometrics-can-ensure-compliance-with-psd2-and-any-regulation-that-impacts-customer-data-protection) (known as Strong Customer Authentication). That will make online fraud much harder.
+Biometrics also provide an extra factor of authentication, as, unlike a password, nobody else has your biometrics (unless, of-course, they chop off your finger or eyes) 😬 -- this is known as *inherence*, or *something you are*. This is so relevant that if you follow the Payments space, biometrics will be [one of the preferred ways to confirm online payments with your bank starting in 2021](https://www.biometricupdate.com/201910/how-behavioral-biometrics-can-ensure-compliance-with-psd2-and-any-regulation-that-impacts-customer-data-protection) enforced by the European Banking Authority (EBA). That will make online fraud much harder.
 
 ### What the rant, bro?
 
