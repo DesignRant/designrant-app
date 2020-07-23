@@ -159,20 +159,3 @@ a:hover {
   -webkit-font-variant-ligatures: discretionary-ligatures;
   font-variant-ligatures: discretionary-ligatures;
 }
-
-.list-shadow-light {
-  -webkit-box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.25);
-  box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.25);
-}
-.list-shadow-light:hover {
-  -webkit-box-shadow: 0 0 35px 0px rgba(0, 0, 0, 0.35);
-  box-shadow: 0 0 35px 0px rgba(0, 0, 0, 0.35);
-}
-.list-shadow-dark {
-  -webkit-box-shadow: 0 0 20px 5px rgba(200, 200, 200, 0.20);
-  box-shadow: 0 0 20px 5px rgba(200, 200, 200, 0.20);
-}
-.list-shadow-dark:hover {
-  -webkit-box-shadow: 0 0 35px 5px rgba(200, 200, 200, 0.25);
-  box-shadow: 0 0 35px 5px rgba(200, 200, 200, 0.25);
-}

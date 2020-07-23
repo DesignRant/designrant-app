@@ -22,7 +22,7 @@ export default ({ data }) => {
             style={{ boxShadow: `none`, textDecoration: "none" }}
             to={node.fields.slug}
           >
-            <div className={`row is-white-bg  margin-3-b grow is-black list-shadow-${darkMode.value ? "dark" : "light"}`}>
+            <div className={`row is-white-bg  margin-3-b is-black shadow-drop-2-center-${darkMode.value ? "dark" : "light"}`}>
               <div className="col-xs-12 pad-0 hide-on-big">
                 <Img
                   fluid={node.frontmatter.hero.childImageSharp.fluid}
