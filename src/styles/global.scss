@@ -3,27 +3,27 @@
 @import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@3/distr/fira_code.css);
 
 @font-face {
-  font-family: 'Scunthorpe';
-  src: url('../../public/scunthorpe-sans.woff') format('woff'), /* Pretty Modern Browsers */
+  font-family: "Scunthorpe";
+  src: url("../../public/scunthorpe-sans.woff") format("woff"); /* Pretty Modern Browsers */
 }
 
 //files;
-@import './layout';
-@import './nav';
-@import './article';
-@import './colors';
-@import './inputs';
-@import './opacity';
-@import './margin_padding';
-@import './buttons';
-@import './hero';
-@import './utilities';
-@import './avatar';
-@import './animista.scss';
-@import './social.scss';
-@import './tags.scss';
-@import './stats.scss';
-@import './suggest.scss';
+@import "./layout";
+@import "./nav";
+@import "./article";
+@import "./colors";
+@import "./inputs";
+@import "./opacity";
+@import "./margin_padding";
+@import "./buttons";
+@import "./hero";
+@import "./utilities";
+@import "./avatar";
+@import "./animista.scss";
+@import "./social.scss";
+@import "./tags.scss";
+@import "./stats.scss";
+@import "./suggest.scss";
 
 @for $i from 1 through 6 {
   h#{7 - $i} {
@@ -38,12 +38,11 @@ html {
 }
 
 body {
-  min-height: calc(100vh-38px);  
+  min-height: calc(100vh-38px);
 }
 
-
 body.light-mode {
-  @extend .is-light-grey-bg ;
+  @extend .is-light-grey-bg;
   color: #333;
   transition: background-color 0.3s ease;
 }
@@ -56,13 +55,10 @@ main {
   min-height: calc(100vh - 300px);
 }
 
-
-
 p {
   font-family: Lato;
   font-weight: lighter;
 }
-
 
 h1 {
   display: block;
@@ -79,7 +75,7 @@ h2 {
   display: block;
   font-family: Lato;
   font-size: 1.5em;
-  
+
   margin-bottom: 0.83em;
   margin-left: 0;
   margin-right: 0;
@@ -101,7 +97,7 @@ h4 {
   display: block;
   font-family: Lato;
   font-size: 1em;
- 
+
   margin-bottom: 1.33em;
   margin-left: 0;
   margin-right: 0;
@@ -147,7 +143,7 @@ footer {
   font-size: 10px;
 }
 
-a{
+a {
   text-decoration: none;
   font-weight: bold;
   color: inherit;
@@ -163,4 +159,3 @@ a:hover {
   -webkit-font-variant-ligatures: discretionary-ligatures;
   font-variant-ligatures: discretionary-ligatures;
 }
-

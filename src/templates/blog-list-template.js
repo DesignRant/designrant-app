@@ -6,10 +6,12 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import SubscribeForm from "../components/Article/Newsletter/Subscribe"
 import { trackCustomEvent } from "gatsby-plugin-google-analytics"
+import useDarkMode from "use-dark-mode"
 
 export default ({ data }) => {
   const { currentPage, numPages } = data.sitePage.context
   const posts = data.allMarkdownRemark.edges
+  const darkMode = useDarkMode()
   return (
     <Layout showAuthors>
       <SEO title={`Home of Short, Sharp User Experience Complaints.`} />
@@ -20,7 +22,7 @@ export default ({ data }) => {
             style={{ boxShadow: `none`, textDecoration: "none" }}
             to={node.fields.slug}
           >
-            <div className="row is-white-bg  margin-3-b shadow-drop-2-center is-black ">
+            <div className={`row is-white-bg  margin-3-b is-black shadow-drop-2-center-${darkMode.value ? "dark" : "light"}`}>
               <div className="col-xs-12 pad-0 hide-on-big">
                 <Img
                   fluid={node.frontmatter.hero.childImageSharp.fluid}
@@ -106,7 +108,7 @@ export default ({ data }) => {
                     item === currentPage
                       ? "is-black-border is-white-bg is-black  "
                       : "is-black-border is-black-bg is-white "
-                  } pad-2-lr pad-1-tb margin-1 `}
+                    } pad-2-lr pad-1-tb margin-1 `}
                 >
                   <p className="margin-0">{item}</p>
                 </div>
